@@ -9,7 +9,7 @@ import {
   Paper,
   Snackbar,
   TextField,
-  Tooltip,
+  // Tooltip,
   Typography
 } from '@material-ui/core';
 import useStyles from './styles';
@@ -33,7 +33,10 @@ export const EditGoal = () => {
   const [goalCadence, setGoalCadence] = useState('Daily');
   const [goalComplete, setGoalComplete] = useState(false);
   const profile = localStorage.getItem('profile')!;
-  const [user, setUser] = useState(JSON.parse(profile));
+  const [
+    user, 
+    // setUser
+  ] = useState(JSON.parse(profile));
 
   useEffect(() => {
     if (error) {
@@ -42,12 +45,10 @@ export const EditGoal = () => {
   }, [error]);
 
   useEffect(() => {
-    console.log("Goal ID: ", id);
     dispatch(getGoal(id));
   }, [id]);
 
   useEffect(() => {
-    console.log("Goal: ", goal);
     if (goal) {
       setGoalTitle(goal.title);
       setGoalDescription(goal.description);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
-  ButtonGroup,
+  // ButtonGroup,
   Checkbox,
   Container,
   FormControlLabel,
@@ -9,7 +9,7 @@ import {
   Paper,
   Snackbar,
   TextField,
-  Tooltip,
+  // Tooltip,
   Typography
 } from '@material-ui/core';
 import GoalModel from '../../../models/goal';
@@ -33,7 +33,10 @@ const AddGoal = () => {
   const [goalComplete, setGoalComplete] = useState(false);
 
   const profile = localStorage.getItem('profile')!;
-  const [user, setUser] = useState(JSON.parse(profile));
+  const [
+    user, 
+    // setUser
+  ] = useState(JSON.parse(profile));
 
   useEffect(() => {
     if (error) {
