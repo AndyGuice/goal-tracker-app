@@ -40,8 +40,10 @@ const LoginUser = () => {
   };
 
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = (
+    // e: any
+    ) => {
+    // e.preventDefault();
     dispatch(signin(form, history));
   };
 
@@ -91,7 +93,7 @@ const LoginUser = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(e) => handleSubmit(e)}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>
