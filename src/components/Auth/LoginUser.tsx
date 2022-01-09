@@ -69,7 +69,7 @@ const LoginUser = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">Sign in</Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        {/* <form className={classes.form} onSubmit={handleSubmit}> */}
           <Grid container spacing={2}>
             <Input
               name="email"
@@ -91,6 +91,7 @@ const LoginUser = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => handleSubmit(e)}
           >
             Sign In
           </Button>
@@ -122,7 +123,7 @@ const LoginUser = () => {
               </Button>
             </Grid>
           </Grid>
-        </form>
+        {/* </form> */}
       </Paper>
       <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
         <Alert

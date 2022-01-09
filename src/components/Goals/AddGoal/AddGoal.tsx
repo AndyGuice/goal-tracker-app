@@ -87,7 +87,7 @@ const AddGoal = () => {
 
   return (
     <Container component="main" style={{ marginTop: "100px" }}>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}> */}
         <Paper className={classes.paper} elevation={6}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={10}>
@@ -124,12 +124,17 @@ const AddGoal = () => {
                 }
               />
               <Grid item xs={12} sm={2} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <Button type="submit">Submit</Button>
+                {/* <Button type="submit">Submit</Button> */}
+                <Button
+                onClick={(e) => handleSubmit(e)}
+                >
+                  Submit
+                  </Button>
               </Grid>
             </Grid>
           </Grid>
         </Paper>
-      </form>
+      {/* </form> */}
       <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
