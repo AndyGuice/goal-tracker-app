@@ -23,9 +23,11 @@ export default makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    cursor: 'pointer'
   },
   googleButton: {
     marginBottom: theme.spacing(2),
+    cursor: 'pointer'
   },
   alert: {
     backgroundColor: '#f50057',

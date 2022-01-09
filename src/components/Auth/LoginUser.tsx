@@ -41,9 +41,9 @@ const LoginUser = () => {
 
 
   const handleSubmit = (
-    // e: any
+    e: any
     ) => {
-    // e.preventDefault();
+    e.preventDefault();
     dispatch(signin(form, history));
   };
 
@@ -93,7 +93,8 @@ const LoginUser = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSubmit}
+            onClick={(e) => handleSubmit(e)}
+            style={{ cursor: 'pointer' }}
           >
             Sign In
           </Button>
