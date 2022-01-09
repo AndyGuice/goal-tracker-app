@@ -88,13 +88,12 @@ const LoginUser = () => {
             />
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
             onClick={(e) => handleSubmit(e)}
-            style={{ cursor: 'pointer' }}
+            onTouchStart={handleSubmit}
           >
             Sign In
           </Button>
