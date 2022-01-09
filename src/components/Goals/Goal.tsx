@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { 
+  // useEffect,
+  // useState
+} from 'react';
 import {
   Card,
   CardActions,
@@ -40,8 +43,6 @@ const Goal = (props: props) => {
   const { result } = loggedUser || { result: {} };
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
-
-  console.log("UserID: ", userID);
 
   return (
     <Grid item xs={12} md={6} lg={3} style={{ marginTop: "10px" }}>

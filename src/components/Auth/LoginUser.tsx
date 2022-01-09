@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { 
+  Avatar,
+  Button,
+  Container,
+  Dialog,
+  Paper,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -23,7 +31,9 @@ const LoginUser = () => {
   const history = useHistory();
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
-  const [showError, setShowError] = React.useState(false);
+  const [showError, setShowError] = useState(false);
+
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   useEffect(() => {
     if (error) {
@@ -91,9 +101,9 @@ const LoginUser = () => {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            // className={classes.submit}
             onClick={(e) => handleSubmit(e)}
-            onTouchStart={handleSubmit}
+            style={{ cursor: 'pointer' }}
           >
             Sign In
           </Button>
