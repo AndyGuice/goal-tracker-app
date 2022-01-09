@@ -4,7 +4,6 @@ import {
   Avatar,
   Button,
   Container,
-  Dialog,
   Paper,
   Grid,
   Typography,
@@ -21,7 +20,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { useEffect } from 'react';
 import Alert from '../Helpers/Alert';
 
-
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 const LoginUser = () => {
@@ -32,8 +30,6 @@ const LoginUser = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
-
-  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   useEffect(() => {
     if (error) {

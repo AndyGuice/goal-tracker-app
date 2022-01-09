@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
-  // ButtonGroup,
   Checkbox,
   Container,
   FormControlLabel,
@@ -9,7 +8,6 @@ import {
   Paper,
   Snackbar,
   TextField,
-  // Tooltip,
   Typography
 } from '@material-ui/core';
 import GoalModel from '../../../models/goal';

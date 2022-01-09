@@ -11,7 +11,10 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
-import { getAllGoals, getUserGoals } from '../../actions/goals';
+import { 
+  // getAllGoals, 
+  getUserGoals 
+} from '../../actions/goals';
 import GoalModel from '../../models/goal';
 import Goal from './Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
@@ -25,7 +28,6 @@ const Goals = () => {
     deleteSuccessful
   } = useSelector((state: any) => state.goals);
 
-  const { addAnswerSuccessful } = useSelector((state: any) => state.answers);
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -33,8 +35,10 @@ const Goals = () => {
 
   const [showEditSuccess, setShowEditSuccess] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
-  const [showAddAnswerSuccess, setShowAddAnswerSuccess] = useState(false);
-  const [user, setUser] = useState(JSON.parse(profile));
+  const [
+    user, 
+    // setUser
+  ] = useState(JSON.parse(profile));
 
   useEffect(() => {
     if (updateSuccessful) {
@@ -48,24 +52,13 @@ const Goals = () => {
     }
   }, [deleteSuccessful]);
 
-
-  useEffect(() => {
-    if (addAnswerSuccessful) {
-      setShowAddAnswerSuccess(addAnswerSuccessful);
-    }
-  }, [addAnswerSuccessful]);
-
   // useEffect(() => {
   //   dispatch(getAllGoals());
   // }, [dispatch]);
 
   useEffect(() => {
     const { result } = user || { user: {} };
-    console.log("Result: ", result);
-
     const userId = result?.googleId || result?._id;
-
-    console.log("UserID: ", userId);
 
     dispatch(getUserGoals(userId));
   }, [dispatch]);

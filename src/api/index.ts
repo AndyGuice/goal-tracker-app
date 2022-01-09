@@ -36,13 +36,3 @@ export const fetchGoal = (id: String) => API.get(`/goals/${id}`);
 export const createGoal = (goal: any) => API.post('/goals', goal);
 export const updateGoal = (id: String, updatedGoal: any) => API.patch(`/goals/${id}`, updatedGoal);
 export const deleteGoal = (id: String) => API.delete(`/goals/${id}`);
-
-// forms - to be removed
-export const fetchForms = () => API.get('/forms');
-export const fetchForm = (id: String) => API.get(`/forms/${id}`);
-export const createForm = (form: any) => API.post('/forms', form);
-export const updateForm = (id: String, updatedForm: any) => API.patch(`/forms/${id}`, updatedForm);
-export const deleteForm = (id: String) => API.delete(`/forms/${id}`);
-
-export const getAnswers = (formId: String) => API.get(`/answers/${formId}`);
-export const addAnswer = (formAnswer: any) => API.post(`/answers/${formAnswer.formId}`, { formAnswer });

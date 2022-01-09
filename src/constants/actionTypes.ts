@@ -1,5 +1,4 @@
 export const FETCH_ALL = 'FETCH_ALL';
-export const FETCH_FORM = 'FETCH_FORM';
 export const FETCH_GOAL = 'FETCH_GOAL';
 export const FETCH_GOALS = 'FETCH_GOALS';
 export const START_LOADING = 'START_LOADING';
@@ -10,10 +9,5 @@ export const UPDATE = 'UPDATE';
 export const UPDATE_SUCCESSFUL = 'UPDATE_SUCCESSFUL';
 export const DELETE = 'DELETE';
 export const DELETE_SUCCESSFUL = 'DELETE_SUCCESSFUL';
-
-export const ADD_ANSWER_SUCCESSFUL = 'ADD_ANSWER_SUCCESSFUL';
-export const GET_ANSWERS = 'GET_ANSWERS';
-
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
-

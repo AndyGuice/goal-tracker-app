@@ -33,7 +33,6 @@ const Navbar = () => {
         setUser(JSON.parse(profile));
     }, [location]);
 
-
     return (
         <div className={classes.root} style={{ position: "absolute", left: "0", top: "0" }}>
             <AppBar color="primary">
