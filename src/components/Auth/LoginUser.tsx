@@ -95,7 +95,7 @@ const LoginUser = () => {
             Sign In
           </Button>
           <GoogleLogin
-            clientId={process.env.GOOGLE_OAUTH_CLIENT_ID}
+            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
             render={(renderProps) => (
               <Button
                 className={classes.googleButton}
