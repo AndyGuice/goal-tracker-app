@@ -12,7 +12,6 @@ import {
 import useStyles from './styles';
 import { useHistory } from 'react-router';
 import { 
-  // getAllGoals, 
   getUserGoals 
 } from '../../actions/goals';
 import GoalModel from '../../models/goal';
@@ -52,15 +51,12 @@ const Goals = () => {
     }
   }, [deleteSuccessful]);
 
-  // useEffect(() => {
-  //   dispatch(getAllGoals());
-  // }, [dispatch]);
-
   useEffect(() => {
     const { result } = user || { user: {} };
     const userId = result?.googleId || result?._id;
 
     dispatch(getUserGoals(userId));
+  // eslint-disable-next-line
   }, [dispatch]);
 
   const handleCloseEditSuccess = (event?: React.SyntheticEvent, reason?: string) => {

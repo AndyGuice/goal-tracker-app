@@ -46,6 +46,7 @@ export const EditGoal = () => {
 
   useEffect(() => {
     dispatch(getGoal(id));
+  // eslint-disable-next-line
   }, [id]);
 
   useEffect(() => {

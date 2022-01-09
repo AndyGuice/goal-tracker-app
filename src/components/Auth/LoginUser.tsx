@@ -36,6 +36,7 @@ const LoginUser = () => {
       setShowError(true);
       dispatch({ type: ERROR, data: null });
     }
+  // eslint-disable-next-line
   }, [error]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
