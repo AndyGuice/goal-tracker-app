@@ -13,7 +13,7 @@ import useStyles from './styles';
 import { useHistory } from 'react-router';
 import { 
   getUserGoals 
-} from '../../actions/goals';
+} from '../../store/actions/goals';
 import GoalModel from '../../models/goal';
 import Goal from './Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';

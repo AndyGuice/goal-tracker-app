@@ -17,7 +17,7 @@ import useStyles from './styles';
 import GoalModel from '../../models/goal';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { deleteGoal } from '../../actions/goals';
+import { deleteGoal } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
 
 interface props {
