@@ -36,6 +36,7 @@ const LoginUser = () => {
       setShowError(true);
       dispatch({ type: ERROR, data: null });
     }
+  // eslint-disable-next-line
   }, [error]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -98,7 +99,8 @@ const LoginUser = () => {
             variant="contained"
             color="primary"
             // className={classes.submit}
-            onClick={(e) => handleSubmit(e)}
+            // onClick={(e) => handleSubmit(e)}
+            onClick={() => dispatch(signin(form, history))}
             style={{ cursor: 'pointer' }}
           >
             Sign In
