@@ -11,7 +11,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { signin } from '../../actions/auth';
+import { signin } from '../../store/actions/auth';
 import GoogleIcon from '../Helpers/GoogleIcon';
 import useStyles from './styles';
 import Input from '../Helpers/Input';

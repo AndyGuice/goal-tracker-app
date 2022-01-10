@@ -10,8 +10,8 @@ import {
   START_LOADING,
   UPDATE,
   UPDATE_SUCCESSFUL
-} from "../constants/actionTypes";
-import * as api from '../api';
+} from "../../constants/actionTypes";
+import * as api from '../../api';
 
 export const getAllGoals = () => async (dispatch: any) => {
 

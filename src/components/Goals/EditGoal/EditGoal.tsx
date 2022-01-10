@@ -9,7 +9,6 @@ import {
   Paper,
   Snackbar,
   TextField,
-  // Tooltip,
   Typography
 } from '@material-ui/core';
 import useStyles from './styles';
@@ -18,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../../constants/actionTypes';
 import Alert from '../../Helpers/Alert';
 import { useHistory, useParams } from 'react-router-dom';
-import { getGoal, updateGoal } from '../../../actions/goals';
+import { getGoal, updateGoal } from '../../../store/actions/goals';
 
 export const EditGoal = () => {
   const { id } = useParams<any>();

@@ -1,5 +1,4 @@
-import * as actionType from '../constants/actionTypes';
-
+import * as actionType from '../../constants/actionTypes';
 
 const errorReducer = (state = { error: null }, action: any) => {
     switch (action.type) {
