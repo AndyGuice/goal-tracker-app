@@ -101,7 +101,6 @@ const LoginUser = () => {
             // className={classes.submit}
             // onClick={(e) => handleSubmit(e)}
             onClick={() => dispatch(signin(form, history))}
-            style={{ cursor: 'pointer' }}
           >
             Sign In
           </Button>
