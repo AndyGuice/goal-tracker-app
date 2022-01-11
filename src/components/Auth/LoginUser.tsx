@@ -37,11 +37,13 @@ const LoginUser = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   useEffect(() => {
     if (error) {
       setShowError(true);
+      setSubmitError(error)
       setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
@@ -76,6 +78,10 @@ const LoginUser = () => {
     }
   };
 
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false)
+  }
+
   const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
 
   const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -84,7 +90,8 @@ const LoginUser = () => {
     <Container component="main" maxWidth="xs" style={{ marginTop: "80px" }}>
       <ErrorDialog
         open={openErrorDialog}
-        error={error}
+        onClose={handleDialogClose}
+        error={submitError}
       />
       <Paper className={classes.paper} elevation={6}>
         <Avatar className={classes.avatar}>
