@@ -19,8 +19,15 @@ import { AUTH, ERROR } from '../../constants/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
 import { useEffect } from 'react';
 import Alert from '../Helpers/Alert';
+import ErrorDialog from '../ErrorDialog/ErrorDialog'
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+const initialState = { 
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+};
 
 const LoginUser = () => {
   const { error } = useSelector((state: any) => state.error);
@@ -30,10 +37,12 @@ const LoginUser = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   useEffect(() => {
     if (error) {
       setShowError(true);
+      setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
   // eslint-disable-next-line
@@ -73,12 +82,16 @@ const LoginUser = () => {
 
   return (
     <Container component="main" maxWidth="xs" style={{ marginTop: "80px" }}>
+      <ErrorDialog
+        open={openErrorDialog}
+        error={error}
+      />
       <Paper className={classes.paper} elevation={6}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">Sign in</Typography>
-        {/* <form className={classes.form} onSubmit={handleSubmit}> */}
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Input
               name="email"
@@ -99,8 +112,8 @@ const LoginUser = () => {
             variant="contained"
             color="primary"
             // className={classes.submit}
-            // onClick={(e) => handleSubmit(e)}
-            onClick={() => dispatch(signin(form, history))}
+            onClick={(e) => handleSubmit(e)}
+            // onClick={() => dispatch(signin(form, history))}
           >
             Sign In
           </Button>
@@ -132,7 +145,7 @@ const LoginUser = () => {
               </Button>
             </Grid>
           </Grid>
-        {/* </form> */}
+        </form>
       </Paper>
       <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
         <Alert
