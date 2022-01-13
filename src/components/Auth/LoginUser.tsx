@@ -65,7 +65,8 @@ const LoginUser = () => {
     dispatch(signin(form, history));
   };
 
-  const googleSuccess = async (res: any) => {
+  // const googleSuccess = async (res: any) => {
+  const googleSuccess = (res: any) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
 
@@ -118,9 +119,8 @@ const LoginUser = () => {
             fullWidth
             variant="contained"
             color="primary"
-            // className={classes.submit}
+            className={classes.submit}
             onClick={(e) => handleSubmit(e)}
-            // onClick={() => dispatch(signin(form, history))}
           >
             Sign In
           </Button>

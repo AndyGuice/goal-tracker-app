@@ -3,9 +3,13 @@ import {
   Button,
   Checkbox,
   Container,
+  FormControl,
   FormControlLabel,
   Grid,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Snackbar,
   TextField,
   Typography
@@ -16,6 +20,7 @@ import { ERROR } from '../../../constants/actionTypes';
 import Alert from '../../Helpers/Alert';
 import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../../store/actions/goals';
+import { goalCadence } from '../../../constants/goals';
 import useStyles from './styles';
 
 const AddGoal = () => {
@@ -85,7 +90,7 @@ const AddGoal = () => {
 
   return (
     <Container component="main" style={{ marginTop: "100px" }}>
-      {/* <form onSubmit={handleSubmit}> */}
+      <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={10}>
@@ -104,13 +109,20 @@ const AddGoal = () => {
                 placeholder="Enter goal description"
                 fullWidth
               />
-              <TextField
-                onChange={(e) => { setGoalCadence(e.target.value); }}
-                label="Goal Cadence"
-                value={goalCadence}
-                placeholder="Enter goal cadence"
-                fullWidth
-              />
+              <FormControl fullWidth>
+                <InputLabel id="goal-cadence-select-label">Cadence</InputLabel>
+                <Select
+                  labelId="goal-cadence-select-label"
+                  id="goal-cadence-select"
+                  // value={age}
+                  label="Cadence"
+                  // onChange={handleChange}
+                >
+                  <MenuItem value={"daily"}>Daily</MenuItem>
+                  <MenuItem value={"weekly"}>Weekly</MenuItem>
+                  <MenuItem value={"monthly"}>Monthly</MenuItem>
+                </Select>
+              </FormControl>
               <FormControlLabel
                 label="Complete?"
                 control={
@@ -122,17 +134,16 @@ const AddGoal = () => {
                 }
               />
               <Grid item xs={12} sm={2} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                {/* <Button type="submit">Submit</Button> */}
-                <Button
-                onClick={(e) => handleSubmit(e)}
+                <Button 
+                  type="submit"
                 >
                   Submit
-                  </Button>
+                </Button>
               </Grid>
             </Grid>
           </Grid>
         </Paper>
-      {/* </form> */}
+      </form>
       <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}

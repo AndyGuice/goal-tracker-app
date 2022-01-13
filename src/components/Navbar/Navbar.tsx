@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useStyles from './styles';
-import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
+import { 
+    AppBar,
+    Box,
+    Button,
+    MenuItem,
+    Toolbar,
+    Typography
+} from "@material-ui/core";
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as actionType from '../../constants/actionTypes';
