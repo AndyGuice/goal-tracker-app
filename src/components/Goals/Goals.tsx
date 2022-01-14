@@ -7,7 +7,8 @@ import {
   Paper,
   Button,
   Container,
-  Snackbar
+  Snackbar,
+  Typography,
 } from '@material-ui/core';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
@@ -17,7 +18,8 @@ import {
 import GoalModel from '../../models/goal';
 import Goal from './Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
-import Alert from '../Helpers/Alert';
+import Alert from '../../helpers/Alert';
+import { displayGoalOnCadence } from '../../helpers/cadence'
 
 const Goals = () => {
   const {
@@ -52,6 +54,10 @@ const Goals = () => {
   }, [deleteSuccessful]);
 
   useEffect(() => {
+    displayGoalOnCadence('daily', 3)
+  })
+
+  useEffect(() => {
     const { result } = user || { user: {} };
     const userId = result?.googleId || result?._id;
 
@@ -79,6 +85,7 @@ const Goals = () => {
 
   return (
     <Container style={{ marginTop: "100px" }}>
+      <Typography variant="h1">Today's Goals</Typography>
       {user?.result &&
         <Button
           variant="contained"

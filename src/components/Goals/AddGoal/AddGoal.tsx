@@ -17,10 +17,9 @@ import {
 import GoalModel from '../../../models/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../../constants/actionTypes';
-import Alert from '../../Helpers/Alert';
+import Alert from '../../../helpers/Alert';
 import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../../store/actions/goals';
-import { goalCadence } from '../../../constants/goals';
 import useStyles from './styles';
 
 const AddGoal = () => {
@@ -32,7 +31,7 @@ const AddGoal = () => {
 
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
-  const [goalCadence, setGoalCadence] = useState('');
+  const [goalCadence, setGoalCadence] = useState('daily');
   const [goalComplete, setGoalComplete] = useState(false);
 
   const profile = localStorage.getItem('profile')!;
@@ -114,9 +113,9 @@ const AddGoal = () => {
                 <Select
                   labelId="goal-cadence-select-label"
                   id="goal-cadence-select"
-                  // value={age}
+                  value={goalCadence}
                   label="Cadence"
-                  // onChange={handleChange}
+                  onChange={(e: any) => setGoalCadence(e.target.value)}
                 >
                   <MenuItem value={"daily"}>Daily</MenuItem>
                   <MenuItem value={"weekly"}>Weekly</MenuItem>

@@ -12,13 +12,13 @@ import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { signin } from '../../store/actions/auth';
-import GoogleIcon from '../Helpers/GoogleIcon';
+import GoogleIcon from '../../helpers/GoogleIcon';
 import useStyles from './styles';
-import Input from '../Helpers/Input';
+import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../constants/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
 import { useEffect } from 'react';
-import Alert from '../Helpers/Alert';
+import Alert from '../../helpers/Alert';
 import ErrorDialog from '../ErrorDialog/ErrorDialog'
 
 const initialState = { 
@@ -73,7 +73,7 @@ const LoginUser = () => {
     try {
       dispatch({ type: AUTH, data: { result, token } });
 
-      history.push('/');
+      history.push('/dashboard');
     } catch (error) {
       console.log(error);
     }
@@ -125,7 +125,7 @@ const LoginUser = () => {
             Sign In
           </Button>
           <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+            clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID || ''}
             render={(renderProps) => (
               <Button
                 className={classes.googleButton}

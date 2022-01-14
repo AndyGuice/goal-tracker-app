@@ -1,12 +1,12 @@
 import { Avatar, Button, Container, Grid, Paper, Snackbar, Typography } from '@material-ui/core';
-import Alert from '../Helpers/Alert';
+import Alert from '../../helpers/Alert';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';
 import { ERROR } from '../../constants/actionTypes';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Input from '../Helpers/Input';
+import Input from '../../helpers/Input';
 import useStyles from './styles';
 import * as EmailValidator from 'email-validator';
 
