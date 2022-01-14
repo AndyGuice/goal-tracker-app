@@ -65,7 +65,7 @@ export const createGoal = (goal: any, history: any) => async (dispatch: any) => 
 
     dispatch({ type: END_LOADING });
     dispatch({ type: CREATE, payload: data });
-    history.push(`/`);
+    history.push(`/dashboard`);
   }
   catch (error) {
     console.log(error);

@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import { getUserGoals } from '../../store/actions/goals';
-import GoalModel from '../../models/goal';
+import GoalModel from '../../types/goal';
 import Goal from '../Goals/Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
@@ -90,7 +90,7 @@ const Dashboard = () => {
           <Grid container spacing={3}>
             {
               goals?.map((goal: GoalModel, index: number) => (
-                <Goal goal={goal} key={index} />
+                <Goal goal={goal} key={index} setupView={false} />
               ))
             }
           </Grid>

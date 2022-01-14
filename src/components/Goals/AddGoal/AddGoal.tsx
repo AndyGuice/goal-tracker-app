@@ -14,7 +14,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import GoalModel from '../../../models/goal';
+import GoalModel from '../../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../../constants/actionTypes';
 import Alert from '../../../helpers/Alert';
