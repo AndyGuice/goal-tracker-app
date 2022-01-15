@@ -5,19 +5,22 @@ import {
   CircularProgress,
   Grow,
   Paper,
+  Button,
   Container,
   Snackbar,
-  Typography,
 } from '@material-ui/core';
 import useStyles from './styles';
-import { getUserGoals } from '../../store/actions/goals';
+import { useHistory } from 'react-router';
+import { 
+  getUserGoals 
+} from '../../store/actions/goals';
 import GoalModel from '../../types/goal';
-import Goal from '../Goals/Goal';
+import Goal from '../../components/Goals/Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
 import { displayGoalOnCadence } from '../../helpers/cadence'
 
-const Dashboard = () => {
+const SetupView = () => {
   const {
     goals,
     isLoading,
@@ -25,6 +28,7 @@ const Dashboard = () => {
     deleteSuccessful
   } = useSelector((state: any) => state.goals);
 
+  const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
   const profile = localStorage.getItem('profile')!;
@@ -32,8 +36,7 @@ const Dashboard = () => {
   const [showEditSuccess, setShowEditSuccess] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [
-    user, 
-    // setUser
+    user,
   ] = useState(JSON.parse(profile));
 
   useEffect(() => {
@@ -79,8 +82,18 @@ const Dashboard = () => {
   };
 
   return (
-    <Container style={{ marginTop: "100px" }}>
-      <Typography variant="h1">Today's Goals</Typography>
+    <Container>
+      {user?.result &&
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => history.push("/addGoal")}
+          fullWidth
+          style={{ marginTop: 20, marginBottom: 20 }}
+        >
+          Add goal
+        </Button>
+      }
       {isLoading ?
         <Paper elevation={6} className={classes.loadingPaper}>
           <CircularProgress size="7em" color="primary" value={100} />
@@ -90,7 +103,7 @@ const Dashboard = () => {
           <Grid container spacing={3}>
             {
               goals?.map((goal: GoalModel, index: number) => (
-                <Goal goal={goal} key={index} setupView={false} />
+                <Goal goal={goal} key={index} setupView={true} />
               ))
             }
           </Grid>
@@ -124,4 +137,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default SetupView;

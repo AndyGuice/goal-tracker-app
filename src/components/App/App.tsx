@@ -7,7 +7,7 @@ import Router from "../Router/Router";
 
 const theme = createTheme({
   typography: {
-    "fontFamily": `"Open Sans", sans-serif`,
+    "fontFamily": `"roboto", sans-serif`,
     "fontWeightLight": 300,
     "fontWeightRegular": 400,
     "fontWeightMedium": 700

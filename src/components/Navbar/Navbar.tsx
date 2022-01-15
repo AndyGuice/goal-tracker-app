@@ -50,7 +50,7 @@ const Navbar = () => {
     }, [location]);
 
     return (
-        <AppBar color="primary">
+        <AppBar color="primary" position="static">
             <Toolbar>
                 <Typography 
                     variant="h6" 

@@ -5,7 +5,7 @@ class Goal {
   description: String = "";
   quantity: Number = 0;
   cadence: String = "";
-  complete: Boolean = false;
+  complete: boolean = false;
 }
 
 export default Goal;

@@ -1,6 +1,4 @@
-import React, { 
-  useState
-} from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardActions,
@@ -16,7 +14,7 @@ import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { deleteGoal } from '../../store/actions/goals';
+import { deleteGoal, updateGoalComplete } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
 
 interface props {
@@ -43,10 +41,21 @@ const Goal = (props: props) => {
   const { result } = loggedUser || { result: {} };
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
-  const [isComplete, setIsComplete] = useState(complete)
 
-  const handleSwitchChange = () => {
-    setIsComplete(!isComplete)
+  const [isComplete, setIsComplete] = useState<boolean>(complete)
+
+  const handleSwitchChange = (e: React.SyntheticEvent) => {
+    e.preventDefault()
+   
+    let updatedGoal = goal
+    updatedGoal.complete = !complete
+    setIsComplete(!complete)
+
+    handleSubmit(updatedGoal)
+  }
+
+  const handleSubmit = (goal: GoalModel) => {
+    dispatch(updateGoalComplete(goal))
   }
 
   return (
@@ -92,8 +101,8 @@ const Goal = (props: props) => {
               label="Complete?"
               control={
                 <Switch
-                  value={isComplete}
-                  onChange={handleSwitchChange}
+                  checked={isComplete}
+                  onChange={(e: any) => handleSwitchChange(e)}
                 />
               }
             />

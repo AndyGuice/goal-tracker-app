@@ -5,22 +5,19 @@ import {
   CircularProgress,
   Grow,
   Paper,
-  Button,
   Container,
   Snackbar,
+  Typography,
 } from '@material-ui/core';
 import useStyles from './styles';
-import { useHistory } from 'react-router';
-import { 
-  getUserGoals 
-} from '../../store/actions/goals';
+import { getUserGoals } from '../../store/actions/goals';
 import GoalModel from '../../types/goal';
 import Goal from '../../components/Goals/Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
 import { displayGoalOnCadence } from '../../helpers/cadence'
 
-const SetupPage = () => {
+const DashboardView = () => {
   const {
     goals,
     isLoading,
@@ -28,7 +25,6 @@ const SetupPage = () => {
     deleteSuccessful
   } = useSelector((state: any) => state.goals);
 
-  const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
   const profile = localStorage.getItem('profile')!;
@@ -36,7 +32,8 @@ const SetupPage = () => {
   const [showEditSuccess, setShowEditSuccess] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [
-    user,
+    user, 
+    // setUser
   ] = useState(JSON.parse(profile));
 
   useEffect(() => {
@@ -82,18 +79,8 @@ const SetupPage = () => {
   };
 
   return (
-    <Container style={{ marginTop: "100px" }}>
-      {user?.result &&
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => history.push("/addGoal")}
-          fullWidth
-          style={{ marginBottom: 20 }}
-        >
-          Add goal
-        </Button>
-      }
+    <Container>
+      <Typography variant="h1">Today's Goals</Typography>
       {isLoading ?
         <Paper elevation={6} className={classes.loadingPaper}>
           <CircularProgress size="7em" color="primary" value={100} />
@@ -103,7 +90,7 @@ const SetupPage = () => {
           <Grid container spacing={3}>
             {
               goals?.map((goal: GoalModel, index: number) => (
-                <Goal goal={goal} key={index} setupView={true} />
+                <Goal goal={goal} key={index} setupView={false} />
               ))
             }
           </Grid>
@@ -137,4 +124,4 @@ const SetupPage = () => {
   );
 };
 
-export default SetupPage;
+export default DashboardView;
