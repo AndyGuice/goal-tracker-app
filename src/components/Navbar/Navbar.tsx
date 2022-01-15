@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
 import useStyles from './styles';
-import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { 
+    AppBar,
+    Box,
+    Button,
+    Grid,
+    MenuItem,
+    Toolbar,
+    Typography
+} from "@material-ui/core";
+import { 
+    Link,
+    useHistory,
+    useLocation 
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as actionType from '../../constants/actionTypes';
 import decode from 'jwt-decode';
@@ -11,9 +23,11 @@ const Navbar = () => {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
-    const handleLogin = () => history.push('/loginUser');
     const profile = localStorage.getItem('profile')!;
+
     const [user, setUser] = useState(JSON.parse(profile));
+
+    const handleLogin = () => history.push('/loginUser');
     const dispatch = useDispatch();
 
     const logout = () => {
@@ -21,6 +35,8 @@ const Navbar = () => {
         history.push('/');
         setUser(null);
     };
+
+    const homePath = (user ? "/dashboard" : "/");
 
     useEffect(() => {
         const token = user?.token;
@@ -31,22 +47,45 @@ const Navbar = () => {
         }
 
         setUser(JSON.parse(profile));
+
         // eslint-disable-next-line
     }, [location]);
 
     return (
-        <div className={classes.root} style={{ position: "absolute", left: "0", top: "0" }}>
-            <AppBar color="primary">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title} align="left">
-                        <Link
-                            to="/"
-                            style={{ textDecoration: "none", color: "#fff" }}
-                        >
-                            Goal Tracker
-                        </Link>
-                    </Typography>
-                    {user?.result ?
+        <AppBar color="primary">
+            <Toolbar>
+                <Typography 
+                    variant="h6" 
+                    className={classes.title} 
+                    align="left"
+                >
+                    <Link
+                        to={homePath}
+                        style={{ textDecoration: "none", color: "#fff" }}
+                    >
+                        Goal Tracker
+                    </Link>
+                </Typography>
+                {user?.result ?
+                    <>
+                        <Grid item xs={4} style={{ display: 'flex' }}>
+                            <Link to="/dashboard" style={{ textDecoration: 'none', padding: 10 }}>
+                                <Button
+                                    color="secondary"
+                                    variant="outlined"
+                                >
+                                    Dashboard
+                                </Button>
+                            </Link>
+                            <Link to="/setup" style={{ textDecoration: 'none', padding: 10 }}>
+                                <Button
+                                    color="secondary"
+                                    variant="outlined"
+                                >
+                                    Setup    
+                                </Button>
+                            </Link>
+                        </Grid>
                         <div style={{ display: "flex" }}>
                             <Avatar
                                 className={classes.purple}
@@ -70,18 +109,18 @@ const Navbar = () => {
                                 Logout
                             </Button>
                         </div>
-                        :
-                        <Button
-                            color="primary"
-                            style={{ border: "1px solid black", backgroundColor: "#FFF" }}
-                            onClick={handleLogin}
-                        >
-                            Sign In
-                        </Button>
-                    }
-                </Toolbar>
-            </AppBar>
-        </div>
+                    </>
+                    :
+                    <Button
+                        color="primary"
+                        style={{ border: "1px solid black", backgroundColor: "#FFF" }}
+                        onClick={handleLogin}
+                    >
+                        Sign In
+                    </Button>
+                }
+            </Toolbar>
+        </AppBar>
     );
 };
 

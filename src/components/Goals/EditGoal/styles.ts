@@ -2,9 +2,6 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 export default makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-
-    },
     paper: {
       display: 'flex',
       flexDirection: 'column',
@@ -14,7 +11,6 @@ export default makeStyles((theme: Theme) =>
     icon: {
       margin: theme.spacing(1),
     },
-
     alert: {
       backgroundColor: '#f50057',
     },
