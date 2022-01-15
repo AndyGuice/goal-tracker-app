@@ -3,7 +3,7 @@ import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Typography from '@material-ui/core/Typography'
 
-const ErrorDialog = (props) => {
+const ErrorDialog = (props: any) => {
   const { open, onClose, error } = props
 
   return (
@@ -13,7 +13,7 @@ const ErrorDialog = (props) => {
     >
       <DialogTitle>Error</DialogTitle>
       <Typography style={{ padding: 10 }}>
-        Error is: {error}
+        Error: {error}
       </Typography>
     </Dialog>
   )

@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { Redirect } from 'react-router-dom'
 
-const LandingPage = () => {
+const LandingView = () => {
   const profile = localStorage.getItem('profile')!;
   const [
     user,
@@ -27,4 +27,4 @@ const LandingPage = () => {
   
 }
 
-export default LandingPage
+export default LandingView

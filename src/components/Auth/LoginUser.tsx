@@ -19,7 +19,7 @@ import { AUTH, ERROR } from '../../constants/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
 import { useEffect } from 'react';
 import Alert from '../../helpers/Alert';
-import ErrorDialog from '../ErrorDialog/ErrorDialog'
+import ErrorDialog from '../shared/ErrorDialog/ErrorDialog'
 
 const initialState = { 
   firstName: '',

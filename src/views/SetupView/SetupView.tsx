@@ -18,7 +18,7 @@ import GoalModel from '../../types/goal';
 import Goal from '../../components/Goals/Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
-import { displayGoalOnCadence } from '../../helpers/cadence'
+// import { displayGoalOnCadence } from '../../helpers/cadence'
 
 const SetupView = () => {
   const {
@@ -51,17 +51,16 @@ const SetupView = () => {
     }
   }, [deleteSuccessful]);
 
-  useEffect(() => {
-    displayGoalOnCadence('daily', 3)
-  })
+  // useEffect(() => {
+  //   displayGoalOnCadence('daily', 3)
+  // })
 
   useEffect(() => {
     const { result } = user || { user: {} };
     const userId = result?.googleId || result?._id;
 
     dispatch(getUserGoals(userId));
-  // eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const handleCloseEditSuccess = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {

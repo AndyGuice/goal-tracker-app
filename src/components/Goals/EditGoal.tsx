@@ -26,13 +26,17 @@ export const EditGoal = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+
   const { goal, isLoading } = useSelector((state: any) => state.goals);
   const { error } = useSelector((state: any) => state.error);
+
+  const { title, description, cadence, quantity } = goal || { title: '', description: '', cadence: 'daily', quantity: 1 }
+
   const [showError, setShowError] = useState(false);
-  const [goalTitle, setGoalTitle] = useState(goal?.title);
-  const [goalDescription, setGoalDescription] = useState(goal?.description);
-  const [goalCadence, setGoalCadence] = useState(goal?.cadence);
-  const [goalQuantity, setGoalQuantity] = useState(goal?.quantity)
+  const [goalTitle, setGoalTitle] = useState(title);
+  const [goalDescription, setGoalDescription] = useState(description);
+  const [goalCadence, setGoalCadence] = useState(cadence);
+  const [goalQuantity, setGoalQuantity] = useState(quantity)
 
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));
@@ -46,16 +50,14 @@ export const EditGoal = () => {
   useEffect(() => {
     dispatch(getGoal(id));
   // eslint-disable-next-line
-  }, [id]);
+  }, []);
 
   useEffect(() => {
-    if (goal) {
-      setGoalTitle(goal.title);
-      setGoalDescription(goal.description);
-      setGoalCadence(goal.cadence);
-      setGoalQuantity(goal.quantity);
-    }
-  }, [goal]);
+      setGoalTitle(title);
+      setGoalDescription(description);
+      setGoalCadence(cadence);
+      setGoalQuantity(quantity);
+  }, [cadence, description, quantity, title]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -73,6 +75,7 @@ export const EditGoal = () => {
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
     goal.cadence = goalCadence;
+    goal.quantity = goalQuantity
     goal.userId = user.result._id;
     goal._id = id;
 

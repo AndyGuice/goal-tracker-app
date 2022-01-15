@@ -5,19 +5,22 @@ import Unauthorized from '../Unauthorized/Unauthorized';
 import RegisterUser from '../Auth/RegisterUser';
 import AddGoal from '../Goals/AddGoal';
 import EditGoal from '../Goals/EditGoal';
+
 import DashboardView from '../../views/DashboardView/DashboardView';
-import LandingPage from '../LandingPage/LandingPage'
+import LandingView from '../../views/LandingView/LandingView'
 import SetupView from '../../views/SetupView/SetupView'
 
 const Router = () => {
 
   return (
     <Switch>
-      <Route path="/" exact component={LandingPage} />
+      <Route path="/" exact component={LandingView} />
       <Route path="/dashboard" exact component={DashboardView} />
       <Route path="/setup" exact component={SetupView} />
+
       <Route path="/addGoal" exact component={AddGoal} />
       <Route path="/editGoal/:id" exact component={EditGoal} />
+      
       <Route path="/loginUser" exact component={LoginUser} />
       <Route path="/register" exact component={RegisterUser} />
       <Route path="/unauthorized" exact component={Unauthorized} />

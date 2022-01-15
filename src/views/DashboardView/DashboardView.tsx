@@ -15,7 +15,6 @@ import GoalModel from '../../types/goal';
 import Goal from '../../components/Goals/Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
-import { displayGoalOnCadence } from '../../helpers/cadence'
 
 const DashboardView = () => {
   const {
@@ -31,10 +30,7 @@ const DashboardView = () => {
 
   const [showEditSuccess, setShowEditSuccess] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
-  const [
-    user, 
-    // setUser
-  ] = useState(JSON.parse(profile));
+  const [user] = useState(JSON.parse(profile));
 
   useEffect(() => {
     if (updateSuccessful) {
@@ -49,16 +45,11 @@ const DashboardView = () => {
   }, [deleteSuccessful]);
 
   useEffect(() => {
-    displayGoalOnCadence('daily', 3)
-  })
-
-  useEffect(() => {
     const { result } = user || { user: {} };
     const userId = result?.googleId || result?._id;
 
     dispatch(getUserGoals(userId));
-  // eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const handleCloseEditSuccess = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -88,11 +79,31 @@ const DashboardView = () => {
         :
         <Grow in={true} timeout={{ enter: 1500 }}>
           <Grid container spacing={3}>
-            {
-              goals?.map((goal: GoalModel, index: number) => (
-                <Goal goal={goal} key={index} setupView={false} />
-              ))
-            }
+            {goals?.map((goal: GoalModel, index: number) => {
+            const { cadence } = goal
+            if (cadence === "monthly") {
+              return (
+                <Grid item xs={12}>
+                  <Typography variant="h6">Daily Goals</Typography>
+                  <Goal goal={goal} key={index} setupView={false} />
+                </Grid>
+              )
+            } else if (cadence === "weekly") {
+              return (
+                <Grid item xs={12}>
+                  <Typography variant="h6">Weekly Goals</Typography>
+                  <Goal goal={goal} key={index} setupView={false} />
+                </Grid>
+              )
+            } else if (cadence === "daily") {
+              return (
+                <Grid item xs={12}>
+                  <Typography variant="h6">Monthly Goals</Typography>
+                  <Goal goal={goal} key={index} setupView={false} />
+                </Grid>
+              )
+            }            
+          })}
           </Grid>
         </Grow>
       }
