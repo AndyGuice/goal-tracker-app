@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -14,12 +12,12 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import GoalModel from '../../../types/goal';
+import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
-import { ERROR } from '../../../constants/actionTypes';
-import Alert from '../../../helpers/Alert';
+import { ERROR } from '../../constants/actionTypes';
+import Alert from '../../helpers/Alert';
 import { useHistory } from 'react-router-dom';
-import { createGoal } from '../../../store/actions/goals';
+import { createGoal } from '../../store/actions/goals';
 import useStyles from './styles';
 
 const AddGoal = () => {
@@ -32,12 +30,10 @@ const AddGoal = () => {
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
   const [goalCadence, setGoalCadence] = useState('daily');
+  const [goalQuantity, setGoalQuantity] = useState(1);
 
   const profile = localStorage.getItem('profile')!;
-  const [
-    user, 
-    // setUser
-  ] = useState(JSON.parse(profile));
+  const [user] = useState(JSON.parse(profile));
 
   useEffect(() => {
     if (error) {
@@ -56,8 +52,9 @@ const AddGoal = () => {
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
     goal.cadence = goalCadence;
-    goal.complete = false
+    goal.complete = false;
     goal.userId = googleId || result._id;
+    goal.quantity = goalQuantity;
 
     const goalResult = validateGoal(goal);
     if (!goalResult.ok) {
@@ -95,7 +92,8 @@ const AddGoal = () => {
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6}>
             <Grid item xs={12}>
-              <Typography 
+              <Typography
+                id="goal-add-button"
                 component="h2" 
                 variant="h5" 
                 align="center" 
@@ -104,26 +102,29 @@ const AddGoal = () => {
                 Add Goal
               </Typography>
               <TextField
+                id="goal-title-input"
                 onChange={(e) => { setGoalTitle(e.target.value); }}
                 value={goalTitle}
                 label="Goal Name"
                 placeholder="Enter goal name"
                 fullWidth
+                className={classes.button}
               />
               <TextField
+                id="goal-description-input"
                 onChange={(e) => { setGoalDescription(e.target.value); }}
                 label="Goal Description"
                 value={goalDescription}
                 placeholder="Enter goal description"
                 fullWidth
+                className={classes.button}
               />
-              <FormControl fullWidth>
-                <InputLabel id="goal-cadence-select-label">Cadence</InputLabel>
+              <FormControl fullWidth className={classes.button}>
+                <InputLabel id="goal-cadence-select-label">Goal Cadence</InputLabel>
                 <Select
                   labelId="goal-cadence-select-label"
                   id="goal-cadence-select"
                   value={goalCadence}
-                  label="Goal Cadence"
                   onChange={(e: any) => setGoalCadence(e.target.value)}
                 >
                   <MenuItem value={"daily"}>Daily</MenuItem>
@@ -131,10 +132,25 @@ const AddGoal = () => {
                   <MenuItem value={"monthly"}>Monthly</MenuItem>
                 </Select>
               </FormControl>
+              <FormControl fullWidth className={classes.button}>
+                <InputLabel id="goal-quantity-select-label">Goal Quantity (amount per cadence)</InputLabel>
+                <Select
+                  labelId="goal-quantity-select-label"
+                  id="goal-quantity-select"
+                  value={goalQuantity}
+                  onChange={(e: any) => setGoalQuantity(e.target.value)}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                </Select>
+              </FormControl>
               <Box textAlign="center">
                 <Button 
                   type="submit"
-                  variant="outlined"
+                  variant="contained"
                   color="primary"
                   style={{ margin: 10, marginTop: 20 }}
                 >

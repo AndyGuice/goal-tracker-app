@@ -8,6 +8,7 @@ import {
   Button,
   Container,
   Snackbar,
+  Typography,
 } from '@material-ui/core';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
@@ -15,12 +16,12 @@ import {
   getUserGoals 
 } from '../../store/actions/goals';
 import GoalModel from '../../types/goal';
-import Goal from '../../components/Goals/Goal';
+import Goal from './Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
 import { displayGoalOnCadence } from '../../helpers/cadence'
 
-const SetupPage = () => {
+const Goals = () => {
   const {
     goals,
     isLoading,
@@ -36,7 +37,8 @@ const SetupPage = () => {
   const [showEditSuccess, setShowEditSuccess] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [
-    user,
+    user, 
+    // setUser
   ] = useState(JSON.parse(profile));
 
   useEffect(() => {
@@ -83,13 +85,12 @@ const SetupPage = () => {
 
   return (
     <Container style={{ marginTop: "100px" }}>
+      <Typography variant="h1">Today's Goals</Typography>
       {user?.result &&
         <Button
           variant="contained"
           color="primary"
           onClick={() => history.push("/addGoal")}
-          fullWidth
-          style={{ marginBottom: 20 }}
         >
           Add goal
         </Button>
@@ -103,7 +104,7 @@ const SetupPage = () => {
           <Grid container spacing={3}>
             {
               goals?.map((goal: GoalModel, index: number) => (
-                <Goal goal={goal} key={index} setupView={true} />
+                <Goal goal={goal} key={index} setupView={false} />
               ))
             }
           </Grid>
@@ -137,4 +138,4 @@ const SetupPage = () => {
   );
 };
 
-export default SetupPage;
+export default Goals;

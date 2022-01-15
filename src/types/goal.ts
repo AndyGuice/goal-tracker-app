@@ -3,6 +3,7 @@ class Goal {
   userId: String = "";
   title: String = "";
   description: String = "";
+  quantity: Number = 0;
   cadence: String = "";
   complete: Boolean = false;
 }

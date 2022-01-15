@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import useStyles from './styles';
 import { 
     AppBar,
-    Box,
     Button,
     Grid,
-    MenuItem,
     Toolbar,
     Typography
 } from "@material-ui/core";
@@ -68,11 +66,11 @@ const Navbar = () => {
                 </Typography>
                 {user?.result ?
                     <>
-                        <Grid item xs={4} style={{ display: 'flex' }}>
+                        <Grid item xs={8} style={{ display: 'flex' }}>
                             <Link to="/dashboard" style={{ textDecoration: 'none', padding: 10 }}>
                                 <Button
                                     color="secondary"
-                                    variant="outlined"
+                                    variant="contained"
                                 >
                                     Dashboard
                                 </Button>
@@ -80,7 +78,7 @@ const Navbar = () => {
                             <Link to="/setup" style={{ textDecoration: 'none', padding: 10 }}>
                                 <Button
                                     color="secondary"
-                                    variant="outlined"
+                                    variant="contained"
                                 >
                                     Setup    
                                 </Button>

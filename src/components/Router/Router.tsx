@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import LoginUser from '../Auth/LoginUser';
 import Unauthorized from '../Unauthorized/Unauthorized';
 import RegisterUser from '../Auth/RegisterUser';
-import AddGoal from '../Goals/AddGoal/AddGoal';
-import EditGoal from '../Goals/EditGoal/EditGoal';
+import AddGoal from '../Goals/AddGoal';
+import EditGoal from '../Goals/EditGoal';
 import Dashboard from '../Dashboard/Dashboard';
 import LandingPage from '../LandingPage/LandingPage'
 import SetupPage from '../SetupPage/SetupPage'

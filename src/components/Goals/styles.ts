@@ -4,7 +4,6 @@ export default makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      // height: '150px'
     },
     loadingPaper: {
       display: 'flex',
@@ -18,6 +17,18 @@ export default makeStyles((theme: Theme) =>
     },
     title: {
       fontSize: 14,
+    },
+    paper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: theme.spacing(2),
+    },
+    button: {
+      margin: theme.spacing(1)
+    },
+    alert: {
+      backgroundColor: '#f50060',
     },
   }),
 );

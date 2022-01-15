@@ -1,15 +1,14 @@
 import React, { 
-  // useEffect,
-  // useState
+  useState
 } from 'react';
 import {
   Card,
   CardActions,
   CardContent,
-  Checkbox,
   FormControlLabel,
   Grid,
   IconButton,
+  Switch,
   Typography
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -44,9 +43,20 @@ const Goal = (props: props) => {
   const { result } = loggedUser || { result: {} };
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
+  const [isComplete, setIsComplete] = useState(complete)
+
+  const handleSwitchChange = () => {
+    setIsComplete(!isComplete)
+  }
 
   return (
-    <Grid item xs={12} md={6} lg={3} style={{ marginTop: "10px" }}>
+    <Grid 
+      item
+      xs={12}
+      md={6}
+      lg={3}
+      style={{ marginTop: 20 }}
+    >
       <Card className={classes.root} raised>
         <CardContent>
           <Typography
@@ -81,10 +91,9 @@ const Goal = (props: props) => {
             <FormControlLabel
               label="Complete?"
               control={
-                <Checkbox
-                  disabled
-                  value={complete}
-                  placeholder="Goal complete?"
+                <Switch
+                  value={isComplete}
+                  onChange={handleSwitchChange}
                 />
               }
             />
