@@ -52,77 +52,75 @@ const Navbar = () => {
     }, [location]);
 
     return (
-        <Grid container>
-            <AppBar color="primary">
-                <Toolbar>
-                    <Typography 
-                        variant="h6" 
-                        className={classes.title} 
-                        align="left"
+        <AppBar color="primary">
+            <Toolbar>
+                <Typography 
+                    variant="h6" 
+                    className={classes.title} 
+                    align="left"
+                >
+                    <Link
+                        to={homePath}
+                        style={{ textDecoration: "none", color: "#fff" }}
                     >
-                        <Link
-                            to={homePath}
-                            style={{ textDecoration: "none", color: "#fff" }}
-                        >
-                            Goal Tracker
-                        </Link>
-                    </Typography>
-                    {user?.result ?
-                        <>
-                            <Grid item xs={4} style={{ display: 'flex' }}>
-                                <Link to="/dashboard" style={{ textDecoration: 'none', padding: 10 }}>
-                                    <Button
-                                        color="secondary"
-                                        variant="outlined"
-                                    >
-                                        Dashboard
-                                    </Button>
-                                </Link>
-                                <Link to="/setup" style={{ textDecoration: 'none', padding: 10 }}>
-                                    <Button
-                                        color="secondary"
-                                        variant="outlined"
-                                    >
-                                        Setup    
-                                    </Button>
-                                </Link>
-                            </Grid>
-                            <div style={{ display: "flex" }}>
-                                <Avatar
-                                    className={classes.purple}
-                                    alt={user?.result.name}
-                                    src={user?.result.imageUrl}
-                                >
-                                    {user?.result.name.charAt(0)}
-                                </Avatar>
-                                <Typography
-                                    className={classes.userName}
-                                    variant="h6"
-                                >
-                                    {user?.result.name}
-                                </Typography>
+                        Goal Tracker
+                    </Link>
+                </Typography>
+                {user?.result ?
+                    <>
+                        <Grid item xs={4} style={{ display: 'flex' }}>
+                            <Link to="/dashboard" style={{ textDecoration: 'none', padding: 10 }}>
                                 <Button
-                                    variant="contained"
-                                    style={{ marginLeft: "20px" }}
                                     color="secondary"
-                                    onClick={logout}
+                                    variant="outlined"
                                 >
-                                    Logout
+                                    Dashboard
                                 </Button>
-                            </div>
-                        </>
-                        :
-                        <Button
-                            color="primary"
-                            style={{ border: "1px solid black", backgroundColor: "#FFF" }}
-                            onClick={handleLogin}
-                        >
-                            Sign In
-                        </Button>
-                    }
-                </Toolbar>
-            </AppBar>
-        </Grid>
+                            </Link>
+                            <Link to="/setup" style={{ textDecoration: 'none', padding: 10 }}>
+                                <Button
+                                    color="secondary"
+                                    variant="outlined"
+                                >
+                                    Setup    
+                                </Button>
+                            </Link>
+                        </Grid>
+                        <div style={{ display: "flex" }}>
+                            <Avatar
+                                className={classes.purple}
+                                alt={user?.result.name}
+                                src={user?.result.imageUrl}
+                            >
+                                {user?.result.name.charAt(0)}
+                            </Avatar>
+                            <Typography
+                                className={classes.userName}
+                                variant="h6"
+                            >
+                                {user?.result.name}
+                            </Typography>
+                            <Button
+                                variant="contained"
+                                style={{ marginLeft: "20px" }}
+                                color="secondary"
+                                onClick={logout}
+                            >
+                                Logout
+                            </Button>
+                        </div>
+                    </>
+                    :
+                    <Button
+                        color="primary"
+                        style={{ border: "1px solid black", backgroundColor: "#FFF" }}
+                        onClick={handleLogin}
+                    >
+                        Sign In
+                    </Button>
+                }
+            </Toolbar>
+        </AppBar>
     );
 };
 

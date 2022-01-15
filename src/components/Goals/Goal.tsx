@@ -77,16 +77,18 @@ const Goal = (props: props) => {
               Cadence: {cadence}
             </Typography>
           }
-          <FormControlLabel
-            label="Complete?"
-            control={
-              <Checkbox
-                disabled
-                value={complete}
-                placeholder="Goal complete?"
-              />
-            }
-          />
+          {!setupView &&
+            <FormControlLabel
+              label="Complete?"
+              control={
+                <Checkbox
+                  disabled
+                  value={complete}
+                  placeholder="Goal complete?"
+                />
+              }
+            />
+          }
         </CardContent>
         {setupView &&
           <CardActions>

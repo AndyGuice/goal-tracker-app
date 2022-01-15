@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Button,
   Checkbox,
-  Container,
   FormControl,
   FormControlLabel,
   Grid,
@@ -32,7 +32,6 @@ const AddGoal = () => {
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
   const [goalCadence, setGoalCadence] = useState('daily');
-  const [goalComplete, setGoalComplete] = useState(false);
 
   const profile = localStorage.getItem('profile')!;
   const [
@@ -57,7 +56,7 @@ const AddGoal = () => {
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
     goal.cadence = goalCadence;
-    goal.complete = goalComplete;
+    goal.complete = false
     goal.userId = googleId || result._id;
 
     const goalResult = validateGoal(goal);
@@ -88,17 +87,27 @@ const AddGoal = () => {
   };
 
   return (
-    <Container component="main" style={{ marginTop: "100px" }}>
+    <Grid 
+      container
+      justifyContent="center" 
+      component="main"
+    >
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={10}>
-              <Typography component="h2" variant="h5" align="center" gutterBottom>Add Goal</Typography>
+            <Grid item xs={12}>
+              <Typography 
+                component="h2" 
+                variant="h5" 
+                align="center" 
+                gutterBottom
+              >
+                Add Goal
+              </Typography>
               <TextField
                 onChange={(e) => { setGoalTitle(e.target.value); }}
                 value={goalTitle}
                 label="Goal Name"
-                placeholder="Enter goal Name"
+                placeholder="Enter goal name"
                 fullWidth
               />
               <TextField
@@ -114,7 +123,7 @@ const AddGoal = () => {
                   labelId="goal-cadence-select-label"
                   id="goal-cadence-select"
                   value={goalCadence}
-                  label="Cadence"
+                  label="Goal Cadence"
                   onChange={(e: any) => setGoalCadence(e.target.value)}
                 >
                   <MenuItem value={"daily"}>Daily</MenuItem>
@@ -122,28 +131,24 @@ const AddGoal = () => {
                   <MenuItem value={"monthly"}>Monthly</MenuItem>
                 </Select>
               </FormControl>
-              <FormControlLabel
-                label="Complete?"
-                control={
-                  <Checkbox
-                    onChange={(e) => { setGoalComplete(!goalComplete); }}
-                    value={goalComplete}
-                    placeholder="Goal complete?"
-                  />
-                }
-              />
-              <Grid item xs={12} sm={2} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <Box textAlign="center">
                 <Button 
                   type="submit"
+                  variant="outlined"
+                  color="primary"
+                  style={{ margin: 10, marginTop: 20 }}
                 >
                   Submit
                 </Button>
-              </Grid>
+              </Box>
             </Grid>
-          </Grid>
         </Paper>
       </form>
-      <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar 
+        open={showError}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert
           onClose={handleClose}
           severity="warning"
@@ -152,7 +157,7 @@ const AddGoal = () => {
           {error}
         </Alert>
       </Snackbar>
-    </Container>
+    </Grid>
   );
 };
 

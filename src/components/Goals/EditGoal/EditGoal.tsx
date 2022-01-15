@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   Button,
   CircularProgress,
-  Container,
-  Checkbox,
+  FormControl,
   FormControlLabel,
   Grid,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Snackbar,
   TextField,
   Typography
@@ -73,7 +76,6 @@ export const EditGoal = () => {
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
     goal.cadence = goalCadence;
-    goal.complete = goalComplete;
     goal.userId = user.result._id;
     goal._id = id;
 
@@ -98,7 +100,11 @@ export const EditGoal = () => {
 
   if (isLoading) {
     return (
-      <Container component="main" style={{ marginTop: "100px" }}>
+      <Grid
+        container
+        component="main" 
+        style={{ marginTop: "100px" }}
+      >
         <Paper
           elevation={6}
           className={classes.loadingPaper}
@@ -106,17 +112,21 @@ export const EditGoal = () => {
         >
           <CircularProgress size="7em" color="secondary" />
         </Paper>
-      </Container>
+      </Grid>
     );
   }
 
   return (
-    <Container component="main" style={{ marginTop: "100px" }}>
+    <Grid 
+      container
+      justifyContent="center"
+      component="main"
+    >
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={10} alignItems="center">
+            <Grid item xs={12}>
               <Typography
+                id="goal-edit-button"
                 component="h2"
                 variant="h5"
                 align="center"
@@ -125,50 +135,52 @@ export const EditGoal = () => {
                 Edit Goal
               </Typography>
               <TextField
+                id="goal-title-input"
+                label="Goal Title"
                 onChange={(e) => { setGoalTitle(e.target.value); }}
                 value={goalTitle}
                 placeholder="Goal name"
                 fullWidth
               />
               <TextField
+                id="goal-description-input"
+                label="Goal Description"
                 onChange={(e) => { setGoalDescription(e.target.value); }}
                 value={goalDescription}
                 placeholder="Goal description"
                 fullWidth
               />
-              <TextField
-                onChange={(e) => { setGoalCadence(e.target.value); }}
-                label="Goal Cadence"
-                value={goalCadence}
-                placeholder="Enter goal cadence"
-                fullWidth
-              />
-              <FormControlLabel
-                label="Complete?"
-                control={
-                  <Checkbox
-                    onChange={(e) => { setGoalComplete(!goalComplete); }}
-                    value={goalComplete}
-                    placeholder="Goal complete?"
-                  />
-                }
-              />
+              <FormControl fullWidth>
+                <InputLabel id="goal-cadence-select-label">Cadence</InputLabel>
+                <Select
+                  labelId="goal-cadence-select-label"
+                  id="goal-cadence-select"
+                  value={goalCadence}
+                  label="Cadence"
+                  onChange={(e: any) => setGoalCadence(e.target.value)}
+                >
+                  <MenuItem value={"daily"}>Daily</MenuItem>
+                  <MenuItem value={"weekly"}>Weekly</MenuItem>
+                  <MenuItem value={"monthly"}>Monthly</MenuItem>
+                </Select>
+              </FormControl>
+              <Box textAlign="center">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  style={{ marginTop: 20 }}
+                >
+                  Save goal
+                </Button>
+              </Box>
             </Grid>
-          </Grid>
         </Paper>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          type="submit"
-        >
-          Save goal
-        </Button>
       </form>
       <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="warning" className={classes.alert}>{error}</Alert>
       </Snackbar>
-    </Container>
+    </Grid>
   );
 };
 

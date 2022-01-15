@@ -86,7 +86,7 @@ export const updateGoal = (goal: any, history: any) => async (dispatch: any) => 
     dispatch({ type: UPDATE, payload: data });
     dispatch({ type: UPDATE_SUCCESSFUL, payload: true });
     dispatch({ type: END_LOADING });
-    return history.push(`/goals`);
+    return history.push(`/setup`);
 
   } catch (error) {
     console.log(error);
@@ -102,7 +102,7 @@ export const deleteGoal = (id: String, history: any) => async (dispatch: any) =>
     dispatch({ type: DELETE, payload: id });
     dispatch({ type: DELETE_SUCCESSFUL, payload: true });
     dispatch({ type: END_LOADING });
-    return history.push(`/`);
+    return history.push(`/setup`);
 
   } catch (error) {
     console.log(error);
