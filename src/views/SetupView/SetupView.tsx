@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
-  CircularProgress,
   Grow,
+  CircularProgress,
   Paper,
   Button,
-  Container,
   Snackbar,
 } from '@material-ui/core';
 import useStyles from './styles';
@@ -81,7 +80,7 @@ const SetupView = () => {
   };
 
   return (
-    <Container>
+    <Grid container spacing={3}>
       {user?.result &&
         <Button
           variant="contained"
@@ -99,7 +98,7 @@ const SetupView = () => {
         </Paper>
         :
         <Grow in={true} timeout={{ enter: 1500 }}>
-          <Grid container spacing={3}>
+          <Grid item xs={12}>
             {
               goals?.map((goal: GoalModel, index: number) => (
                 <Goal goal={goal} key={index} setupView={true} />
@@ -132,7 +131,7 @@ const SetupView = () => {
           Delete successful
         </Alert>
       </Snackbar>
-    </Container>
+    </Grid>
   );
 };
 

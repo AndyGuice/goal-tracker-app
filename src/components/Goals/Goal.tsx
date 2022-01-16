@@ -62,9 +62,6 @@ const Goal = (props: props) => {
     <Grid 
       item
       xs={12}
-      md={6}
-      lg={3}
-      style={{ marginTop: 20 }}
     >
       <Card className={classes.root} raised>
         <CardContent>
