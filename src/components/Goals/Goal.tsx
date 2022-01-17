@@ -1,15 +1,12 @@
-import React, { 
-  // useEffect,
-  // useState
-} from 'react';
+import React, { useState } from 'react';
 import {
   Card,
   CardActions,
   CardContent,
-  Checkbox,
   FormControlLabel,
   Grid,
   IconButton,
+  Switch,
   Typography
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
@@ -17,7 +14,7 @@ import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { deleteGoal } from '../../store/actions/goals';
+import { deleteGoal, updateGoalComplete } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
 
 interface props {
@@ -45,13 +42,32 @@ const Goal = (props: props) => {
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
 
+  const [isComplete, setIsComplete] = useState<boolean>(complete)
+
+  const handleSwitchChange = (e: React.SyntheticEvent) => {
+    e.preventDefault()
+   
+    let updatedGoal = goal
+    updatedGoal.complete = !complete
+    setIsComplete(!complete)
+
+    handleSubmit(updatedGoal)
+  }
+
+  const handleSubmit = (goal: GoalModel) => {
+    dispatch(updateGoalComplete(goal))
+  }
+
   return (
-    <Grid item xs={12} md={6} lg={3} style={{ marginTop: "10px" }}>
-      <Card className={classes.root} raised>
+    <Grid 
+      item
+      xs={12}
+    >
+      <Card className={classes.goalContainer} raised>
         <CardContent>
           <Typography
             gutterBottom
-            variant="h5"
+            variant="h4"
             component="h2"
             noWrap
           >
@@ -81,10 +97,9 @@ const Goal = (props: props) => {
             <FormControlLabel
               label="Complete?"
               control={
-                <Checkbox
-                  disabled
-                  value={complete}
-                  placeholder="Goal complete?"
+                <Switch
+                  checked={isComplete}
+                  onChange={(e: any) => handleSwitchChange(e)}
                 />
               }
             />

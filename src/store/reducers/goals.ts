@@ -51,7 +51,7 @@ export default (state = { isLoading: true, goals: [] }, action: any) => {
     case DELETE:
       return {
         ...state,
-        movies: state.goals.filter((goal) => goal._id !== action.payload)
+        movies: state.goals.filter((goal: any) => goal._id !== action.payload)
       };
     case DELETE_SUCCESSFUL:
       return {

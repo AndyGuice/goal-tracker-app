@@ -3,11 +3,9 @@ import { deepPurple } from '@material-ui/core/colors';
 
 export default makeStyles((theme: Theme) =>
     createStyles({
-        root: {
+        container: {
             flexGrow: 1,
-        },
-        menuButton: {
-            marginRight: theme.spacing(2),
+            width: '100%',
         },
         title: {
             flexGrow: 1,
@@ -15,15 +13,20 @@ export default makeStyles((theme: Theme) =>
         logout: {
             marginLeft: '20px',
         },
-        userName: {
-            display: 'flex',
-            alignItems: 'center',
-            textAlign: 'center',
-        },
         purple: {
             color: theme.palette.getContrastText(deepPurple[500]),
             backgroundColor: deepPurple[500],
             marginRight: '20px'
+        },
+        button: {
+            
+        },
+        navLinks: {
+            display: 'flex',
+        },
+        [theme.breakpoints.down("sm")]: {
+        },
+        [theme.breakpoints.down("xs")]: {
         },
     }),
 );

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
-  CircularProgress,
   Grow,
+  CircularProgress,
   Paper,
   Button,
-  Container,
   Snackbar,
-  Typography,
 } from '@material-ui/core';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
@@ -19,9 +17,9 @@ import GoalModel from '../../types/goal';
 import Goal from '../../components/Goals/Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
-import { displayGoalOnCadence } from '../../helpers/cadence'
+// import { displayGoalOnCadence } from '../../helpers/cadence'
 
-const SetupPage = () => {
+const SetupView = () => {
   const {
     goals,
     isLoading,
@@ -37,8 +35,7 @@ const SetupPage = () => {
   const [showEditSuccess, setShowEditSuccess] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
   const [
-    user, 
-    // setUser
+    user,
   ] = useState(JSON.parse(profile));
 
   useEffect(() => {
@@ -53,17 +50,16 @@ const SetupPage = () => {
     }
   }, [deleteSuccessful]);
 
-  useEffect(() => {
-    displayGoalOnCadence('daily', 3)
-  })
+  // useEffect(() => {
+  //   displayGoalOnCadence('daily', 3)
+  // })
 
   useEffect(() => {
     const { result } = user || { user: {} };
     const userId = result?.googleId || result?._id;
 
     dispatch(getUserGoals(userId));
-  // eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const handleCloseEditSuccess = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -84,14 +80,14 @@ const SetupPage = () => {
   };
 
   return (
-    <Container style={{ marginTop: "100px" }}>
+    <Grid container spacing={3}>
       {user?.result &&
         <Button
           variant="contained"
           color="primary"
           onClick={() => history.push("/addGoal")}
           fullWidth
-          style={{ marginBottom: 20 }}
+          style={{ marginTop: 20, marginBottom: 20 }}
         >
           Add goal
         </Button>
@@ -102,7 +98,7 @@ const SetupPage = () => {
         </Paper>
         :
         <Grow in={true} timeout={{ enter: 1500 }}>
-          <Grid container spacing={3}>
+          <Grid item xs={12}>
             {
               goals?.map((goal: GoalModel, index: number) => (
                 <Goal goal={goal} key={index} setupView={true} />
@@ -135,8 +131,8 @@ const SetupPage = () => {
           Delete successful
         </Alert>
       </Snackbar>
-    </Container>
+    </Grid>
   );
 };
 
-export default SetupPage;
+export default SetupView;
