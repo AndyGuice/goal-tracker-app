@@ -6,6 +6,10 @@ export default makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: 10,
     },
+    title: {
+      display: 'flex',
+      textAlign: 'center',
+    },
     goalContainer: {
       justifyContent: "center",
       paddingTop: 15,
@@ -33,6 +37,13 @@ export default makeStyles((theme: Theme) =>
       height: '75vh',
       width: '100%',
       marginTop: '20px'
+    },
+    [theme.breakpoints.down("xs")]: {
+      goal: {
+        width: '100%',
+        display: 'flex',
+        textAlign: 'center',
+      }
     },
   }),
 );

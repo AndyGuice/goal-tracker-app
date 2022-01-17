@@ -2,7 +2,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 export default makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    goalContainer: {
       flexGrow: 1,
     },
     loadingPaper: {
@@ -29,6 +29,11 @@ export default makeStyles((theme: Theme) =>
     },
     alert: {
       backgroundColor: '#f50060',
+    },
+    [theme.breakpoints.down("xs")]: {
+      // goalContainer: {
+      //   width: '100%'
+      // }
     },
   }),
 );

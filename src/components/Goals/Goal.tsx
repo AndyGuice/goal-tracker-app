@@ -63,11 +63,11 @@ const Goal = (props: props) => {
       item
       xs={12}
     >
-      <Card className={classes.root} raised>
+      <Card className={classes.goalContainer} raised>
         <CardContent>
           <Typography
             gutterBottom
-            variant="h5"
+            variant="h4"
             component="h2"
             noWrap
           >

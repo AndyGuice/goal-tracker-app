@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import useStyles from './styles';
 import { 
     AppBar,
+    Box,
     Button,
     Grid,
+    Hidden,
     Toolbar,
     Typography
 } from "@material-ui/core";
@@ -50,41 +52,61 @@ const Navbar = () => {
     }, [location]);
 
     return (
-        <AppBar color="primary" position="static">
-            <Toolbar>
-                <Typography 
-                    variant="h6" 
-                    className={classes.title} 
-                    align="left"
-                >
-                    <Link
-                        to={homePath}
-                        style={{ textDecoration: "none", color: "#fff" }}
-                    >
-                        Goal Tracker
-                    </Link>
-                </Typography>
-                {user?.result ?
-                    <>
-                        <Grid item xs={8} style={{ display: 'flex' }}>
-                            <Link to="/dashboard" style={{ textDecoration: 'none', padding: 10 }}>
-                                <Button
-                                    color="secondary"
-                                    variant="contained"
-                                >
-                                    Dashboard
-                                </Button>
+        <Grid 
+            container
+            className={classes.container}
+        >
+            <AppBar
+                color="primary"
+                position="static"
+            >
+                <Toolbar>
+                    <Grid item xs={10}>
+                        <Typography 
+                            variant="h6" 
+                            className={classes.title} 
+                            align="left"
+                        >
+                            <Link
+                                to={homePath}
+                                style={{ 
+                                    textDecoration: "none",
+                                    color: "#fff"
+                                }}
+                            >
+                                Goal Tracker
                             </Link>
-                            <Link to="/setup" style={{ textDecoration: 'none', padding: 10 }}>
-                                <Button
-                                    color="secondary"
-                                    variant="contained"
-                                >
-                                    Setup    
-                                </Button>
-                            </Link>
-                        </Grid>
-                        <div style={{ display: "flex" }}>
+                        </Typography>
+                    </Grid>
+                    {user?.result ?
+                        <>
+                            <Hidden xsDown>
+                                <Link
+                                    to="/dashboard"
+                                    style={{ 
+                                        textDecoration: 'none',
+                                        padding: 10,
+                                    }}>
+                                    <Button
+                                        color="secondary"
+                                        variant="contained"
+                                    >
+                                        Dashboard
+                                    </Button>
+                                </Link>
+                                <Link
+                                    to="/setup"
+                                    style={{
+                                        textDecoration: 'none',
+                                        padding: 10
+                                    }}>
+                                    <Button
+                                        color="secondary"
+                                        variant="contained"
+                                    >
+                                        Setup    
+                                    </Button>
+                                </Link>
                             <Avatar
                                 className={classes.purple}
                                 alt={user?.result.name}
@@ -93,32 +115,37 @@ const Navbar = () => {
                                 {user?.result.name.charAt(0)}
                             </Avatar>
                             <Typography
-                                className={classes.userName}
                                 variant="h6"
                             >
                                 {user?.result.name}
                             </Typography>
+                            </Hidden>
+                            <Grid item xs={3} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={logout}
+                                    className={classes.button}
+                                >
+                                    Logout
+                                </Button>
+                            </Grid>
+                        </>
+                        :
+                        <Grid item xs={3} style={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <Button
-                                variant="contained"
-                                style={{ marginLeft: "20px" }}
                                 color="secondary"
-                                onClick={logout}
+                                variant="contained"
+                                onClick={handleLogin}
+                                className={classes.button}
                             >
-                                Logout
+                                Sign In
                             </Button>
-                        </div>
-                    </>
-                    :
-                    <Button
-                        color="primary"
-                        style={{ border: "1px solid black", backgroundColor: "#FFF" }}
-                        onClick={handleLogin}
-                    >
-                        Sign In
-                    </Button>
-                }
-            </Toolbar>
-        </AppBar>
+                        </Grid>
+                    }
+                </Toolbar>
+            </AppBar>
+        </Grid>
     );
 };
 

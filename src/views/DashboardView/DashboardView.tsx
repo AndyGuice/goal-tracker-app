@@ -89,25 +89,31 @@ const DashboardView = () => {
           spacing={3}
           className={classes.goalContainer}
         >
-          <Typography variant="h1">
+          <Typography 
+            variant="h1"
+            className={classes.title}
+          >
             Today's Goals
           </Typography>
           <Grid item xs={12}>
-            <Typography variant="h5" className={classes.goalGroupHeader}>
+            <Typography 
+              variant="h5"
+              className={classes.goalGroupHeader}
+            >
               Daily
             </Typography>
           </Grid>
           {goals?.map((goal: GoalModel, index: number) => {
-          const { cadence } = goal
-            if (cadence === "daily") {
-              return (
-                <div key={index} className={classes.goal}>
-                  <Goal goal={goal} setupView={false} />
-                </div>
-              )
-            }
-          })
-        }
+            const { cadence } = goal
+              if (cadence === "daily") {
+                return (
+                  <div key={index} className={classes.goal}>
+                    <Goal goal={goal} setupView={false} />
+                  </div>
+                )
+              }
+            })
+          }
         </Grid>
         <Grid 
           container
@@ -115,7 +121,10 @@ const DashboardView = () => {
           className={classes.goalContainer}
         >
           <Grid item xs={12}>
-            <Typography variant="h5" className={classes.goalGroupHeader}>
+            <Typography
+              variant="h5"
+              className={classes.goalGroupHeader}
+            >
               Weekly
             </Typography>
           </Grid>
@@ -137,7 +146,10 @@ const DashboardView = () => {
           className={classes.goalContainer}
         >
           <Grid item xs={12}>
-            <Typography variant="h5" className={classes.goalGroupHeader}>
+            <Typography
+              variant="h5"
+              className={classes.goalGroupHeader}
+            >
               Monthly
             </Typography>
           </Grid>
