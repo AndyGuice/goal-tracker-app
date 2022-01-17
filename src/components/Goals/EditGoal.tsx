@@ -78,6 +78,7 @@ export const EditGoal = () => {
     goal.quantity = goalQuantity
     goal.userId = user.result._id;
     goal._id = id;
+    goal.updatedOn = new Date();
 
     const goalResult = validateGoal(goal);
     if (!goalResult.ok) {

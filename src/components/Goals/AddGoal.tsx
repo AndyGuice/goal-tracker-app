@@ -48,6 +48,7 @@ const AddGoal = () => {
     const { googleId } = result;
 
     const goal = new GoalModel();
+    const today = new Date()
 
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
@@ -55,6 +56,8 @@ const AddGoal = () => {
     goal.complete = false;
     goal.userId = googleId || result._id;
     goal.quantity = goalQuantity;
+    goal.createdOn = today;
+    goal.updatedOn = today;
 
     const goalResult = validateGoal(goal);
     if (!goalResult.ok) {
