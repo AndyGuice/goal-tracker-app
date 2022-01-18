@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-  Avatar,
   Button,
   Container,
   Paper,
@@ -10,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { signin } from '../../store/actions/auth';
 import GoogleIcon from '../../helpers/GoogleIcon';
 import useStyles from './styles';
@@ -83,7 +81,7 @@ const LoginUser = () => {
     setOpenErrorDialog(false)
   }
 
-  const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
+  const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later');
 
   const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -95,9 +93,6 @@ const LoginUser = () => {
         error={submitError}
       />
       <Paper className={classes.paper} elevation={6}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">Sign in</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -142,7 +137,7 @@ const LoginUser = () => {
             onFailure={googleError}
             cookiePolicy="single_host_origin"
           />
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Button
                 onClick={() => history.push('/register')}

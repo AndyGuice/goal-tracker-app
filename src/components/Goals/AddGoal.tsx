@@ -48,7 +48,7 @@ const AddGoal = () => {
     const { googleId } = result;
 
     const goal = new GoalModel();
-    const today = new Date()
+    const today = new Date().toISOString()
 
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
