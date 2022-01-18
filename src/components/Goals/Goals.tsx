@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Goal from './Goal'
 import GoalModel from '../../types/goal';
 import useStyles from './styles';
+import { CheckAndSetNewGoals } from '../../helpers/goals'
+
 import {
   Grid,
   Typography
@@ -10,6 +12,11 @@ import {
 const Goals = (props: any) => {
   const { cadence, goals } = props
   const classes = useStyles();
+
+
+  useEffect(() => {
+    CheckAndSetNewGoals(goals)
+  })
 
   return (
     <>

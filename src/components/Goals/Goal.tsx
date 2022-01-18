@@ -16,20 +16,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal, updateGoalComplete } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
-import { parseISO } from 'date-fns';
-import { format, utcToZonedTime } from "date-fns-tz";
 
 interface props {
   goal: GoalModel;
   setupView: Boolean;
-}
-
-const checkForExistingGoal = (goal: GoalModel) => {
-  const { createdOn } = goal
-  const parsedTime = parseISO(createdOn)
-  const goalCreatedDay = format(parsedTime, 'eeee') 
-  const today = format(new Date(), 'eeee')
-  console.log('Goal Created: ', goalCreatedDay, ' | Today is: ', today)
 }
 
 const Goal = (props: props) => {
@@ -41,16 +31,11 @@ const Goal = (props: props) => {
     complete,
     userId: goalUserID,
     _id: goalID,
-    createdOn,
   } = goal;
 
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    checkForExistingGoal(goal)
-  }, [goal])
 
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);

@@ -11,7 +11,7 @@ import useStyles from './styles';
 import { getUserGoals } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals'
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
-import Alert from '../../helpers/Alert';
+import Alert from '../../helpers/alert';
 
 const DashboardView = () => {
   const {

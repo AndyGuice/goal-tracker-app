@@ -10,13 +10,13 @@ import {
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { signin } from '../../store/actions/auth';
-import GoogleIcon from '../../helpers/GoogleIcon';
+import GoogleIcon from '../../helpers/googleIcon';
 import useStyles from './styles';
 import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../constants/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
 import { useEffect } from 'react';
-import Alert from '../../helpers/Alert';
+import Alert from '../../helpers/alert';
 import ErrorDialog from '../shared/ErrorDialog/ErrorDialog'
 
 const initialState = { 
@@ -65,8 +65,10 @@ const LoginUser = () => {
 
   // const googleSuccess = async (res: any) => {
   const googleSuccess = (res: any) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
+    const { profileObj, tokenId } = res;
+
+    const result = profileObj;
+    const token = tokenId;
 
     try {
       dispatch({ type: AUTH, data: { result, token } });

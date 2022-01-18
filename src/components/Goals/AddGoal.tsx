@@ -15,7 +15,7 @@ import {
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../constants/actionTypes';
-import Alert from '../../helpers/Alert';
+import Alert from '../../helpers/alert';
 import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
 import useStyles from './styles';

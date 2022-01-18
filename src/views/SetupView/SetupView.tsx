@@ -16,7 +16,7 @@ import {
 import GoalModel from '../../types/goal';
 import Goal from '../../components/Goals/Goal';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
-import Alert from '../../helpers/Alert';
+import Alert from '../../helpers/alert';
 // import { displayGoalOnCadence } from '../../helpers/cadence'
 
 const SetupView = () => {
