@@ -9,8 +9,7 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import { getUserGoals } from '../../store/actions/goals';
-import GoalModel from '../../types/goal';
-import Goal from '../../components/Goals/Goal';
+import Goals from '../../components/Goals/Goals'
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/Alert';
 
@@ -95,75 +94,30 @@ const DashboardView = () => {
           >
             Today's Goals
           </Typography>
-          <Grid item xs={12}>
-            <Typography 
-              variant="h5"
-              className={classes.goalGroupHeader}
-            >
-              Daily
-            </Typography>
-          </Grid>
-          {goals?.map((goal: GoalModel, index: number) => {
-            const { cadence } = goal
-              if (cadence === "daily") {
-                return (
-                  <div key={index} className={classes.goal}>
-                    <Goal goal={goal} setupView={false} />
-                  </div>
-                )
-              }
-            })
-          }
+          <Goals
+            goals={goals}
+            cadence='daily'
+          />
         </Grid>
         <Grid 
           container
           spacing={3}
           className={classes.goalContainer}
         >
-          <Grid item xs={12}>
-            <Typography
-              variant="h5"
-              className={classes.goalGroupHeader}
-            >
-              Weekly
-            </Typography>
-          </Grid>
-          {goals?.map((goal: GoalModel, index: number) => {
-          const { cadence } = goal
-            if (cadence === "weekly") {
-              return (
-                <div key={index} className={classes.goal}>
-                  <Goal goal={goal} setupView={false} />
-                </div>
-              )
-            }
-          })
-        }
+          <Goals
+            goals={goals}
+            cadence='weekly'
+          />
         </Grid>
         <Grid 
           container
           spacing={3}
           className={classes.goalContainer}
         >
-          <Grid item xs={12}>
-            <Typography
-              variant="h5"
-              className={classes.goalGroupHeader}
-            >
-              Monthly
-            </Typography>
-          </Grid>
-          {goals?.map((goal: GoalModel, index: number) => {
-          const { cadence } = goal
-            if (cadence === "monthly") {
-              return (
-                <div key={index} className={classes.goal}>
-                  <Goal goal={goal} setupView={false} />
-                </div>
-              )
-            }
-          })
-        }
+         <Goals
+            goals={goals}
+            cadence='monthly'
+          />
         </Grid>
       </>
       }

@@ -30,6 +30,7 @@ const Goal = (props: props) => {
     cadence,
     complete,
     userId: goalUserID,
+    _id: goalID,
   } = goal;
 
   const classes = useStyles();
@@ -51,11 +52,11 @@ const Goal = (props: props) => {
     updatedGoal.complete = !complete
     setIsComplete(!complete)
 
-    handleSubmit(updatedGoal)
+    handleSubmit(updatedGoal, history)
   }
 
-  const handleSubmit = (goal: GoalModel) => {
-    dispatch(updateGoalComplete(goal))
+  const handleSubmit = (goal: GoalModel, history: any) => {
+    dispatch(updateGoalComplete(goal, history))
   }
 
   return (
@@ -112,14 +113,14 @@ const Goal = (props: props) => {
                 <IconButton
                   title="Edit goal"
                   aria-label="edit goal"
-                  onClick={() => history.push(`/editGoal/${props.goal._id}`)}
+                  onClick={() => history.push(`/editGoal/${goalID}`)}
                 >
                   <EditRoundedIcon fontSize="large" color="secondary" />
                 </IconButton>
                 <IconButton
                   title="Delete goal"
                   aria-label="delete goal"
-                  onClick={() => dispatch(deleteGoal(props.goal._id, history))}
+                  onClick={() => dispatch(deleteGoal(goalID, history))}
                 >
                   <DeleteIcon fontSize="large" color="secondary" />
                 </IconButton>

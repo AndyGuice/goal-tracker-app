@@ -12,6 +12,7 @@ import {
   UPDATE_SUCCESSFUL
 } from "../../constants/actionTypes";
 import * as api from '../../api';
+import GoalModel from '../../types/goal';
 
 export const getAllGoals = () => async (dispatch: any) => {
 
@@ -95,7 +96,7 @@ export const updateGoal = (goal: any, history: any) => async (dispatch: any) => 
   }
 };
 
-export const updateGoalComplete = (goal: any) => async (dispatch: any) => {
+export const updateGoalComplete = (goal: GoalModel, history: any) => async (dispatch: any) => {
 
   try {
     dispatch({ type: START_LOADING });
@@ -103,13 +104,12 @@ export const updateGoalComplete = (goal: any) => async (dispatch: any) => {
 
     if (data?.error) {
       dispatch({ type: ERROR, data });
-      // return history.push(`/editGoal/${goal._id}`);
+      return history.push(`/editGoal/${goal._id}`);
     }
 
     dispatch({ type: UPDATE, payload: data });
     dispatch({ type: UPDATE_SUCCESSFUL, payload: true });
     dispatch({ type: END_LOADING });
-    // return history.push(`/dashboard`);
 
   } catch (error) {
     console.log(error);
@@ -125,6 +125,7 @@ export const deleteGoal = (id: String, history: any) => async (dispatch: any) =>
     dispatch({ type: DELETE, payload: id });
     dispatch({ type: DELETE_SUCCESSFUL, payload: true });
     dispatch({ type: END_LOADING });
+
     return history.push(`/setup`);
 
   } catch (error) {
