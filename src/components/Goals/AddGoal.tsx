@@ -136,7 +136,9 @@ const AddGoal = () => {
                 </Select>
               </FormControl>
               <FormControl fullWidth className={classes.button}>
-                <InputLabel id="goal-quantity-select-label">Goal Quantity (amount per cadence)</InputLabel>
+                <InputLabel id="goal-quantity-select-label">
+                  Goal Quantity (amount per cadence)
+                </InputLabel>
                 <Select
                   labelId="goal-quantity-select-label"
                   id="goal-quantity-select"

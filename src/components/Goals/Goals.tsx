@@ -3,6 +3,8 @@ import Goal from './Goal'
 import GoalModel from '../../types/goal';
 import useStyles from './styles';
 import { CheckAndSetNewGoals } from '../../helpers/goals'
+import { useDispatch } from 'react-redux';
+import { createRecurringGoal } from '../../store/actions/goals';
 
 import {
   Grid,
@@ -11,8 +13,16 @@ import {
 
 const Goals = (props: any) => {
   const { cadence, goals } = props
-  const classes = useStyles();
 
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const createNewRecurringGoal = (goal: GoalModel) => {
+    const today = new Date().toISOString()
+    goal.createdOn = today;
+    goal.updatedOn = today;
+    dispatch(createRecurringGoal(goal));
+  }
 
   useEffect(() => {
     CheckAndSetNewGoals(goals)

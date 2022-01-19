@@ -1,26 +1,53 @@
 import GoalModel from '../types/goal';
-import { parseISO } from 'date-fns';
+import { parseISO, getWeek, getMonth } from 'date-fns';
 import { format, utcToZonedTime } from "date-fns-tz";
+import { createRecurringGoal } from '../store/actions/goals';
+import { useDispatch } from 'react-redux';
 
 export const CheckAndSetNewGoals = (goals: GoalModel[]) => {
-
   goals.map((goal: GoalModel) => {
-    const createNewGoal = isNewDailyGoalNeeded(goal)
-    console.log('Create New Goal: ', createNewGoal)
+    const recurringGoalCreated = isRecurringGoalCreated(goal)
+    if (!recurringGoalCreated) {
+      createNewGoal(goal)
+    }
   })
 }
 
-const isNewDailyGoalNeeded = (goal: GoalModel) => {
-  const { createdOn } = goal
+const isRecurringGoalCreated = (goal: GoalModel) => {
+  const { createdOn, cadence } = goal
+
   const parsedTime = parseISO(createdOn)
   const timeZone = 'America/Chicago'
-  const goalCreatedInCST = utcToZonedTime(parsedTime, timeZone)
-  const goalCreatedDay = format(goalCreatedInCST, 'eeee')
-  const today = format(new Date(), 'eeee')
+  const goalCreatedOnInCST = utcToZonedTime(parsedTime, timeZone)
+  const currentDate = new Date()
 
-  console.log('Goal Created: ', goalCreatedDay, ' | Today is: ', today)
+  checkDailyGoal(currentDate, goalCreatedOnInCST, cadence)
+  checkWeeklyGoal(currentDate, goalCreatedOnInCST, cadence)
+  checkMonthlyGoal(currentDate, goalCreatedOnInCST, cadence)
 
-  if (goalCreatedDay === today) return false
+  return false
+}
 
-  return true
+const checkDailyGoal = (currentDate: Date, goalCreatedOnInCST: Date, goalCadence: String) => {
+  const today = format(currentDate, 'eeee')
+  const goalCreatedDay = format(goalCreatedOnInCST, 'eeee')
+
+  if (goalCreatedDay === today && goalCadence === 'daily') return true
+  return false
+}
+
+const checkWeeklyGoal = (currentDate: Date, goalCreatedOnInCST: Date, goalCadence: String) => {
+  const currentWeek = getWeek(currentDate)
+  const goalCreatedWeek = getWeek(goalCreatedOnInCST)
+
+  if (goalCreatedWeek === currentWeek && goalCadence === 'weekly') return true
+  return false
+}
+
+const checkMonthlyGoal = (currentDate: Date, goalCreatedOnInCST: Date, goalCadence: String) => {
+  const currentMonth = getMonth(currentDate)
+  const goalCreatedMonth = getMonth(goalCreatedOnInCST)
+
+  if (goalCreatedMonth === currentMonth && goalCadence === 'monthly') return true
+  return false
 }
