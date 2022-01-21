@@ -1,56 +1,100 @@
-import React, { useEffect } from 'react'
-import Goal from './Goal'
+import React, { useState, useEffect } from 'react';
+import Goal from './Goal';
 import GoalModel from '../../types/goal';
 import useStyles from './styles';
-import { CheckAndSetNewGoals } from '../../helpers/goals'
-import { useDispatch } from 'react-redux';
-import { createRecurringGoal } from '../../store/actions/goals';
 
 import {
   Grid,
   Typography
-} from '@material-ui/core'
+} from '@material-ui/core';
 
 const Goals = (props: any) => {
-  const { cadence, goals } = props
-
+  const { goals, setupView } = props;
   const classes = useStyles();
-  const dispatch = useDispatch();
 
-  const createNewRecurringGoal = (goal: GoalModel) => {
-    const today = new Date().toISOString()
-    goal.createdOn = today;
-    goal.updatedOn = today;
-    dispatch(createRecurringGoal(goal));
-  }
+  const [dailyGoals, setDailyGoals] = useState<GoalModel[]>([]);
+  const [weeklyGoals, setWeeklyGoals] = useState<GoalModel[]>([]);
+  const [monthlyGoals, setMonthlyGoals] = useState<GoalModel[]>([]);
+
+  const organizeGoalsByCadence = (goals: GoalModel[]) => {
+    const dailyGoalList = [];
+    const weeklyGoalList = [];
+    const monthlyGoalList = [];
+
+    {
+      goals.map((goal: GoalModel) => {
+        const { cadence } = goal;
+        if (cadence === 'daily') {
+          dailyGoalList.push(goal);
+        }
+        if (cadence === 'weekly') {
+          weeklyGoalList.push(goal);
+        }
+        if (cadence === 'monthly') {
+          monthlyGoalList.push(goal);
+        }
+      });
+    };
+
+    setDailyGoals(dailyGoalList);
+    setWeeklyGoals(weeklyGoalList);
+    setMonthlyGoals(monthlyGoalList);
+  };
 
   useEffect(() => {
-    CheckAndSetNewGoals(goals)
-  })
+    if (goals) {
+      organizeGoalsByCadence(goals);
+    }
+  }, [goals]);
 
   return (
     <>
-     <Grid item xs={12}>
-      <Typography 
-        variant="h5"
-        className={classes.goalGroupHeader}
-      >
-        {cadence}
-      </Typography>
-    </Grid>
-    {
-      goals?.map((goal: GoalModel, index: number) => {
-        if (cadence === goal.cadence) {
-        return (
-          <div key={index} className={classes.goal}>
-            <Goal goal={goal} setupView={false} />
-          </div>
-        )}
-      })
-    }
-    </>
-  )
-}
+      {dailyGoals && (dailyGoals.length > 0) && (
+        <Grid item xs={12}>
+          <Typography
+            variant="h4"
+            className={classes.goalGroupHeader}
+            align="center"
+          >
+            Daily Goals
+          </Typography>
+          {dailyGoals.map((goal: GoalModel, index: number) => (
+            <Goal key={index} goal={goal} setupView={setupView} />
+          ))}
+        </Grid>
+      )}
+      {weeklyGoals && (weeklyGoals.length > 0) && (
+        <Grid item xs={12}>
+          <Typography
+            variant="h4"
+            className={classes.goalGroupHeader}
+            align="center"
+          >
+            Weekly Goals
+          </Typography>
+          {weeklyGoals.map((goal: GoalModel, index: number) => (
+            <Goal key={index} goal={goal} setupView={setupView} />
+          ))}
+        </Grid>
+      )}
+      {monthlyGoals && (monthlyGoals.length > 0) && (
+        <Grid item xs={12}>
+          <Typography
+            variant="h4"
+            className={classes.goalGroupHeader}
+            align="center"
+          >
+            Monthly Goals
+          </Typography>
 
-export default Goals
+          {monthlyGoals.map((goal: GoalModel, index: number) => (
+            <Goal key={index} goal={goal} setupView={setupView} />
+          ))}
+        </Grid>
+      )}
+    </>
+  );
+};
+
+export default Goals;
 
