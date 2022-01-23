@@ -16,13 +16,6 @@ const Goals = (props: any) => {
     <>
       {goals && (goals.length > 0) && (
         <Grid item xs={12}>
-          <Typography
-            variant="h4"
-            className={classes.goalGroupHeader}
-            align="center"
-          >
-            Goals
-          </Typography>
           {goals.map((goal: GoalModel, index: number) => (
             <Goal
               key={index}

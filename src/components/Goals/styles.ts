@@ -9,26 +9,20 @@ export default makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      // padding: '20px',
-      // borderRadius: '4px',
       height: '75vh',
-      // width: '100%',
+      width: '100%',
       marginTop: '20px'
     },
     goalGroupHeader: {
-      // padding: 10,
     },
     title: {
-      fontSize: 14,
+      fontSize: 10,
     },
     paper: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      // padding: theme.spacing(2),
-    },
-    button: {
-      // margin: theme.spacing(1)
+      padding: theme.spacing(2),
     },
     alert: {
       backgroundColor: '#f50060',

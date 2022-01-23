@@ -1,10 +1,10 @@
-import React from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Typography from '@material-ui/core/Typography'
+import React from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 
 const ErrorDialog = (props: any) => {
-  const { open, onClose, error } = props
+  const { open, onClose, error } = props;
 
   return (
     <Dialog
@@ -16,7 +16,7 @@ const ErrorDialog = (props: any) => {
         Error: {error}
       </Typography>
     </Dialog>
-  )
-}
+  );
+};
 
-export default ErrorDialog
+export default ErrorDialog;

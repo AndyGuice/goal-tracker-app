@@ -89,7 +89,11 @@ const GoalsView = () => {
       }
       {isLoading ?
         <Paper elevation={6} className={classes.loadingPaper}>
-          <CircularProgress size="7em" color="primary" value={100} />
+          <CircularProgress
+            size="7em"
+            color="primary"
+            value={100}
+          />
         </Paper>
         :
         <Goals

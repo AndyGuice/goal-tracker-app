@@ -52,7 +52,7 @@ const DashboardView = () => {
             className={classes.goalContainer}
           >
             <Typography
-              variant="h1"
+              variant="h4"
               className={classes.title}
             >
               Today's Goals

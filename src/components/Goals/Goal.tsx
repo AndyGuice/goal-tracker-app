@@ -66,7 +66,7 @@ const Goal = (props: props) => {
         <CardContent>
           <Typography
             gutterBottom
-            variant="h4"
+            variant="h5"
             component="h2"
             noWrap
           >
@@ -101,14 +101,14 @@ const Goal = (props: props) => {
                 aria-label="edit goal"
                 onClick={() => history.push(`/editGoal/${goalID}`)}
               >
-                <EditRoundedIcon fontSize="large" color="secondary" />
+                <EditRoundedIcon fontSize="small" color="secondary" />
               </IconButton>
               <IconButton
                 title="Delete goal"
                 aria-label="delete goal"
                 onClick={() => dispatch(deleteGoal(goalID, history))}
               >
-                <DeleteIcon fontSize="large" color="secondary" />
+                <DeleteIcon fontSize="small" color="secondary" />
               </IconButton>
             </>
           }

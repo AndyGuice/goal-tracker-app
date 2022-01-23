@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
+import {
   Button,
   Container,
   Paper,
@@ -15,11 +15,10 @@ import useStyles from './styles';
 import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../constants/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
-import { useEffect } from 'react';
 import Alert from '../../helpers/alert';
-import ErrorDialog from '../shared/ErrorDialog/ErrorDialog'
+import ErrorDialog from '../shared/ErrorDialog/ErrorDialog';
 
-const initialState = { 
+const initialState = {
   firstName: '',
   lastName: '',
   email: '',
@@ -35,17 +34,17 @@ const LoginUser = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [submitError, setSubmitError] = useState('')
+  const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   useEffect(() => {
     if (error) {
       setShowError(true);
-      setSubmitError(error)
+      setSubmitError(error);
       setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [error]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -58,7 +57,7 @@ const LoginUser = () => {
 
   const handleSubmit = (
     e: any
-    ) => {
+  ) => {
     e.preventDefault();
     dispatch(signin(form, history));
   };
@@ -80,8 +79,8 @@ const LoginUser = () => {
   };
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false)
-  }
+    setOpenErrorDialog(false);
+  };
 
   const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later');
 
