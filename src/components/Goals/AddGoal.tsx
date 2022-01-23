@@ -52,10 +52,8 @@ const AddGoal = () => {
 
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
-    goal.cadence = goalCadence;
     goal.complete = false;
     goal.userId = googleId || result._id;
-    goal.quantity = goalQuantity;
     goal.createdOn = today;
     goal.updatedOn = today;
 

@@ -17,7 +17,7 @@ import Goals from '../../components/Goals/Goals';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
 import Alert from '../../helpers/alert';
 
-const SetupView = () => {
+const GoalsView = () => {
   const {
     goals,
     isLoading,
@@ -94,7 +94,6 @@ const SetupView = () => {
         :
         <Goals
           goals={goals}
-          setupView={true}
         />
       }
       <Snackbar
@@ -125,4 +124,4 @@ const SetupView = () => {
   );
 };
 
-export default SetupView;
+export default GoalsView;

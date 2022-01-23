@@ -4,6 +4,7 @@ import {
   FETCH_ALL,
   FETCH_GOAL,
   FETCH_GOALS,
+  FETCH_GOALS_FOR_TODAY,
   CREATE,
   // UPDATE,
   DELETE,
@@ -29,6 +30,11 @@ export default (state = { isLoading: true, goals: [] }, action: any) => {
         goals: action.payload.data,
       };
     case FETCH_GOALS:
+      return {
+        ...state,
+        goals: action.payload.data,
+      };
+    case FETCH_GOALS_FOR_TODAY:
       return {
         ...state,
         goals: action.payload.data,

@@ -19,15 +19,13 @@ import { useDispatch } from 'react-redux';
 
 interface props {
   goal: GoalModel;
-  setupView: Boolean;
 }
 
 const Goal = (props: props) => {
-  const { goal, setupView } = props;
+  const { goal } = props;
   const {
     title,
     description,
-    cadence,
     complete,
     userId: goalUserID,
     _id: goalID,
@@ -43,24 +41,24 @@ const Goal = (props: props) => {
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
 
-  const [isComplete, setIsComplete] = useState<boolean>(complete)
+  const [isComplete, setIsComplete] = useState<boolean>(complete);
 
   const handleSwitchChange = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-   
-    let updatedGoal = goal
-    updatedGoal.complete = !complete
-    setIsComplete(!complete)
+    e.preventDefault();
 
-    handleSubmit(updatedGoal, history)
-  }
+    let updatedGoal = goal;
+    updatedGoal.complete = !complete;
+    setIsComplete(!complete);
+
+    handleSubmit(updatedGoal, history);
+  };
 
   const handleSubmit = (goal: GoalModel, history: any) => {
-    dispatch(updateGoalComplete(goal, history))
-  }
+    dispatch(updateGoalComplete(goal, history));
+  };
 
   return (
-    <Grid 
+    <Grid
       item
       xs={12}
     >
@@ -83,53 +81,38 @@ const Goal = (props: props) => {
           >
             Description: {description}
           </Typography>
-          {setupView &&
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              gutterBottom
-              noWrap
-            >
-              Cadence: {cadence}
-            </Typography>
-          }
-          {!setupView &&
-            <FormControlLabel
-              label="Complete?"
-              control={
-                <Switch
-                  checked={isComplete}
-                  onChange={(e: any) => handleSwitchChange(e)}
-                />
-              }
-            />
-          }
-        </CardContent>
-        {setupView &&
-          <CardActions>
-            {loggedUser && 
-              Object.keys(loggedUser).length !== 0 && 
-                userID === goalUserID &&
-              <>
-                <IconButton
-                  title="Edit goal"
-                  aria-label="edit goal"
-                  onClick={() => history.push(`/editGoal/${goalID}`)}
-                >
-                  <EditRoundedIcon fontSize="large" color="secondary" />
-                </IconButton>
-                <IconButton
-                  title="Delete goal"
-                  aria-label="delete goal"
-                  onClick={() => dispatch(deleteGoal(goalID, history))}
-                >
-                  <DeleteIcon fontSize="large" color="secondary" />
-                </IconButton>
-              </>
+          <FormControlLabel
+            label="Complete?"
+            control={
+              <Switch
+                checked={isComplete}
+                onChange={(e: any) => handleSwitchChange(e)}
+              />
             }
-          </CardActions>
-        }
+          />
+        </CardContent>
+        <CardActions>
+          {loggedUser &&
+            Object.keys(loggedUser).length !== 0 &&
+            userID === goalUserID &&
+            <>
+              <IconButton
+                title="Edit goal"
+                aria-label="edit goal"
+                onClick={() => history.push(`/editGoal/${goalID}`)}
+              >
+                <EditRoundedIcon fontSize="large" color="secondary" />
+              </IconButton>
+              <IconButton
+                title="Delete goal"
+                aria-label="delete goal"
+                onClick={() => dispatch(deleteGoal(goalID, history))}
+              >
+                <DeleteIcon fontSize="large" color="secondary" />
+              </IconButton>
+            </>
+          }
+        </CardActions>
       </Card>
     </Grid>
   );

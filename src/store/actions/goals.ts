@@ -7,6 +7,7 @@ import {
   FETCH_ALL,
   FETCH_GOAL,
   FETCH_GOALS,
+  FETCH_GOALS_FOR_TODAY,
   START_LOADING,
   UPDATE,
   UPDATE_SUCCESSFUL
@@ -40,6 +41,19 @@ export const getUserGoals = (userId: String) => async (dispatch: any) => {
   }
 };
 
+// export const getUserGoalsForToday = (userId: String, cadence: String) => async (dispatch: any) => {
+//   try {
+//     dispatch({ type: START_LOADING });
+//     const { data: { data } } = await api.fetchUserGoalsForToday(userId, cadence);
+
+//     dispatch({ type: FETCH_GOALS_FOR_TODAY, payload: { data } });
+//     dispatch({ type: END_LOADING });
+//   }
+//   catch (error) {
+//     console.log(error);
+//   }
+// };
+
 export const getGoal = (id: any) => async (dispatch: any) => {
   try {
     dispatch({ type: START_LOADING });
@@ -66,6 +80,7 @@ export const createGoal = (goal: any, history: any) => async (dispatch: any) => 
 
     dispatch({ type: END_LOADING });
     dispatch({ type: CREATE, payload: data });
+    return history.push(`/setup`);
   }
   catch (error) {
     console.log(error);

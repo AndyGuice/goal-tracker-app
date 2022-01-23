@@ -59,7 +59,6 @@ const DashboardView = () => {
             </Typography>
             <Goals
               goals={goals}
-              setupView={false}
             />
           </Grid>
         </>

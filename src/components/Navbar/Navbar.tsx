@@ -54,11 +54,9 @@ const Navbar = () => {
     return (
         <Grid
             container
-        // className={classes.container}
         >
             <AppBar
                 color="primary"
-            // position="static"
             >
                 <Toolbar>
                     <Grid item xs={10}>
@@ -94,7 +92,7 @@ const Navbar = () => {
                                     </Button>
                                 </Link>
                                 <Link
-                                    to="/setup"
+                                    to="/goals"
                                     style={{
                                         textDecoration: 'none',
                                     }}>
@@ -102,7 +100,7 @@ const Navbar = () => {
                                         color="secondary"
                                         variant="contained"
                                     >
-                                        Setup
+                                        Goals
                                     </Button>
                                 </Link>
                                 <Avatar
