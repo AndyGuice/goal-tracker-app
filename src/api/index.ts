@@ -37,3 +37,10 @@ export const fetchGoal = (id: String) => API.get(`/goals/${id}`);
 export const createGoal = (goal: any) => API.post('/goals', goal);
 export const updateGoal = (id: String, updatedGoal: any) => API.patch(`/goals/${id}`, updatedGoal);
 export const deleteGoal = (id: String) => API.delete(`/goals/${id}`);
+
+// tasks
+export const fetchAllTasks = () => API.get('/tasks');
+export const fetchTask = (id: String) => API.get(`/tasks/${id}`);
+export const createTask = (task: any) => API.post('/tasks', task);
+export const updateTask = (id: String, updatedTask: any) => API.patch(`/tasks/${id}`, updatedTask);
+export const deleteTask = (id: String) => API.delete(`/tasks/${id}`);

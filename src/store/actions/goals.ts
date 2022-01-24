@@ -41,7 +41,7 @@ export const getUserGoals = (userId: String) => async (dispatch: any) => {
   }
 };
 
-// export const getUserGoalsForToday = (userId: String, cadence: String) => async (dispatch: any) => {
+// export const getUserGoalsForToday = (userId: String) => async (dispatch: any) => {
 //   try {
 //     dispatch({ type: START_LOADING });
 //     const { data: { data } } = await api.fetchUserGoalsForToday(userId, cadence);

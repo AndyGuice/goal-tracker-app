@@ -9,6 +9,7 @@ import {
 import useStyles from './styles';
 import { getUserGoals } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
+import DatePicker from '../../components/shared/DatePicker/DatePicker';
 
 const DashboardView = () => {
   const {
@@ -57,6 +58,7 @@ const DashboardView = () => {
             >
               Today's Goals
             </Typography>
+            <DatePicker />
             <Goals
               goals={goals}
             />

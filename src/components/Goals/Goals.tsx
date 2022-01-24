@@ -1,16 +1,16 @@
 import React from 'react';
 import Goal from './Goal';
 import GoalModel from '../../types/goal';
-import useStyles from './styles';
+// import useStyles from './styles';
 
 import {
   Grid,
-  Typography
+  // Typography
 } from '@material-ui/core';
 
 const Goals = (props: any) => {
   const { goals } = props;
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <>

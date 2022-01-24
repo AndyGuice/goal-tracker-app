@@ -5,7 +5,6 @@ class Goal {
   userId: String = "";
   title: String = "";
   description: String = "";
-  complete: boolean = false;
   createdOn: String = "";
   updatedOn: String = "";
   startOn: String = ""; // should these be Date()?

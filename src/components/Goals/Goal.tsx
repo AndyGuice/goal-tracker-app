@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -16,6 +17,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal, updateGoalComplete } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
+import Tasks from '../Tasks/Tasks';
 
 interface props {
   goal: GoalModel;
@@ -26,9 +28,9 @@ const Goal = (props: props) => {
   const {
     title,
     description,
-    complete,
     userId: goalUserID,
     _id: goalID,
+    tasks,
   } = goal;
 
   const classes = useStyles();
@@ -41,20 +43,12 @@ const Goal = (props: props) => {
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
 
-  const [isComplete, setIsComplete] = useState<boolean>(complete);
+  // const handleSubmit = (goal: GoalModel, history: any) => {
+  //   dispatch(updateGoalComplete(goal, history));
+  // };
 
-  const handleSwitchChange = (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const handleAddTask = () => {
 
-    let updatedGoal = goal;
-    updatedGoal.complete = !complete;
-    setIsComplete(!complete);
-
-    handleSubmit(updatedGoal, history);
-  };
-
-  const handleSubmit = (goal: GoalModel, history: any) => {
-    dispatch(updateGoalComplete(goal, history));
   };
 
   return (
@@ -81,21 +75,23 @@ const Goal = (props: props) => {
           >
             Description: {description}
           </Typography>
-          <FormControlLabel
-            label="Complete?"
-            control={
-              <Switch
-                checked={isComplete}
-                onChange={(e: any) => handleSwitchChange(e)}
-              />
-            }
-          />
+          <Tasks tasks={tasks} />
         </CardContent>
         <CardActions>
+
           {loggedUser &&
             Object.keys(loggedUser).length !== 0 &&
             userID === goalUserID &&
             <>
+              <Button
+                id="Add task button"
+                aria-label="add task"
+                color="primary"
+                variant="outlined"
+                onClick={() => history.push(`/addTask`)}
+              >
+                Add Task
+              </Button>
               <IconButton
                 title="Edit goal"
                 aria-label="edit goal"
