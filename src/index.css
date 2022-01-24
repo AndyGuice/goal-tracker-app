@@ -4,10 +4,10 @@ body {
   padding: 0;
 }
 
-::-webkit-scrollbar,
+/* ::-webkit-scrollbar,
 ::-webkit-scrollbar {
   width: 7px;
-}
+} */
 
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-track {

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -16,20 +17,20 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal, updateGoalComplete } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
+import Tasks from '../Tasks/Tasks';
 
 interface props {
   goal: GoalModel;
-  setupView: Boolean;
 }
 
 const Goal = (props: props) => {
-  const { goal, setupView } = props;
+  const { goal } = props;
   const {
     title,
     description,
-    cadence,
-    complete,
     userId: goalUserID,
+    _id: goalID,
+    tasks,
   } = goal;
 
   const classes = useStyles();
@@ -42,24 +43,16 @@ const Goal = (props: props) => {
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
 
-  const [isComplete, setIsComplete] = useState<boolean>(complete)
+  // const handleSubmit = (goal: GoalModel, history: any) => {
+  //   dispatch(updateGoalComplete(goal, history));
+  // };
 
-  const handleSwitchChange = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-   
-    let updatedGoal = goal
-    updatedGoal.complete = !complete
-    setIsComplete(!complete)
+  const handleAddTask = () => {
 
-    handleSubmit(updatedGoal)
-  }
-
-  const handleSubmit = (goal: GoalModel) => {
-    dispatch(updateGoalComplete(goal))
-  }
+  };
 
   return (
-    <Grid 
+    <Grid
       item
       xs={12}
     >
@@ -67,7 +60,7 @@ const Goal = (props: props) => {
         <CardContent>
           <Typography
             gutterBottom
-            variant="h4"
+            variant="h5"
             component="h2"
             noWrap
           >
@@ -82,51 +75,40 @@ const Goal = (props: props) => {
           >
             Description: {description}
           </Typography>
-          {setupView &&
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              gutterBottom
-              noWrap
-            >
-              Cadence: {cadence}
-            </Typography>
-          }
-          {!setupView &&
-            <FormControlLabel
-              label="Complete?"
-              control={
-                <Switch
-                  checked={isComplete}
-                  onChange={(e: any) => handleSwitchChange(e)}
-                />
-              }
-            />
-          }
+          <Tasks tasks={tasks} />
         </CardContent>
-        {setupView &&
-          <CardActions>
-            {loggedUser && Object.keys(loggedUser).length !== 0 && userID === goalUserID &&
-              <>
-                <IconButton
-                  title="Edit goal"
-                  aria-label="edit goal"
-                  onClick={() => history.push(`/editGoal/${props.goal._id}`)}
-                >
-                  <EditRoundedIcon fontSize="large" color="secondary" />
-                </IconButton>
-                <IconButton
-                  title="Delete goal"
-                  aria-label="delete goal"
-                  onClick={() => dispatch(deleteGoal(props.goal._id, history))}
-                >
-                  <DeleteIcon fontSize="large" color="secondary" />
-                </IconButton>
-              </>
-            }
-          </CardActions>
-        }
+        <CardActions>
+
+          {loggedUser &&
+            Object.keys(loggedUser).length !== 0 &&
+            userID === goalUserID &&
+            <>
+              <Button
+                id="Add task button"
+                aria-label="add task"
+                color="primary"
+                variant="outlined"
+                onClick={() => history.push(`/addTask`)}
+              >
+                Add Task
+              </Button>
+              <IconButton
+                title="Edit goal"
+                aria-label="edit goal"
+                onClick={() => history.push(`/editGoal/${goalID}`)}
+              >
+                <EditRoundedIcon fontSize="small" color="secondary" />
+              </IconButton>
+              <IconButton
+                title="Delete goal"
+                aria-label="delete goal"
+                onClick={() => dispatch(deleteGoal(goalID, history))}
+              >
+                <DeleteIcon fontSize="small" color="secondary" />
+              </IconButton>
+            </>
+          }
+        </CardActions>
       </Card>
     </Grid>
   );

@@ -4,6 +4,7 @@ import {
   FETCH_ALL,
   FETCH_GOAL,
   FETCH_GOALS,
+  FETCH_GOALS_FOR_TODAY,
   CREATE,
   // UPDATE,
   DELETE,
@@ -33,6 +34,11 @@ export default (state = { isLoading: true, goals: [] }, action: any) => {
         ...state,
         goals: action.payload.data,
       };
+    case FETCH_GOALS_FOR_TODAY:
+      return {
+        ...state,
+        goals: action.payload.data,
+      };
     case FETCH_GOAL:
       return {
         ...state,
@@ -51,7 +57,7 @@ export default (state = { isLoading: true, goals: [] }, action: any) => {
     case DELETE:
       return {
         ...state,
-        movies: state.goals.filter((goal: any) => goal._id !== action.payload)
+        goals: state.goals.filter((goal: any) => goal._id !== action.payload)
       };
     case DELETE_SUCCESSFUL:
       return {

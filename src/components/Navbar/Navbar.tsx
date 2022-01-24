@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useStyles from './styles';
-import { 
+import {
     AppBar,
     Box,
     Button,
@@ -9,10 +9,10 @@ import {
     Toolbar,
     Typography
 } from "@material-ui/core";
-import { 
+import {
     Link,
     useHistory,
-    useLocation 
+    useLocation
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as actionType from '../../constants/actionTypes';
@@ -52,24 +52,22 @@ const Navbar = () => {
     }, [location]);
 
     return (
-        <Grid 
+        <Grid
             container
-            className={classes.container}
         >
             <AppBar
                 color="primary"
-                position="static"
             >
                 <Toolbar>
                     <Grid item xs={10}>
-                        <Typography 
-                            variant="h6" 
-                            className={classes.title} 
+                        <Typography
+                            variant="h6"
+                            className={classes.title}
                             align="left"
                         >
                             <Link
                                 to={homePath}
-                                style={{ 
+                                style={{
                                     textDecoration: "none",
                                     color: "#fff"
                                 }}
@@ -83,9 +81,8 @@ const Navbar = () => {
                             <Hidden xsDown>
                                 <Link
                                     to="/dashboard"
-                                    style={{ 
+                                    style={{
                                         textDecoration: 'none',
-                                        padding: 10,
                                     }}>
                                     <Button
                                         color="secondary"
@@ -95,32 +92,34 @@ const Navbar = () => {
                                     </Button>
                                 </Link>
                                 <Link
-                                    to="/setup"
+                                    to="/goals"
                                     style={{
                                         textDecoration: 'none',
-                                        padding: 10
                                     }}>
                                     <Button
                                         color="secondary"
                                         variant="contained"
                                     >
-                                        Setup    
+                                        Goals
                                     </Button>
                                 </Link>
-                            <Avatar
-                                className={classes.purple}
-                                alt={user?.result.name}
-                                src={user?.result.imageUrl}
-                            >
-                                {user?.result.name.charAt(0)}
-                            </Avatar>
-                            <Typography
-                                variant="h6"
-                            >
-                                {user?.result.name}
-                            </Typography>
+                                <Avatar
+                                    className={classes.purple}
+                                    alt={user?.result.name}
+                                    src={user?.result.imageUrl}
+                                >
+                                    {user?.result.name.charAt(0)}
+                                </Avatar>
+                                <Typography
+                                    variant="h6"
+                                >
+                                    {user?.result.name}
+                                </Typography>
                             </Hidden>
-                            <Grid item xs={3} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Grid
+                                item xs={2}
+                                style={{ display: 'flex', justifyContent: 'flex-end' }}
+                            >
                                 <Button
                                     variant="contained"
                                     color="secondary"
@@ -132,7 +131,10 @@ const Navbar = () => {
                             </Grid>
                         </>
                         :
-                        <Grid item xs={3} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Grid
+                            item xs={2}
+                            style={{ display: 'flex', justifyContent: 'flex-end' }}
+                        >
                             <Button
                                 color="secondary"
                                 variant="contained"

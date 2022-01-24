@@ -10,16 +10,14 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
-import { 
-  getUserGoals 
+import {
+  getUserGoals
 } from '../../store/actions/goals';
-import GoalModel from '../../types/goal';
-import Goal from '../../components/Goals/Goal';
+import Goals from '../../components/Goals/Goals';
 import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
-import Alert from '../../helpers/Alert';
-// import { displayGoalOnCadence } from '../../helpers/cadence'
+import Alert from '../../helpers/alert';
 
-const SetupView = () => {
+const GoalsView = () => {
   const {
     goals,
     isLoading,
@@ -50,9 +48,6 @@ const SetupView = () => {
     }
   }, [deleteSuccessful]);
 
-  // useEffect(() => {
-  //   displayGoalOnCadence('daily', 3)
-  // })
 
   useEffect(() => {
     const { result } = user || { user: {} };
@@ -94,18 +89,16 @@ const SetupView = () => {
       }
       {isLoading ?
         <Paper elevation={6} className={classes.loadingPaper}>
-          <CircularProgress size="7em" color="primary" value={100} />
+          <CircularProgress
+            size="7em"
+            color="primary"
+            value={100}
+          />
         </Paper>
         :
-        <Grow in={true} timeout={{ enter: 1500 }}>
-          <Grid item xs={12}>
-            {
-              goals?.map((goal: GoalModel, index: number) => (
-                <Goal goal={goal} key={index} setupView={true} />
-              ))
-            }
-          </Grid>
-        </Grow>
+        <Goals
+          goals={goals}
+        />
       }
       <Snackbar
         open={showEditSuccess}
@@ -135,4 +128,4 @@ const SetupView = () => {
   );
 };
 
-export default SetupView;
+export default GoalsView;

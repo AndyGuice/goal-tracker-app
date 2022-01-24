@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
-  Avatar,
+import {
   Button,
   Container,
   Paper,
@@ -10,18 +9,16 @@ import {
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { signin } from '../../store/actions/auth';
-import GoogleIcon from '../../helpers/GoogleIcon';
+import GoogleIcon from '../../helpers/googleIcon';
 import useStyles from './styles';
 import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../constants/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
-import { useEffect } from 'react';
-import Alert from '../../helpers/Alert';
-import ErrorDialog from '../shared/ErrorDialog/ErrorDialog'
+import Alert from '../../helpers/alert';
+import ErrorDialog from '../shared/ErrorDialog/ErrorDialog';
 
-const initialState = { 
+const initialState = {
   firstName: '',
   lastName: '',
   email: '',
@@ -37,17 +34,17 @@ const LoginUser = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [submitError, setSubmitError] = useState('')
+  const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   useEffect(() => {
     if (error) {
       setShowError(true);
-      setSubmitError(error)
+      setSubmitError(error);
       setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [error]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
@@ -60,15 +57,17 @@ const LoginUser = () => {
 
   const handleSubmit = (
     e: any
-    ) => {
+  ) => {
     e.preventDefault();
     dispatch(signin(form, history));
   };
 
   // const googleSuccess = async (res: any) => {
   const googleSuccess = (res: any) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
+    const { profileObj, tokenId } = res;
+
+    const result = profileObj;
+    const token = tokenId;
 
     try {
       dispatch({ type: AUTH, data: { result, token } });
@@ -80,10 +79,10 @@ const LoginUser = () => {
   };
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false)
-  }
+    setOpenErrorDialog(false);
+  };
 
-  const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
+  const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later');
 
   const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -95,9 +94,6 @@ const LoginUser = () => {
         error={submitError}
       />
       <Paper className={classes.paper} elevation={6}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
         <Typography component="h1" variant="h5">Sign in</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -142,7 +138,7 @@ const LoginUser = () => {
             onFailure={googleError}
             cookiePolicy="single_host_origin"
           />
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Button
                 onClick={() => history.push('/register')}

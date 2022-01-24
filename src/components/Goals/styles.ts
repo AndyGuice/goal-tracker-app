@@ -9,14 +9,14 @@ export default makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: '20px',
-      borderRadius: '4px',
       height: '75vh',
       width: '100%',
       marginTop: '20px'
     },
+    goalGroupHeader: {
+    },
     title: {
-      fontSize: 14,
+      fontSize: 10,
     },
     paper: {
       display: 'flex',
@@ -24,16 +24,10 @@ export default makeStyles((theme: Theme) =>
       alignItems: 'center',
       padding: theme.spacing(2),
     },
-    button: {
-      margin: theme.spacing(1)
-    },
     alert: {
       backgroundColor: '#f50060',
     },
     [theme.breakpoints.down("xs")]: {
-      // goalContainer: {
-      //   width: '100%'
-      // }
     },
   }),
 );

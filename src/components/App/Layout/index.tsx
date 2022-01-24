@@ -7,7 +7,9 @@ const Layout = (props: any) => {
   return (
     <div>
       <Navbar />
-      {children}
+      <div style={{ marginTop: 80 }}>
+        {children}
+      </div>
     </div>
 
   );
