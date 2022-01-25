@@ -12,13 +12,11 @@ export default makeStyles((theme: Theme) =>
     },
     goalContainer: {
       justifyContent: "center",
-      paddingTop: 15,
     },
     goalGroupHeader: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 10,
       borderRadius: 4,
     },
     goal: {
@@ -26,7 +24,6 @@ export default makeStyles((theme: Theme) =>
       alignItems: 'center',
       borderRadius: 4,
       padding: 10,
-      minWidth: 250,
     },
     loadingPaper: {
       display: 'flex',

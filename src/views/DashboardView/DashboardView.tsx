@@ -52,15 +52,10 @@ const DashboardView = () => {
             spacing={3}
             className={classes.goalContainer}
           >
-            <Typography
-              variant="h4"
-              className={classes.title}
-            >
-              Today's Goals
-            </Typography>
             <DatePicker />
             <Goals
               goals={goals}
+              configView={false}
             />
           </Grid>
         </>

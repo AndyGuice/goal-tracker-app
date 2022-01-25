@@ -13,8 +13,6 @@ export default makeStyles((theme: Theme) =>
       width: '100%',
       marginTop: '20px'
     },
-    goalGroupHeader: {
-    },
     title: {
       fontSize: 10,
     },

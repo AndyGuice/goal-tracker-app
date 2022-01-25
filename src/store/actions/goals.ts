@@ -121,7 +121,7 @@ export const updateGoal = (goal: any, history: any) => async (dispatch: any) => 
     dispatch({ type: UPDATE_SUCCESSFUL, payload: true });
     dispatch({ type: END_LOADING });
 
-    return history.push(`/setup`);
+    return history.push(`/goals`);
 
   } catch (error) {
     console.log(error);
