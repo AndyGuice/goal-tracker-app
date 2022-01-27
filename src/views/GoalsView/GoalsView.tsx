@@ -81,8 +81,8 @@ const GoalsView = () => {
           variant="contained"
           color="primary"
           onClick={() => history.push("/addGoal")}
-          fullWidth
-          style={{ marginTop: 20, marginBottom: 20 }}
+          // fullWidth
+          style={{ marginTop: 20, marginBottom: 20, marginLeft: 20 }}
         >
           Add goal
         </Button>
@@ -98,6 +98,7 @@ const GoalsView = () => {
         :
         <Goals
           goals={goals}
+          configView={true}
         />
       }
       <Snackbar

@@ -6,9 +6,6 @@ import RegisterUser from '../Auth/RegisterUser';
 import AddGoal from '../Goals/AddGoal';
 import EditGoal from '../Goals/EditGoal';
 
-import AddTask from '../Tasks/AddTask';
-import EditTask from '../Tasks/EditTask';
-
 import DashboardView from '../../views/DashboardView/DashboardView';
 import LandingView from '../../views/LandingView/LandingView';
 import GoalsView from '../../views/GoalsView/GoalsView';
@@ -25,9 +22,6 @@ const Router = () => {
 
       <Route path="/addGoal" exact component={AddGoal} />
       <Route path="/editGoal/:id" exact component={EditGoal} />
-
-      <Route path="/addTask" exact component={AddTask} />
-      <Route path="/editTask" exact component={EditTask} />
 
       <Route path="/loginUser" exact component={LoginUser} />
       <Route path="/register" exact component={RegisterUser} />

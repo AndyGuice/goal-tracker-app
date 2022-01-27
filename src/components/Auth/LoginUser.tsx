@@ -94,7 +94,12 @@ const LoginUser = () => {
         error={submitError}
       />
       <Paper className={classes.paper} elevation={6}>
-        <Typography component="h1" variant="h5">Sign in</Typography>
+        <Typography
+          component="h1"
+          variant="h5"
+        >
+          Sign in
+        </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Input
@@ -150,7 +155,11 @@ const LoginUser = () => {
           </Grid>
         </form>
       </Paper>
-      <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={showError}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert
           onClose={handleClose}
           severity="info"

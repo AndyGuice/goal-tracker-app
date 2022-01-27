@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import useStyles from './styles';
 import {
     AppBar,
-    Box,
     Button,
     Grid,
     Hidden,

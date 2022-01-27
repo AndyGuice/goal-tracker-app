@@ -1,6 +1,14 @@
-import { Avatar, Button, Container, Grid, Paper, Snackbar, Typography } from '@material-ui/core';
-import Alert from '../../helpers/alert';
 import React, { useEffect, useState } from 'react';
+import {
+    Avatar,
+    Button,
+    Container,
+    Grid,
+    Paper,
+    Snackbar,
+    Typography
+} from '@material-ui/core';
+import Alert from '../../helpers/alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';

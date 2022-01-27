@@ -1,33 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  FormControlLabel,
+  Paper,
   Grid,
   IconButton,
-  Switch,
   Typography
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import useStyles from './styles';
-import GoalModel from '../../types/goal';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { deleteGoal, updateGoalComplete } from '../../store/actions/goals';
+import { deleteGoal } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
 import Tasks from '../Tasks/Tasks';
+import AddTask from '../Tasks/AddTask';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
-interface props {
-  goal: GoalModel;
-}
-
-const Goal = (props: props) => {
-  const { goal } = props;
+const Goal = (props: any) => {
+  const { goal, configView } = props;
   const {
     title,
-    description,
     userId: goalUserID,
     _id: goalID,
     tasks,
@@ -37,18 +29,20 @@ const Goal = (props: props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [showAddTask, setShowAddTask] = useState(false);
+
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);
   const { result } = loggedUser || { result: {} };
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
 
-  // const handleSubmit = (goal: GoalModel, history: any) => {
-  //   dispatch(updateGoalComplete(goal, history));
-  // };
+  const handleSaveTask = () => {
 
-  const handleAddTask = () => {
+  };
 
+  const handleCancelTask = () => {
+    setShowAddTask(!showAddTask);
   };
 
   return (
@@ -56,60 +50,68 @@ const Goal = (props: props) => {
       item
       xs={12}
     >
-      <Card className={classes.goalContainer} raised>
-        <CardContent>
+      <Paper className={classes.paper}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}>
+          <AssignmentTurnedInIcon />
           <Typography
             gutterBottom
             variant="h5"
             component="h2"
-            noWrap
+            style={{ paddingLeft: 5 }}
           >
             {title}
           </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            gutterBottom
-            noWrap
-          >
-            Description: {description}
-          </Typography>
-          <Tasks tasks={tasks} />
-        </CardContent>
-        <CardActions>
-
-          {loggedUser &&
-            Object.keys(loggedUser).length !== 0 &&
-            userID === goalUserID &&
-            <>
-              <Button
-                id="Add task button"
-                aria-label="add task"
-                color="primary"
-                variant="outlined"
-                onClick={() => history.push(`/addTask`)}
-              >
-                Add Task
-              </Button>
-              <IconButton
-                title="Edit goal"
-                aria-label="edit goal"
-                onClick={() => history.push(`/editGoal/${goalID}`)}
-              >
-                <EditRoundedIcon fontSize="small" color="secondary" />
-              </IconButton>
-              <IconButton
-                title="Delete goal"
-                aria-label="delete goal"
-                onClick={() => dispatch(deleteGoal(goalID, history))}
-              >
-                <DeleteIcon fontSize="small" color="secondary" />
-              </IconButton>
-            </>
-          }
-        </CardActions>
-      </Card>
+        </div>
+        {
+          loggedUser &&
+          Object.keys(loggedUser).length !== 0 &&
+          userID === goalUserID &&
+          configView &&
+          <>
+            <Button
+              id="Add task button"
+              aria-label="add task"
+              color="primary"
+              variant="outlined"
+              onClick={() => setShowAddTask(!showAddTask)}
+              className={classes.button}
+            >
+              Add Task
+            </Button>
+            <IconButton
+              title="Edit goal"
+              aria-label="edit goal"
+              onClick={() => history.push(`/editGoal/${goalID}`)}
+              className={classes.button}
+            >
+              <EditRoundedIcon color="secondary" />
+            </IconButton>
+            <IconButton
+              title="Delete goal"
+              aria-label="delete goal"
+              onClick={() => dispatch(deleteGoal(goalID, history))}
+              className={classes.button}
+            >
+              <DeleteIcon color="secondary" />
+            </IconButton>
+          </>
+        }
+      </Paper>
+      {showAddTask && (
+        <AddTask
+          goal={goal}
+          onCancel={handleCancelTask}
+        />
+      )}
+      <Tasks
+        tasks={tasks}
+        goalID={goalID}
+        configView={configView}
+      />
     </Grid>
   );
 };
