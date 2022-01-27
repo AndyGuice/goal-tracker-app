@@ -6,22 +6,36 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { addDays } from 'date-fns';
+import useStyles from './styles';
 
 export default function DatePicker() {
-  const [selectedDate, setSelectedDate] = React.useState("");
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const classes = useStyles();
 
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
   };
 
-  useEffect(() => {
-    const today = new Date().toISOString();
-    setSelectedDate(today);
-  }, []);
+  // useEffect(() => {
+  //   const today = new Date();
+  //   setSelectedDate(today);
+  // }, []);
+
+  const handleClick = (dateAdjustment: number) => {
+    const newDate = addDays(selectedDate, dateAdjustment);
+    setSelectedDate(newDate);
+  };
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justifyContent="space-around">
+      <Grid container justifyContent="center" alignItems="center">
+        <ArrowBackIcon
+          className={classes.button}
+          onClick={() => handleClick(-1)}
+        />
         <KeyboardDatePicker
           disableToolbar
           variant="inline"
@@ -34,6 +48,10 @@ export default function DatePicker() {
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
+        />
+        <ArrowForwardIcon
+          className={classes.button}
+          onClick={() => handleClick(1)}
         />
       </Grid>
     </MuiPickersUtilsProvider>
