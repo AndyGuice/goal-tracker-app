@@ -19,11 +19,6 @@ export default function DatePicker() {
     setSelectedDate(date);
   };
 
-  // useEffect(() => {
-  //   const today = new Date();
-  //   setSelectedDate(today);
-  // }, []);
-
   const handleClick = (dateAdjustment: number) => {
     const newDate = addDays(selectedDate, dateAdjustment);
     setSelectedDate(newDate);

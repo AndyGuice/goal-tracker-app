@@ -8,15 +8,25 @@ import {
 import useStyles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const Task = (props: any) => {
-  const { task } = props;
-  const { title, description } = task || { task: {} };
+  const { task, configView } = props;
+  const { title, description, _id: taskID } = task || { task: {} };
 
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDescription, setTaskDescription] = useState(description);
 
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const profile = localStorage.getItem('profile')!;
+  const loggedUser = JSON.parse(profile);
+  const { result } = loggedUser || { result: {} };
+  // const { googleId, _id } = result || { googleId: {}, _id: {} };
+  // const userID = googleId || _id;
 
   return (
     <Paper className={classes.paper}>
@@ -42,24 +52,29 @@ const Task = (props: any) => {
           size="small"
           onChange={(e: any) => setTaskDescription(e.target.value)}
         />
-        <>
-          <IconButton
-            title="Edit goal"
-            aria-label="edit goal"
-            // onClick={() => history.push(`/editGoal/${goalID}`)}
-            className={classes.button}
-          >
-            <EditRoundedIcon color="secondary" />
-          </IconButton>
-          <IconButton
-            title="Delete goal"
-            aria-label="delete goal"
-            // onClick={() => dispatch(deleteGoal(goalID, history))}
-            className={classes.button}
-          >
-            <DeleteIcon color="secondary" />
-          </IconButton>
-        </>
+        {
+          loggedUser &&
+          Object.keys(loggedUser).length !== 0 &&
+          configView &&
+          <>
+            <IconButton
+              title="Edit goal"
+              aria-label="edit goal"
+              // onClick={() => history.push(`/editGoal/${goalID}`)}
+              className={classes.button}
+            >
+              <EditRoundedIcon color="secondary" />
+            </IconButton>
+            <IconButton
+              title="Delete goal"
+              aria-label="delete goal"
+              // onClick={() => dispatch(deleteTask(taskID, history))}
+              className={classes.button}
+            >
+              <DeleteIcon color="secondary" />
+            </IconButton>
+          </>
+        }
       </Grid>
     </Paper>
   );

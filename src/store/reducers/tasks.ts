@@ -8,7 +8,7 @@ import {
   CREATE,
   // UPDATE,
   // DELETE,
-  // DELETE_SUCCESSFUL,
+  DELETE_SUCCESSFUL,
   // UPDATE_SUCCESSFUL
 } from '../../constants/actionTypes';
 
@@ -55,15 +55,15 @@ export default (state = { isLoading: true, tasks: [] }, action: any) => {
     //     updateSuccessful: action?.payload
     //   };
     // case DELETE:
-    //   return {
-    //     ...state,
-    //     goals: state.goals.filter((goal: any) => goal._id !== action.payload)
-    //   };
-    // case DELETE_SUCCESSFUL:
-    //   return {
-    //     ...state,
-    //     deleteSuccessful: action?.payload
-    //   };
+    // return {
+    //   ...state,
+    //   goals: state.goals.filter((goal: any) => goal._id !== action.payload)
+    // };
+    case DELETE_SUCCESSFUL:
+      return {
+        ...state,
+        deleteSuccessful: action?.payload
+      };
     default:
       return state;
   }

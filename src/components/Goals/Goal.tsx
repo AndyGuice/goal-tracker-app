@@ -110,6 +110,7 @@ const Goal = (props: any) => {
       <Tasks
         tasks={tasks}
         goalID={goalID}
+        configView={configView}
       />
     </Grid>
   );
