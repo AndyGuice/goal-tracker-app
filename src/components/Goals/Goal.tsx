@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  FormControlLabel,
+  Paper,
   Grid,
   IconButton,
   Typography
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import useStyles from './styles';
-import GoalModel from '../../types/goal';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal } from '../../store/actions/goals';
@@ -54,7 +50,7 @@ const Goal = (props: any) => {
       item
       xs={12}
     >
-      <Card className={classes.goalContainer} raised>
+      <Paper className={classes.paper}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -82,6 +78,7 @@ const Goal = (props: any) => {
               color="primary"
               variant="outlined"
               onClick={() => setShowAddTask(!showAddTask)}
+              className={classes.button}
             >
               Add Task
             </Button>
@@ -89,19 +86,21 @@ const Goal = (props: any) => {
               title="Edit goal"
               aria-label="edit goal"
               onClick={() => history.push(`/editGoal/${goalID}`)}
+              className={classes.button}
             >
-              <EditRoundedIcon fontSize="small" color="secondary" />
+              <EditRoundedIcon color="secondary" />
             </IconButton>
             <IconButton
               title="Delete goal"
               aria-label="delete goal"
               onClick={() => dispatch(deleteGoal(goalID, history))}
+              className={classes.button}
             >
-              <DeleteIcon fontSize="small" color="secondary" />
+              <DeleteIcon color="secondary" />
             </IconButton>
           </>
         }
-      </Card>
+      </Paper>
       {showAddTask && (
         <AddTask
           goal={goal}

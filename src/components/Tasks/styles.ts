@@ -2,15 +2,16 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 export default makeStyles((theme: Theme) =>
   createStyles({
-    button: {
-      margin: 10,
-    },
+    button: {},
     paper: {
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+      flexDirection: 'row',
       padding: theme.spacing(1),
-      border: '1px dotted black'
+      border: '1px solid black',
+      backgroundColor: '#eeeeee'
+    },
+    input: {
+      padding: theme.spacing(1)
     }
   })
 );

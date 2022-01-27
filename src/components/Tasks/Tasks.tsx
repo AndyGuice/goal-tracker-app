@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Task from './Task';
 import TaskSchema from '../../types/task';
 
 const Tasks = (props: any) => {
   const { tasks } = props;
-
-  useEffect(() => {
-    // console.log('Tasks: ', tasks);
-  });
 
   return (
     tasks && tasks.length > 0 && (

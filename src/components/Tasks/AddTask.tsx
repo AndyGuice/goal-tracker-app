@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Grid,
@@ -40,12 +40,6 @@ const AddTask = (props: any) => {
 
     dispatch(updateGoal(goal, history));
   };
-
-  useEffect(() => {
-    // console.log('Goal: ', goal);
-    // console.log('GoalID: ', goalID);
-    console.log('Task: ', task);
-  }, [goal]);
 
   const handleCancel = () => {
     onCancel();
