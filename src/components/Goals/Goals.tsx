@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 const Goals = (props: any) => {
-  const { goals, configView, date } = props;
+  const { goals, configView, date, onUpdate } = props;
   // const classes = useStyles();
 
   return (
@@ -22,6 +22,7 @@ const Goals = (props: any) => {
               goal={goal}
               configView={configView}
               date={date}
+              onUpdate={onUpdate}
             />
           ))}
         </Grid>

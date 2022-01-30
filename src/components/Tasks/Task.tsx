@@ -9,16 +9,14 @@ import {
 import useStyles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { updateGoal } from '../../store/actions/goals';
 
 const Task = (props: any) => {
   const {
     goal,
     task,
     configView,
-    date: selectedDate
+    date: selectedDate,
+    onUpdate,
   } = props;
 
   const {
@@ -33,8 +31,6 @@ const Task = (props: any) => {
   const [taskComplete, setTaskComplete] = useState(false);
 
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);
@@ -59,21 +55,16 @@ const Task = (props: any) => {
       updatedTask.datesCompleted = updatedDatesCompleted;
     }
 
-    // console.log('Updated Task: ', updatedTask);
-
-    dispatch(updateGoal(goal, history));
+    onUpdate(goal);
   };
 
   const handleDeleteTask = (id: any) => {
-    // console.log('Tasks Before: ', goal.tasks);
     let updatedGoal = goal;
 
     const updatedTasks = goal.tasks.filter((task: any) => task._id !== id);
     updatedGoal.tasks = updatedTasks;
 
-    // console.log('Updated Goal: ', updatedGoal);
-
-    dispatch(updateGoal(updatedGoal, history));
+    onUpdate(updatedGoal);
   };
 
   return (
@@ -112,16 +103,16 @@ const Task = (props: any) => {
           configView &&
           <>
             <IconButton
-              title="Edit goal"
-              aria-label="edit goal"
+              title="Edit task"
+              aria-label="Edit Task"
               // onClick={() => history.push(`/editGoal/${goalID}`)}
               className={classes.button}
             >
               <EditRoundedIcon color="secondary" />
             </IconButton>
             <IconButton
-              title="Delete goal"
-              aria-label="Delete goal"
+              title="Delete task"
+              aria-label="Delete task"
               onClick={() => handleDeleteTask(taskID)}
               className={classes.button}
             >

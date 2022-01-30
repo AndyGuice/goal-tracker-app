@@ -18,7 +18,7 @@ import Tasks from '../Tasks/Tasks';
 // import { getUserTasks } from '../../store/actions/tasks';
 
 const Goal = (props: any) => {
-  const { goal, configView, date } = props;
+  const { goal, configView, date, onUpdate } = props;
   const {
     title,
     userId: goalUserID,
@@ -37,10 +37,6 @@ const Goal = (props: any) => {
   const { result } = loggedUser || { result: {} };
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
-
-  const handleSaveTask = () => {
-
-  };
 
   const handleCancelTask = () => {
     setShowAddTask(!showAddTask);
@@ -106,6 +102,7 @@ const Goal = (props: any) => {
         <AddTask
           goal={goal}
           onCancel={handleCancelTask}
+          onUpdate={onUpdate}
         />
       )}
       {tasks && (
@@ -114,6 +111,7 @@ const Goal = (props: any) => {
           date={date}
           goal={goal}
           tasks={tasks}
+          onUpdate={onUpdate}
         />
       )}
     </Grid>

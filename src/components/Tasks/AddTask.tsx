@@ -7,12 +7,11 @@ import {
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { updateGoal, getUserGoals } from '../../store/actions/goals';
 import TaskModel from '../../types/task';
 import useStyles from './styles';
 
 const AddTask = (props: any) => {
-  const { goal, task, onCancel } = props;
+  const { goal, task, onCancel, onUpdate } = props;
   const { _id: goalID, userId } = goal || { goal: {} };
   const { title, description } = task || { task: {} };
 
@@ -38,8 +37,7 @@ const AddTask = (props: any) => {
     let updatedGoal = goal;
     updatedGoal.tasks.push(task);
 
-    dispatch(updateGoal(goal, history));
-    dispatch(getUserGoals(userId));
+    onUpdate(updatedGoal);
   };
 
   const handleCancel = () => {

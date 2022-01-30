@@ -11,7 +11,8 @@ import {
 import useStyles from './styles';
 import { useHistory } from 'react-router';
 import {
-  getUserGoals
+  getUserGoals,
+  updateGoal,
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
@@ -74,6 +75,12 @@ const GoalsView = () => {
     setShowDeleteSuccess(false);
   };
 
+  const handleUpdateGoals = (goal: any) => {
+    console.log('Goal in Handler: ', goal);
+
+    dispatch(updateGoal(goal, history));
+  };
+
   return (
     <Grid container spacing={3}>
       {user?.result &&
@@ -99,6 +106,7 @@ const GoalsView = () => {
         <Goals
           goals={goals}
           configView={true}
+          onUpdate={(e: any) => handleUpdateGoals(e)}
         />
       }
       <Snackbar

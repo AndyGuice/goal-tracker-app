@@ -3,7 +3,7 @@ import Task from './Task';
 import TaskSchema from '../../types/task';
 
 const Tasks = (props: any) => {
-  const { tasks, configView, date, goal } = props;
+  const { tasks, configView, date, goal, onUpdate } = props;
 
   return (
     tasks && tasks.length > 0 && (
@@ -15,6 +15,7 @@ const Tasks = (props: any) => {
             key={index}
             configView={configView}
             date={date}
+            onUpdate={onUpdate}
           />
         );
       })
