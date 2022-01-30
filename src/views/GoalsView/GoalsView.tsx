@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
-  Grow,
   CircularProgress,
   Paper,
   Button,
@@ -76,8 +75,6 @@ const GoalsView = () => {
   };
 
   const handleUpdateGoals = (goal: any) => {
-    console.log('Goal in Handler: ', goal);
-
     dispatch(updateGoal(goal, history));
   };
 

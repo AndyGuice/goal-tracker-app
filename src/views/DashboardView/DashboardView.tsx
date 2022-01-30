@@ -5,10 +5,11 @@ import {
   Grid,
   Paper,
 } from '@material-ui/core';
-import useStyles from './styles';
-import { getUserGoals } from '../../store/actions/goals';
+import { useHistory } from 'react-router';
+import { getUserGoals, updateGoal } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import DatePicker from '../../components/Shared/DatePicker/DatePicker';
+import useStyles from './styles';
 
 const DashboardView = () => {
   const {
@@ -22,6 +23,7 @@ const DashboardView = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const profile = localStorage.getItem('profile')!;
 
   const [user] = useState(JSON.parse(profile));
@@ -36,6 +38,10 @@ const DashboardView = () => {
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
     setSelectedDateStr(date.toLocaleDateString());
+  };
+
+  const handleUpdateGoals = (goal: any) => {
+    dispatch(updateGoal(goal, history));
   };
 
   return (
@@ -68,6 +74,7 @@ const DashboardView = () => {
               goals={goals}
               configView={false}
               date={selectedDateStr}
+              onUpdate={(e: any) => handleUpdateGoals(e)}
             />
           </Grid>
         </>

@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
 
 const Task = (props: any) => {
   const {
@@ -101,24 +100,14 @@ const Task = (props: any) => {
           loggedUser &&
           Object.keys(loggedUser).length !== 0 &&
           configView &&
-          <>
-            <IconButton
-              title="Edit task"
-              aria-label="Edit Task"
-              // onClick={() => history.push(`/editGoal/${goalID}`)}
-              className={classes.button}
-            >
-              <EditRoundedIcon color="secondary" />
-            </IconButton>
-            <IconButton
-              title="Delete task"
-              aria-label="Delete task"
-              onClick={() => handleDeleteTask(taskID)}
-              className={classes.button}
-            >
-              <DeleteIcon color="secondary" />
-            </IconButton>
-          </>
+          <IconButton
+            title="Delete task"
+            aria-label="Delete task"
+            onClick={() => handleDeleteTask(taskID)}
+            className={classes.button}
+          >
+            <DeleteIcon color="secondary" />
+          </IconButton>
         }
       </Grid>
     </Paper>

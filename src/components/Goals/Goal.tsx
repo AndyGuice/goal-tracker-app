@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Paper,
@@ -11,11 +11,10 @@ import useStyles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal } from '../../store/actions/goals';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import AddTask from '../Tasks/AddTask';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Tasks from '../Tasks/Tasks';
-// import { getUserTasks } from '../../store/actions/tasks';
 
 const Goal = (props: any) => {
   const { goal, configView, date, onUpdate } = props;
