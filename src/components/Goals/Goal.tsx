@@ -11,10 +11,11 @@ import useStyles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal } from '../../store/actions/goals';
-import { useDispatch } from 'react-redux';
-import Tasks from '../Tasks/Tasks';
+import { useDispatch, useSelector } from 'react-redux';
 import AddTask from '../Tasks/AddTask';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import Tasks from '../Tasks/Tasks';
+// import { getUserTasks } from '../../store/actions/tasks';
 
 const Goal = (props: any) => {
   const { goal, configView, date } = props;
@@ -107,12 +108,14 @@ const Goal = (props: any) => {
           onCancel={handleCancelTask}
         />
       )}
-      <Tasks
-        tasks={tasks}
-        goal={goal}
-        configView={configView}
-        date={date}
-      />
+      {tasks && (
+        <Tasks
+          configView={configView}
+          date={date}
+          goal={goal}
+          tasks={tasks}
+        />
+      )}
     </Grid>
   );
 };

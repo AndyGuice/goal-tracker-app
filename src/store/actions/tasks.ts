@@ -1,19 +1,32 @@
 import {
   CREATE,
-  // DELETE,
-  // DELETE_SUCCESSFUL,
+  DELETE_TASK,
+  DELETE_TASK_SUCCESS,
   END_LOADING,
   ERROR,
   // FETCH_ALL,
-  // FETCH_GOAL,
-  // FETCH_GOALS,
-  // FETCH_GOALS_FOR_TODAY,
+  // FETCH_TASK,
+  FETCH_TASKS,
   START_LOADING,
-  // UPDATE,
-  // UPDATE_SUCCESSFUL
+  // UPDATE_TASK,
+  // UPDATE_TASK_SUCCESS
 } from "../actionTypes/actionTypes";
 import * as api from '../../api';
 import TaskModel from '../../types/task';
+
+export const getUserTasks = (goalID: String) => async (dispatch: any) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data: { data } } = await api.fetchGoalTasks(goalID);
+
+    console.log('Data: ', data);
+    dispatch({ type: FETCH_TASKS, payload: { data } });
+    dispatch({ type: END_LOADING });
+  }
+  catch (error) {
+    console.log(error);
+  }
+};
 
 export const createTask = (task: TaskModel) => async (dispatch: any) => {
   try {
@@ -45,8 +58,8 @@ export const updateTask = (task: any, history: any) => async (dispatch: any) => 
       // return history.push(`/editGoal/${task._id}`);
     }
 
-    // dispatch({ type: UPDATE, payload: data });
-    // dispatch({ type: UPDATE_SUCCESSFUL, payload: true });
+    // dispatch({ type: UPDATE_TASK, payload: data });
+    // dispatch({ type: UPDATE_TASK_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
     // return history.push(`/tasks`);
@@ -62,11 +75,11 @@ export const deleteTask = (id: String, history: any) => async (dispatch: any) =>
     dispatch({ type: START_LOADING });
     await api.deleteTask(id);
 
-    // dispatch({ type: DELETE, payload: id });
-    // dispatch({ type: DELETE_SUCCESSFUL, payload: true });
+    dispatch({ type: DELETE_TASK, payload: id });
+    dispatch({ type: DELETE_TASK_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
-    return history.push(`/setup`);
+    return history.push(`/goals`);
 
   } catch (error) {
     console.log(error);

@@ -11,21 +11,26 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { updateTask } from '../../store/actions/tasks';
+import { updateGoal } from '../../store/actions/goals';
 
 const Task = (props: any) => {
-  const { task, configView, date: selectedDate } = props;
+  const {
+    goal,
+    task,
+    configView,
+    date: selectedDate
+  } = props;
+
   const {
     title,
     description,
     _id: taskID,
-    trackedDates = [],
+    datesCompleted = [],
   } = task;
 
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDescription, setTaskDescription] = useState(description);
-  const [taskTrackedDates, changeTaskTrackedDates] = useState(trackedDates);
-  const [taskComplete, setTaskComplete] = useState<any>(false);
+  const [taskComplete, setTaskComplete] = useState(false);
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -34,18 +39,41 @@ const Task = (props: any) => {
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);
 
-  const today = new Date().toLocaleDateString();
-
   useEffect(() => {
-
+    if (datesCompleted.includes(selectedDate)) {
+      setTaskComplete(true);
+    } else {
+      setTaskComplete(false);
+    }
   }, [selectedDate]);
 
-  const handleUpdateTask = (status: Boolean) => {
+  const handleUpdateTask = (status: boolean) => {
+    setTaskComplete(status);
 
+    let updatedTask = task;
+
+    if (status) {
+      updatedTask.datesCompleted = [...datesCompleted, selectedDate];
+    } else {
+      const updatedDatesCompleted = updatedTask.datesCompleted.filter((date: any) => (date !== selectedDate));
+      updatedTask.datesCompleted = updatedDatesCompleted;
+    }
+
+    // console.log('Updated Task: ', updatedTask);
+
+    dispatch(updateGoal(goal, history));
   };
 
-  const handleDeleteTask = () => {
+  const handleDeleteTask = (id: any) => {
+    // console.log('Tasks Before: ', goal.tasks);
+    let updatedGoal = goal;
 
+    const updatedTasks = goal.tasks.filter((task: any) => task._id !== id);
+    updatedGoal.tasks = updatedTasks;
+
+    // console.log('Updated Goal: ', updatedGoal);
+
+    dispatch(updateGoal(updatedGoal, history));
   };
 
   return (
@@ -93,8 +121,8 @@ const Task = (props: any) => {
             </IconButton>
             <IconButton
               title="Delete goal"
-              aria-label="delete goal"
-              // onClick={() => handleDeleteTask(goal, currentTaskID)}
+              aria-label="Delete goal"
+              onClick={() => handleDeleteTask(taskID)}
               className={classes.button}
             >
               <DeleteIcon color="secondary" />

@@ -16,7 +16,7 @@ import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '../../helpers/alert';
-import ErrorDialog from '../shared/ErrorDialog/ErrorDialog';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const initialState = {
   firstName: '',

@@ -2,14 +2,13 @@ import {
   START_LOADING,
   END_LOADING,
   // FETCH_ALL,
-  // FETCH_GOAL,
-  // FETCH_GOALS,
-  // FETCH_GOALS_FOR_TODAY,
+  // FETCH_TASK,
+  FETCH_TASKS,
   CREATE,
-  // UPDATE,
-  // DELETE,
-  DELETE_SUCCESSFUL,
-  // UPDATE_SUCCESSFUL
+  // UPDATE_TASK,
+  DELETE_TASK,
+  DELETE_TASK_SUCCESS,
+  // UPDATE_TASK_SUCCESS
 } from '../actionTypes/actionTypes';
 
 export default (state = { isLoading: true, tasks: [] }, action: any) => {
@@ -29,17 +28,12 @@ export default (state = { isLoading: true, tasks: [] }, action: any) => {
     //     ...state,
     //     goals: action.payload.data,
     //   };
-    // case FETCH_GOALS:
-    //   return {
-    //     ...state,
-    //     goals: action.payload.data,
-    //   };
-    // case FETCH_GOALS_FOR_TODAY:
-    //   return {
-    //     ...state,
-    //     goals: action.payload.data,
-    //   };
-    // case FETCH_GOAL:
+    case FETCH_TASKS:
+      return {
+        ...state,
+        tasks: action.payload.data,
+      };
+    // case FETCH_TASK:
     //   return {
     //     ...state,
     //     goal: action.payload.goal
@@ -49,17 +43,17 @@ export default (state = { isLoading: true, tasks: [] }, action: any) => {
         ...state,
         tasks: [...state.tasks, action.payload]
       };
-    // case UPDATE_SUCCESSFUL:
+    // case UPDATE_TASK_SUCCESS:
     //   return {
     //     ...state,
     //     updateSuccessful: action?.payload
     //   };
-    // case DELETE:
-    // return {
-    //   ...state,
-    //   goals: state.goals.filter((goal: any) => goal._id !== action.payload)
-    // };
-    case DELETE_SUCCESSFUL:
+    case DELETE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.filter((task: any) => task._id !== action.payload)
+      };
+    case DELETE_TASK_SUCCESS:
       return {
         ...state,
         deleteSuccessful: action?.payload

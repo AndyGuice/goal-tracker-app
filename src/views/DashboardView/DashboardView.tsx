@@ -8,7 +8,7 @@ import {
 import useStyles from './styles';
 import { getUserGoals } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
-import DatePicker from '../../components/shared/DatePicker/DatePicker';
+import DatePicker from '../../components/Shared/DatePicker/DatePicker';
 
 const DashboardView = () => {
   const {
@@ -16,7 +16,9 @@ const DashboardView = () => {
     isLoading,
   } = useSelector((state: any) => state.goals);
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const today = new Date();
+  const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString());
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -32,8 +34,8 @@ const DashboardView = () => {
   }, [user]);
 
   const handleDateChange = (date: any) => {
-    console.log('Date in Dashboard View: ', date);
     setSelectedDate(date);
+    setSelectedDateStr(date.toLocaleDateString());
   };
 
   return (
@@ -65,7 +67,7 @@ const DashboardView = () => {
             <Goals
               goals={goals}
               configView={false}
-              date={selectedDate}
+              date={selectedDateStr}
             />
           </Grid>
         </>

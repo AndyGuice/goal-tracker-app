@@ -5,10 +5,10 @@ import {
   FETCH_GOAL,
   FETCH_GOALS,
   CREATE,
-  // UPDATE,
-  DELETE,
-  DELETE_SUCCESSFUL,
-  UPDATE_SUCCESSFUL
+  // UPDATE_GOAL,
+  DELETE_GOAL,
+  DELETE_GOAL_SUCCESS,
+  UPDATE_GOAL_SUCCESS
 } from '../actionTypes/actionTypes';
 
 export default (state = { isLoading: true, goals: [] }, action: any) => {
@@ -43,17 +43,17 @@ export default (state = { isLoading: true, goals: [] }, action: any) => {
         ...state,
         goals: [...state.goals, action.payload]
       };
-    case UPDATE_SUCCESSFUL:
+    case UPDATE_GOAL_SUCCESS:
       return {
         ...state,
         updateSuccessful: action?.payload
       };
-    case DELETE:
+    case DELETE_GOAL:
       return {
         ...state,
         goals: state.goals.filter((goal: any) => goal._id !== action.payload)
       };
-    case DELETE_SUCCESSFUL:
+    case DELETE_GOAL_SUCCESS:
       return {
         ...state,
         deleteSuccessful: action?.payload

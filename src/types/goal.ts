@@ -1,4 +1,4 @@
-import Task from './task';
+import TaskModel from "./task";
 
 class Goal {
   _id: String = "";
@@ -7,10 +7,10 @@ class Goal {
   description: String = "";
   createdOn: String = "";
   updatedOn: String = "";
-  startOn: String = ""; // should these be Date()?
+  startOn: String = "";
   endOn: String = "";
   active: boolean = false;
-  tasks: Task[] = [];
+  tasks: TaskModel[] = [];
 }
 
 export default Goal;

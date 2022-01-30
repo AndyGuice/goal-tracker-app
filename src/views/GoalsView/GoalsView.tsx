@@ -14,7 +14,7 @@ import {
   getUserGoals
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
-import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../store/actionTypes/actionTypes';
+import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
 import Alert from '../../helpers/alert';
 
 const GoalsView = () => {
@@ -61,7 +61,7 @@ const GoalsView = () => {
       return;
     }
 
-    dispatch({ type: UPDATE_SUCCESSFUL, payload: false });
+    dispatch({ type: UPDATE_GOAL_SUCCESS, payload: false });
     setShowEditSuccess(false);
   };
 
@@ -70,7 +70,7 @@ const GoalsView = () => {
       return;
     }
 
-    dispatch({ type: DELETE_SUCCESSFUL, payload: false });
+    dispatch({ type: DELETE_GOAL_SUCCESS, payload: false });
     setShowDeleteSuccess(false);
   };
 
