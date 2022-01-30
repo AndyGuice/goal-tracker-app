@@ -16,7 +16,7 @@ import {
 import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
-import { ERROR } from '../../constants/actionTypes';
+import { ERROR } from '../../store/actionTypes/actionTypes';
 import Alert from '../../helpers/alert';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGoal, updateGoal } from '../../store/actions/goals';
@@ -30,13 +30,11 @@ export const EditGoal = () => {
   const { goal, isLoading } = useSelector((state: any) => state.goals);
   const { error } = useSelector((state: any) => state.error);
 
-  const { title, description, cadence, quantity } = goal || { title: '', description: '', cadence: 'daily', quantity: 1 };
+  const { title, description } = goal || { title: '', description: '' };
 
   const [showError, setShowError] = useState(false);
   const [goalTitle, setGoalTitle] = useState(title);
   const [goalDescription, setGoalDescription] = useState(description);
-  const [goalCadence, setGoalCadence] = useState(cadence);
-  const [goalQuantity, setGoalQuantity] = useState(quantity);
 
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));
@@ -55,9 +53,7 @@ export const EditGoal = () => {
   useEffect(() => {
     setGoalTitle(title);
     setGoalDescription(description);
-    setGoalCadence(cadence);
-    setGoalQuantity(quantity);
-  }, [cadence, description, quantity, title]);
+  }, [description, title]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -151,42 +147,6 @@ export const EditGoal = () => {
               fullWidth
               className={classes.button}
             />
-            <FormControl fullWidth className={classes.button}>
-              <InputLabel id="goal-cadence-select-label">
-                Cadence
-              </InputLabel>
-              <Select
-                labelId="goal-cadence-select-label"
-                id="goal-cadence-select"
-                value={goalCadence}
-                label="Cadence"
-                onChange={(e: any) => setGoalCadence(e.target.value)}
-              >
-                <MenuItem value={"daily"}>Daily</MenuItem>
-                <MenuItem value={"weekly"}>Weekly</MenuItem>
-                <MenuItem value={"monthly"}>Monthly</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl
-              fullWidth
-              className={classes.button}
-            >
-              <InputLabel id="goal-quantity-select-label">
-                Goal Quantity (amount per cadence)
-              </InputLabel>
-              <Select
-                labelId="goal-quantity-select-label"
-                id="goal-quantity-select"
-                value={goalQuantity}
-                onChange={(e: any) => setGoalQuantity(e.target.value)}
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-              </Select>
-            </FormControl>
             <Box textAlign="center">
               <Button
                 variant="contained"

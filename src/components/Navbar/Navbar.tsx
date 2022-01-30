@@ -14,7 +14,7 @@ import {
     useLocation
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import * as actionType from '../../constants/actionTypes';
+import * as actionType from '../../store/actionTypes/actionTypes';
 import decode from 'jwt-decode';
 import { Avatar } from "@material-ui/core";
 

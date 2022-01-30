@@ -4,7 +4,6 @@ import {
   CircularProgress,
   Grid,
   Paper,
-  Typography,
 } from '@material-ui/core';
 import useStyles from './styles';
 import { getUserGoals } from '../../store/actions/goals';
@@ -17,6 +16,8 @@ const DashboardView = () => {
     isLoading,
   } = useSelector((state: any) => state.goals);
 
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const profile = localStorage.getItem('profile')!;
@@ -28,7 +29,12 @@ const DashboardView = () => {
     const userId = result?.googleId || result?._id;
 
     dispatch(getUserGoals(userId));
-  }, [dispatch, user]);
+  }, [user]);
+
+  const handleDateChange = (date: any) => {
+    console.log('Date in Dashboard View: ', date);
+    setSelectedDate(date);
+  };
 
   return (
     <Grid
@@ -52,10 +58,14 @@ const DashboardView = () => {
             spacing={3}
             className={classes.goalContainer}
           >
-            <DatePicker />
+            <DatePicker
+              date={selectedDate}
+              onChange={handleDateChange}
+            />
             <Goals
               goals={goals}
               configView={false}
+              date={selectedDate}
             />
           </Grid>
         </>

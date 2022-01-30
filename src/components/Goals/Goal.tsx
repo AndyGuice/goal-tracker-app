@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Paper,
@@ -17,7 +17,7 @@ import AddTask from '../Tasks/AddTask';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 const Goal = (props: any) => {
-  const { goal, configView } = props;
+  const { goal, configView, date } = props;
   const {
     title,
     userId: goalUserID,
@@ -109,8 +109,9 @@ const Goal = (props: any) => {
       )}
       <Tasks
         tasks={tasks}
-        goalID={goalID}
+        goal={goal}
         configView={configView}
+        date={date}
       />
     </Grid>
   );

@@ -10,7 +10,7 @@ import {
   // DELETE,
   DELETE_SUCCESSFUL,
   // UPDATE_SUCCESSFUL
-} from '../../constants/actionTypes';
+} from '../actionTypes/actionTypes';
 
 export default (state = { isLoading: true, tasks: [] }, action: any) => {
   switch (action.type) {

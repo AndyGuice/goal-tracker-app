@@ -14,7 +14,7 @@ import {
   getUserGoals
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
-import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
+import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../store/actionTypes/actionTypes';
 import Alert from '../../helpers/alert';
 
 const GoalsView = () => {

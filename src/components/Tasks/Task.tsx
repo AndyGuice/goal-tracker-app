@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  Checkbox,
   Grid,
   IconButton,
   Paper,
@@ -10,13 +11,21 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { updateTask } from '../../store/actions/tasks';
 
 const Task = (props: any) => {
-  const { task, configView } = props;
-  const { title, description, _id: taskID } = task || { task: {} };
+  const { task, configView, date: selectedDate } = props;
+  const {
+    title,
+    description,
+    _id: taskID,
+    trackedDates = [],
+  } = task;
 
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDescription, setTaskDescription] = useState(description);
+  const [taskTrackedDates, changeTaskTrackedDates] = useState(trackedDates);
+  const [taskComplete, setTaskComplete] = useState<any>(false);
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -24,9 +33,20 @@ const Task = (props: any) => {
 
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);
-  const { result } = loggedUser || { result: {} };
-  // const { googleId, _id } = result || { googleId: {}, _id: {} };
-  // const userID = googleId || _id;
+
+  const today = new Date().toLocaleDateString();
+
+  useEffect(() => {
+
+  }, [selectedDate]);
+
+  const handleUpdateTask = (status: Boolean) => {
+
+  };
+
+  const handleDeleteTask = () => {
+
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -52,6 +72,12 @@ const Task = (props: any) => {
           size="small"
           onChange={(e: any) => setTaskDescription(e.target.value)}
         />
+        {!configView &&
+          <Checkbox
+            checked={taskComplete}
+            onClick={() => handleUpdateTask(!taskComplete)}
+          />
+        }
         {
           loggedUser &&
           Object.keys(loggedUser).length !== 0 &&
@@ -68,7 +94,7 @@ const Task = (props: any) => {
             <IconButton
               title="Delete goal"
               aria-label="delete goal"
-              // onClick={() => dispatch(deleteTask(taskID, history))}
+              // onClick={() => handleDeleteTask(goal, currentTaskID)}
               className={classes.button}
             >
               <DeleteIcon color="secondary" />
