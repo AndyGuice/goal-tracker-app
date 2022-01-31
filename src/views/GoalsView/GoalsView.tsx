@@ -15,7 +15,7 @@ import {
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
-import Alert from '../../helpers/alert';
+import Alert from '../../helpers/Alert';
 
 const GoalsView = () => {
   const {
