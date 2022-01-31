@@ -14,7 +14,7 @@ import useStyles from './styles';
 import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '../../helpers/alert';
+import Alert from '../../helpers/Alert';
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const initialState = {
