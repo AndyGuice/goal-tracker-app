@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Checkbox,
+  FormControlLabel,
   Grid,
   IconButton,
   Paper,
@@ -20,14 +21,13 @@ const Task = (props: any) => {
 
   const {
     title,
-    description,
     _id: taskID,
     datesCompleted = [],
   } = task;
 
   const [taskTitle, setTaskTitle] = useState(title);
-  const [taskDescription, setTaskDescription] = useState(description);
   const [taskComplete, setTaskComplete] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const classes = useStyles();
 
@@ -70,30 +70,27 @@ const Task = (props: any) => {
     <Paper className={classes.paper}>
       <Grid
         item
-        xs={6}
+        xs={12}
       >
         <TextField
           id="Task title"
           aria-label="Task title"
           value={taskTitle}
           className={classes.input}
-          label="Task Name"
           size="small"
+          disabled={!edit}
           onChange={(e: any) => setTaskTitle(e.target.value)}
         />
-        <TextField
-          id="Task description"
-          aria-label="Task description"
-          value={taskDescription}
-          className={classes.input}
-          label="Task Description"
-          size="small"
-          onChange={(e: any) => setTaskDescription(e.target.value)}
-        />
         {!configView &&
-          <Checkbox
-            checked={taskComplete}
-            onClick={() => handleUpdateTask(!taskComplete)}
+          <FormControlLabel
+            label="Complete"
+            labelPlacement="start"
+            control={
+              <Checkbox
+                checked={taskComplete}
+                onClick={() => handleUpdateTask(!taskComplete)}
+              />
+            }
           />
         }
         {

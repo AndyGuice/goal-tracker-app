@@ -15,6 +15,7 @@ export default makeStyles((theme: Theme) =>
     },
     paper: {
       display: 'flex',
+      alignItems: 'center',
       flexDirection: 'row',
       // padding: theme.spacing(2),
     },

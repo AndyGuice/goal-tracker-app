@@ -47,21 +47,16 @@ const Goal = (props: any) => {
       xs={12}
     >
       <Paper className={classes.paper}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}>
-          <AssignmentTurnedInIcon />
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="h2"
-            style={{ paddingLeft: 5 }}
-          >
-            {title}
-          </Typography>
-        </div>
+        <AssignmentTurnedInIcon
+          style={{ marginLeft: 10 }}
+        />
+        <Typography
+          variant="h5"
+          component="h2"
+          style={{ padding: 10 }}
+        >
+          {title}
+        </Typography>
         {
           loggedUser &&
           Object.keys(loggedUser).length !== 0 &&
