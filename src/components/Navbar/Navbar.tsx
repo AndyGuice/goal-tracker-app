@@ -8,10 +8,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Avatar from '@material-ui/core/Avatar';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
+import Drawer from './Drawer';
 import useStyles from './styles';
 
 import {
@@ -58,6 +60,7 @@ export default function Navbar() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -79,6 +82,11 @@ export default function Navbar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleOnChange = (e: any) => {
+        console.log("E: ", e);
+        setMenuDrawerOpen(e);
+    };
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -88,7 +96,6 @@ export default function Navbar() {
             keepMounted
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMenuOpen}
-            onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
@@ -136,7 +143,12 @@ export default function Navbar() {
             </MenuItem>
             <MenuItem onClick={logout}>
                 <IconButton>
-                    <AccountCircle />
+                    <Avatar
+                        alt={user?.result.name}
+                        src={user?.result.imageUrl}
+                    >
+                        {user?.result.name.charAt(0)}
+                    </Avatar>
                 </IconButton>
                 <p>Logout</p>
             </MenuItem>
@@ -152,12 +164,21 @@ export default function Navbar() {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={() => setMenuDrawerOpen(true)}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Typography
+                        className={classes.title}
+                        variant="h6"
+                        noWrap
+                    >
                         Goal Tracker
                     </Typography>
+                    <Drawer
+                        open={menuDrawerOpen}
+                        onChange={handleOnChange}
+                    />
                     <div className={classes.grow} />
                     {user?.result ? (
                         <>
@@ -180,7 +201,12 @@ export default function Navbar() {
                                     onClick={handleProfileMenuOpen}
                                     color="inherit"
                                 >
-                                    <AccountCircle />
+                                    <Avatar
+                                        alt={user?.result.name}
+                                        src={user?.result.imageUrl}
+                                    >
+                                        {user?.result.name.charAt(0)}
+                                    </Avatar>
                                 </IconButton>
                             </div>
 
