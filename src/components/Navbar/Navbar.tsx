@@ -83,7 +83,6 @@ export default function Navbar() {
     };
 
     const handleOnChange = (e: any) => {
-        console.log("E: ", e);
         setMenuDrawerOpen(e);
     };
 
