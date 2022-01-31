@@ -13,10 +13,10 @@ import { signin } from '../../store/actions/auth';
 import GoogleIcon from '../../helpers/googleIcon';
 import useStyles from './styles';
 import Input from '../../helpers/Input';
-import { AUTH, ERROR } from '../../constants/actionTypes';
+import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '../../helpers/alert';
-import ErrorDialog from '../shared/ErrorDialog/ErrorDialog';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const initialState = {
   firstName: '',

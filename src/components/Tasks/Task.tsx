@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
+  Checkbox,
   Grid,
   IconButton,
   Paper,
@@ -7,26 +8,63 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 const Task = (props: any) => {
-  const { task, configView } = props;
-  const { title, description, _id: taskID } = task || { task: {} };
+  const {
+    goal,
+    task,
+    configView,
+    date: selectedDate,
+    onUpdate,
+  } = props;
+
+  const {
+    title,
+    description,
+    _id: taskID,
+    datesCompleted = [],
+  } = task;
 
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDescription, setTaskDescription] = useState(description);
+  const [taskComplete, setTaskComplete] = useState(false);
 
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);
-  const { result } = loggedUser || { result: {} };
-  // const { googleId, _id } = result || { googleId: {}, _id: {} };
-  // const userID = googleId || _id;
+
+  useEffect(() => {
+    if (datesCompleted.includes(selectedDate)) {
+      setTaskComplete(true);
+    } else {
+      setTaskComplete(false);
+    }
+  }, [selectedDate]);
+
+  const handleUpdateTask = (status: boolean) => {
+    setTaskComplete(status);
+
+    let updatedTask = task;
+
+    if (status) {
+      updatedTask.datesCompleted = [...datesCompleted, selectedDate];
+    } else {
+      const updatedDatesCompleted = updatedTask.datesCompleted.filter((date: any) => (date !== selectedDate));
+      updatedTask.datesCompleted = updatedDatesCompleted;
+    }
+
+    onUpdate(goal);
+  };
+
+  const handleDeleteTask = (id: any) => {
+    let updatedGoal = goal;
+
+    const updatedTasks = goal.tasks.filter((task: any) => task._id !== id);
+    updatedGoal.tasks = updatedTasks;
+
+    onUpdate(updatedGoal);
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -52,28 +90,24 @@ const Task = (props: any) => {
           size="small"
           onChange={(e: any) => setTaskDescription(e.target.value)}
         />
+        {!configView &&
+          <Checkbox
+            checked={taskComplete}
+            onClick={() => handleUpdateTask(!taskComplete)}
+          />
+        }
         {
           loggedUser &&
           Object.keys(loggedUser).length !== 0 &&
           configView &&
-          <>
-            <IconButton
-              title="Edit goal"
-              aria-label="edit goal"
-              // onClick={() => history.push(`/editGoal/${goalID}`)}
-              className={classes.button}
-            >
-              <EditRoundedIcon color="secondary" />
-            </IconButton>
-            <IconButton
-              title="Delete goal"
-              aria-label="delete goal"
-              // onClick={() => dispatch(deleteTask(taskID, history))}
-              className={classes.button}
-            >
-              <DeleteIcon color="secondary" />
-            </IconButton>
-          </>
+          <IconButton
+            title="Delete task"
+            aria-label="Delete task"
+            onClick={() => handleDeleteTask(taskID)}
+            className={classes.button}
+          >
+            <DeleteIcon color="secondary" />
+          </IconButton>
         }
       </Grid>
     </Paper>

@@ -12,12 +12,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
-import Tasks from '../Tasks/Tasks';
 import AddTask from '../Tasks/AddTask';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import Tasks from '../Tasks/Tasks';
 
 const Goal = (props: any) => {
-  const { goal, configView } = props;
+  const { goal, configView, date, onUpdate } = props;
   const {
     title,
     userId: goalUserID,
@@ -36,10 +36,6 @@ const Goal = (props: any) => {
   const { result } = loggedUser || { result: {} };
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
-
-  const handleSaveTask = () => {
-
-  };
 
   const handleCancelTask = () => {
     setShowAddTask(!showAddTask);
@@ -105,13 +101,18 @@ const Goal = (props: any) => {
         <AddTask
           goal={goal}
           onCancel={handleCancelTask}
+          onUpdate={onUpdate}
         />
       )}
-      <Tasks
-        tasks={tasks}
-        goalID={goalID}
-        configView={configView}
-      />
+      {tasks && (
+        <Tasks
+          configView={configView}
+          date={date}
+          goal={goal}
+          tasks={tasks}
+          onUpdate={onUpdate}
+        />
+      )}
     </Grid>
   );
 };

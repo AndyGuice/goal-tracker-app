@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
-import { ERROR } from '../../constants/actionTypes';
+import { ERROR } from '../../store/actionTypes/actionTypes';
 import Alert from '../../helpers/alert';
 import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
@@ -29,8 +29,6 @@ const AddGoal = () => {
 
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
-  const [goalCadence, setGoalCadence] = useState('daily');
-  const [goalQuantity, setGoalQuantity] = useState(1);
 
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));
@@ -119,36 +117,6 @@ const AddGoal = () => {
               fullWidth
               className={classes.button}
             />
-            <FormControl fullWidth className={classes.button}>
-              <InputLabel id="goal-cadence-select-label">Goal Cadence</InputLabel>
-              <Select
-                labelId="goal-cadence-select-label"
-                id="goal-cadence-select"
-                value={goalCadence}
-                onChange={(e: any) => setGoalCadence(e.target.value)}
-              >
-                <MenuItem value={"daily"}>Daily</MenuItem>
-                <MenuItem value={"weekly"}>Weekly</MenuItem>
-                <MenuItem value={"monthly"}>Monthly</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl fullWidth className={classes.button}>
-              <InputLabel id="goal-quantity-select-label">
-                Goal Quantity (amount per cadence)
-              </InputLabel>
-              <Select
-                labelId="goal-quantity-select-label"
-                id="goal-quantity-select"
-                value={goalQuantity}
-                onChange={(e: any) => setGoalQuantity(e.target.value)}
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-              </Select>
-            </FormControl>
             <Box textAlign="center">
               <Button
                 type="submit"

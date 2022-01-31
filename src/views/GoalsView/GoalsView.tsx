@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
-  Grow,
   CircularProgress,
   Paper,
   Button,
@@ -11,10 +10,11 @@ import {
 import useStyles from './styles';
 import { useHistory } from 'react-router';
 import {
-  getUserGoals
+  getUserGoals,
+  updateGoal,
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
-import { DELETE_SUCCESSFUL, UPDATE_SUCCESSFUL } from '../../constants/actionTypes';
+import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
 import Alert from '../../helpers/alert';
 
 const GoalsView = () => {
@@ -61,7 +61,7 @@ const GoalsView = () => {
       return;
     }
 
-    dispatch({ type: UPDATE_SUCCESSFUL, payload: false });
+    dispatch({ type: UPDATE_GOAL_SUCCESS, payload: false });
     setShowEditSuccess(false);
   };
 
@@ -70,8 +70,12 @@ const GoalsView = () => {
       return;
     }
 
-    dispatch({ type: DELETE_SUCCESSFUL, payload: false });
+    dispatch({ type: DELETE_GOAL_SUCCESS, payload: false });
     setShowDeleteSuccess(false);
+  };
+
+  const handleUpdateGoals = (goal: any) => {
+    dispatch(updateGoal(goal, history));
   };
 
   return (
@@ -99,6 +103,7 @@ const GoalsView = () => {
         <Goals
           goals={goals}
           configView={true}
+          onUpdate={(e: any) => handleUpdateGoals(e)}
         />
       }
       <Snackbar

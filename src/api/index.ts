@@ -29,7 +29,6 @@ API.interceptors.response.use(response => {
 export const signIn = (formData: any) => API.post('/user/signin', formData);
 export const signUp = (formData: any) => API.post('/user/signup', formData);
 
-
 // CRUD for goals - still to be built out
 export const fetchAllGoals = () => API.get('/goals');
 export const fetchUserGoals = (id: String) => API.get(`/goals/users/${id}`);
@@ -39,8 +38,9 @@ export const updateGoal = (id: String, updatedGoal: any) => API.patch(`/goals/${
 export const deleteGoal = (id: String) => API.delete(`/goals/${id}`);
 
 // tasks
-export const fetchAllTasks = () => API.get('/tasks');
-export const fetchTask = (id: String) => API.get(`/tasks/${id}`);
+// export const fetchAllTasks = () => API.get('/tasks');
+export const fetchGoalTasks = (id: String) => API.get(`/tasks/${id}`);
+// export const fetchTask = (id: String) => API.get(`/tasks/${id}`);
 export const createTask = (task: any) => API.post('/tasks', task);
 export const updateTask = (id: String, updatedTask: any) => API.patch(`/tasks/${id}`, updatedTask);
 export const deleteTask = (id: String) => API.delete(`/tasks/${id}`);

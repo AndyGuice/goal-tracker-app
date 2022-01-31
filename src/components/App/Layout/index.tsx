@@ -5,12 +5,10 @@ const Layout = (props: any) => {
   const { children } = props;
 
   return (
-    <div>
+    <>
       <Navbar />
-      <div style={{ marginTop: 80 }}>
-        {children}
-      </div>
-    </div>
+      {children}
+    </>
 
   );
 };

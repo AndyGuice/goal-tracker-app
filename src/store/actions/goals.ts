@@ -1,16 +1,16 @@
 import {
   CREATE,
-  DELETE,
-  DELETE_SUCCESSFUL,
+  DELETE_GOAL,
+  DELETE_GOAL_SUCCESS,
   END_LOADING,
   ERROR,
   FETCH_ALL,
   FETCH_GOAL,
   FETCH_GOALS,
   START_LOADING,
-  UPDATE,
-  UPDATE_SUCCESSFUL
-} from "../../constants/actionTypes";
+  UPDATE_GOAL,
+  UPDATE_GOAL_SUCCESS
+} from "../actionTypes/actionTypes";
 import * as api from '../../api';
 import GoalModel from '../../types/goal';
 
@@ -66,25 +66,7 @@ export const createGoal = (goal: any, history: any) => async (dispatch: any) => 
 
     dispatch({ type: END_LOADING });
     dispatch({ type: CREATE, payload: data });
-    return history.push(`/setup`);
-  }
-  catch (error) {
-    console.log(error);
-  }
-};
-
-export const createRecurringGoal = (goal: any) => async (dispatch: any) => {
-  try {
-    dispatch({ type: START_LOADING });
-
-    const { data } = await api.createGoal(goal);
-
-    if (data?.error) {
-      dispatch({ type: ERROR, data });
-    }
-
-    dispatch({ type: END_LOADING });
-    dispatch({ type: CREATE, payload: data });
+    return history.push(`/goals`);
   }
   catch (error) {
     console.log(error);
@@ -100,34 +82,14 @@ export const updateGoal = (goal: any, history: any) => async (dispatch: any) => 
     if (data?.error) {
       dispatch({ type: ERROR, data });
 
-      return history.push(`/editGoal/${goal._id}`);
+      // return history.push(`/editGoal/${goal._id}`);
     }
 
-    dispatch({ type: UPDATE, payload: data });
-    dispatch({ type: UPDATE_SUCCESSFUL, payload: true });
+    dispatch({ type: UPDATE_GOAL, payload: data });
+    dispatch({ type: UPDATE_GOAL_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
-    return history.push(`/goals`);
-
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const updateGoalComplete = (goal: GoalModel, history: any) => async (dispatch: any) => {
-
-  try {
-    dispatch({ type: START_LOADING });
-    const { data } = await api.updateGoal(goal._id, goal);
-
-    if (data?.error) {
-      dispatch({ type: ERROR, data });
-      return history.push(`/editGoal/${goal._id}`);
-    }
-
-    dispatch({ type: UPDATE, payload: data });
-    dispatch({ type: UPDATE_SUCCESSFUL, payload: true });
-    dispatch({ type: END_LOADING });
+    // return history.push(`/goals`);
 
   } catch (error) {
     console.log(error);
@@ -140,11 +102,11 @@ export const deleteGoal = (id: String, history: any) => async (dispatch: any) =>
     dispatch({ type: START_LOADING });
     await api.deleteGoal(id);
 
-    dispatch({ type: DELETE, payload: id });
-    dispatch({ type: DELETE_SUCCESSFUL, payload: true });
+    dispatch({ type: DELETE_GOAL, payload: id });
+    dispatch({ type: DELETE_GOAL_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
-    return history.push(`/setup`);
+    return history.push(`/goals`);
 
   } catch (error) {
     console.log(error);

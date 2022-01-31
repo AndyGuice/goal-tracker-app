@@ -12,7 +12,7 @@ import Alert from '../../helpers/alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';
-import { ERROR } from '../../constants/actionTypes';
+import { ERROR } from '../../store/actionTypes/actionTypes';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Input from '../../helpers/Input';
 import useStyles from './styles';

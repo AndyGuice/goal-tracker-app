@@ -4,12 +4,12 @@ import {
   CircularProgress,
   Grid,
   Paper,
-  Typography,
 } from '@material-ui/core';
-import useStyles from './styles';
-import { getUserGoals } from '../../store/actions/goals';
+import { useHistory } from 'react-router';
+import { getUserGoals, updateGoal } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
-import DatePicker from '../../components/shared/DatePicker/DatePicker';
+import DatePicker from '../../components/Shared/DatePicker/DatePicker';
+import useStyles from './styles';
 
 const DashboardView = () => {
   const {
@@ -17,8 +17,13 @@ const DashboardView = () => {
     isLoading,
   } = useSelector((state: any) => state.goals);
 
+  const today = new Date();
+  const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString());
+
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const profile = localStorage.getItem('profile')!;
 
   const [user] = useState(JSON.parse(profile));
@@ -28,7 +33,16 @@ const DashboardView = () => {
     const userId = result?.googleId || result?._id;
 
     dispatch(getUserGoals(userId));
-  }, [dispatch, user]);
+  }, [user]);
+
+  const handleDateChange = (date: any) => {
+    setSelectedDate(date);
+    setSelectedDateStr(date.toLocaleDateString());
+  };
+
+  const handleUpdateGoals = (goal: any) => {
+    dispatch(updateGoal(goal, history));
+  };
 
   return (
     <Grid
@@ -52,10 +66,15 @@ const DashboardView = () => {
             spacing={3}
             className={classes.goalContainer}
           >
-            <DatePicker />
+            <DatePicker
+              date={selectedDate}
+              onChange={handleDateChange}
+            />
             <Goals
               goals={goals}
               configView={false}
+              date={selectedDateStr}
+              onUpdate={(e: any) => handleUpdateGoals(e)}
             />
           </Grid>
         </>

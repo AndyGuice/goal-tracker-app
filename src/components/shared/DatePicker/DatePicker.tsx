@@ -1,5 +1,4 @@
-import 'date-fns';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -11,17 +10,19 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { addDays } from 'date-fns';
 import useStyles from './styles';
 
-export default function DatePicker() {
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
+export default function DatePicker(props: any) {
+  const { date, onChange } = props;
+
+  let selectedDate = date;
   const classes = useStyles();
 
-  const handleDateChange = (date: any) => {
-    setSelectedDate(date);
+  const handleDateChange = (newDate: Date) => {
+    onChange(newDate);
   };
 
   const handleClick = (dateAdjustment: number) => {
-    const newDate = addDays(selectedDate, dateAdjustment);
-    setSelectedDate(newDate);
+    const newDate = addDays(date, dateAdjustment);
+    onChange(newDate);
   };
 
   return (
