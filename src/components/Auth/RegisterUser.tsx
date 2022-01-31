@@ -8,7 +8,7 @@ import {
     Snackbar,
     Typography
 } from '@material-ui/core';
-import Alert from '../../helpers/alert';
+import Alert from '../../helpers/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';
