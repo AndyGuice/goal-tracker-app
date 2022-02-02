@@ -133,6 +133,7 @@ export const EditGoal = () => {
               placeholder="Goal name"
               fullWidth
               sx={{
+                marginTop: 2,
                 marginBottom: 2
               }}
             />
