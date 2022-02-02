@@ -26,7 +26,7 @@ export default function DatePicker(props: any) {
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justifyContent="center" alignItems="center">
+      <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', padding: 5 }}>
         <IconButton>
           <ArrowBackIosIcon
             onClick={() => handleClick(-1)}
@@ -45,7 +45,7 @@ export default function DatePicker(props: any) {
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
-          style={{ margin: 20 }}
+          size="small"
         />
         <IconButton>
           <ArrowForwardIosIcon

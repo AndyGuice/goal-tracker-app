@@ -89,7 +89,30 @@ export const updateGoal = (goal: any, history: any) => async (dispatch: any) => 
     dispatch({ type: UPDATE_GOAL_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
-    // return history.push(`/goals`);
+    return history.push(`/goals`);
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateTaskComplete = (goal: any, history: any) => async (dispatch: any) => {
+
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.updateGoal(goal._id, goal);
+
+    if (data?.error) {
+      dispatch({ type: ERROR, data });
+
+      // return history.push(`/editGoal/${goal._id}`);
+    }
+
+    dispatch({ type: UPDATE_GOAL, payload: data });
+    dispatch({ type: UPDATE_GOAL_SUCCESS, payload: true });
+    dispatch({ type: END_LOADING });
+
+    return history.push(`/dashboard`);
 
   } catch (error) {
     console.log(error);

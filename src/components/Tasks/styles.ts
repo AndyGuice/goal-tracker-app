@@ -8,11 +8,16 @@ export default makeStyles((theme: Theme) =>
       flexDirection: 'row',
       padding: theme.spacing(1),
       marginLeft: theme.spacing(2),
+      marginTop: theme.spacing(1),
       border: '1px solid black',
-      backgroundColor: '#eeeeee'
+      width: "60%",
+      [theme.breakpoints.down("sm")]: {
+        width: "100%"
+      }
     },
     input: {
-      padding: theme.spacing(1)
+      padding: theme.spacing(1),
+      width: "100%"
     }
   })
 );
