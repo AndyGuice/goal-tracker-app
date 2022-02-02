@@ -81,7 +81,7 @@ export const updateGoal = (goal: any, history: any) => async (dispatch: any) => 
     if (data?.error) {
       dispatch({ type: ERROR, data });
 
-      // return history.push(`/editGoal/${goal._id}`);
+      return history.push(`/editGoal/${goal._id}`);
     }
 
     dispatch({ type: UPDATE_GOAL, payload: data });

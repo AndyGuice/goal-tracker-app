@@ -15,8 +15,11 @@ import {
 import Goals from '../../components/Goals/Goals';
 import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
 import Alert from '../../helpers/Alert';
+import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog';
+import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
 
 const GoalsView = () => {
+  const { error } = useSelector((state: any) => state.error);
   const {
     goals,
     isLoading,
@@ -31,9 +34,22 @@ const GoalsView = () => {
 
   const [showEditSuccess, setShowEditSuccess] = useState(false);
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+
+  const [submitError, setSubmitError] = useState('');
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+
   const [
     user,
   ] = useState(JSON.parse(profile));
+
+  useEffect(() => {
+    if (error) {
+      setSubmitError(error);
+      setOpenErrorDialog(true);
+      dispatch({ type: ERROR, data: null });
+    }
+    // eslint-disable-next-line
+  }, [error]);
 
   useEffect(() => {
     if (updateSuccessful) {
@@ -77,8 +93,18 @@ const GoalsView = () => {
     dispatch(updateGoal(goal, history));
   };
 
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false);
+  };
+
   return (
     <Grid container justifyContent="center" className={classes.root}>
+      <ErrorDialog
+        open={openErrorDialog}
+        onClose={handleDialogClose}
+        error={submitError}
+        action="Login"
+      />
       {user?.result &&
         <Button
           variant="contained"
@@ -106,7 +132,7 @@ const GoalsView = () => {
           onUpdate={(e: any) => handleUpdateGoals(e)}
         />
       }
-      <Snackbar
+      {/* <Snackbar
         open={showEditSuccess}
         autoHideDuration={6000}
         onClose={handleCloseEditSuccess}
@@ -129,7 +155,7 @@ const GoalsView = () => {
         >
           Delete successful
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </Grid>
   );
 };

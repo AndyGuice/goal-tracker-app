@@ -4,7 +4,7 @@ import {
   Button,
   Grid,
   Paper,
-  Snackbar,
+  // Snackbar,
   TextField,
   Typography
 } from '@mui/material';
@@ -15,6 +15,7 @@ import Alert from '../../helpers/Alert';
 import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
 import useStyles from './styles';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const AddGoal = () => {
   const classes = useStyles();
@@ -33,9 +34,15 @@ const AddGoal = () => {
 
   useEffect(() => {
     if (error) {
-      setShowError(true);
+      setSubmitError(error);
+      setOpenErrorDialog(true);
+      dispatch({ type: ERROR, data: null });
     }
+    // eslint-disable-next-line
   }, [error]);
+
+  const [submitError, setSubmitError] = useState('');
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -67,14 +74,19 @@ const AddGoal = () => {
     return { ok: true };
   };
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  // const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
 
-    dispatch({ type: ERROR, data: null });
-    setShowError(false);
+  //   dispatch({ type: ERROR, data: null });
+  //   setShowError(false);
+  // };
+
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false);
   };
+
 
   return (
     <Grid
@@ -82,6 +94,12 @@ const AddGoal = () => {
       justifyContent="center"
       component="main"
     >
+      <ErrorDialog
+        open={openErrorDialog}
+        onClose={handleDialogClose}
+        error={submitError}
+        action="Create goal...?"
+      />
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6} sx={{ marginTop: 2 }}>
           <Grid item xs={12}>
@@ -124,7 +142,7 @@ const AddGoal = () => {
           </Grid>
         </Paper>
       </form>
-      <Snackbar
+      {/* <Snackbar
         open={showError}
         autoHideDuration={6000}
         onClose={handleClose}
@@ -136,7 +154,7 @@ const AddGoal = () => {
         >
           {error}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </Grid>
   );
 };

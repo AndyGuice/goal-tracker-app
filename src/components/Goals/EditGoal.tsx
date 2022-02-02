@@ -5,7 +5,7 @@ import {
   CircularProgress,
   Grid,
   Paper,
-  Snackbar,
+  // Snackbar,
   TextField,
   Typography
 } from '@mui/material';
@@ -13,9 +13,10 @@ import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import Alert from '../../helpers/Alert';
+// import Alert from '../../helpers/Alert';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGoal, updateGoal } from '../../store/actions/goals';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 export const EditGoal = () => {
   const { id } = useParams<any>();
@@ -31,6 +32,9 @@ export const EditGoal = () => {
   const [showError, setShowError] = useState(false);
   const [goalTitle, setGoalTitle] = useState(title);
   const [goalDescription, setGoalDescription] = useState(description);
+
+  const [submitError, setSubmitError] = useState('');
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));
@@ -50,6 +54,15 @@ export const EditGoal = () => {
     setGoalTitle(title);
     setGoalDescription(description);
   }, [description, title]);
+
+  useEffect(() => {
+    if (error) {
+      setSubmitError(error);
+      setOpenErrorDialog(true);
+      dispatch({ type: ERROR, data: null });
+    }
+    // eslint-disable-next-line
+  }, [error]);
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
@@ -88,6 +101,9 @@ export const EditGoal = () => {
     return { ok: true };
   };
 
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false);
+  };
 
   if (isLoading) {
     return (
@@ -113,6 +129,12 @@ export const EditGoal = () => {
       justifyContent="center"
       component="main"
     >
+      <ErrorDialog
+        open={openErrorDialog}
+        onClose={handleDialogClose}
+        error={submitError}
+        action="Edit goal...?"
+      />
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6}>
           <Grid item xs={12}>
@@ -161,7 +183,7 @@ export const EditGoal = () => {
           </Grid>
         </Paper>
       </form>
-      <Snackbar
+      {/* <Snackbar
         open={showError}
         autoHideDuration={6000}
         onClose={handleClose}
@@ -173,7 +195,7 @@ export const EditGoal = () => {
         >
           {error}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </Grid>
   );
 };
