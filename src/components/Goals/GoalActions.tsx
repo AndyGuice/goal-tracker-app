@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CardActions,
   IconButton,
@@ -10,6 +10,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { deleteGoal } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
+import ConfirmDialog from '../../components/Shared/ConfirmDialog/ConfirmDialog';
 import useStyles from './styles';
 
 const GoalActions = (props: any) => {
@@ -34,19 +35,38 @@ const GoalActions = (props: any) => {
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
 
+  const [ openConfirmDialog, setOpenConfirmDialog ] = useState(false);
+
+  const handleDeleteGoal = () => {
+    setOpenConfirmDialog(true)
+  }
+
+  const handleDialogClose = (confirmDelete: boolean) => {
+    if (confirmDelete) {
+      dispatch(deleteGoal(goalID, history))
+      setOpenConfirmDialog(false)
+    } else {
+    setOpenConfirmDialog(false)
+    }
+  }
+
   return (
     loggedUser &&
     Object.keys(loggedUser).length !== 0 &&
     userID === goalUserID &&
     configView &&
     <CardActions>
+      <ConfirmDialog
+        open={openConfirmDialog}
+        onClose={handleDialogClose}
+        object="Goal"
+      />
       <Tooltip title="Add Task">
         <IconButton
           aria-label="Add Task"
           id="Add task button"
           color="secondary"
           onClick={onAddTask}
-          size="small"
         >
           <NoteAddIcon />
         </IconButton>
@@ -56,7 +76,6 @@ const GoalActions = (props: any) => {
           aria-label="edit goal"
           onClick={() => history.push(`/editGoal/${goalID}`)}
           color="secondary"
-          size="small"
         >
           <EditRoundedIcon />
         </IconButton>
@@ -64,8 +83,7 @@ const GoalActions = (props: any) => {
       <Tooltip title="Delete task">
         <IconButton
           aria-label="delete goal"
-          onClick={() => dispatch(deleteGoal(goalID, history))}
-          size="small"
+          onClick={handleDeleteGoal}
         >
           <DeleteIcon color="secondary" />
         </IconButton>
