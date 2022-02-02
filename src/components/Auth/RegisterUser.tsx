@@ -5,11 +5,9 @@ import {
     Container,
     Grid,
     Paper,
-    Snackbar,
     TextField,
     Typography
 } from '@mui/material';
-import Alert from '../../helpers/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';
@@ -17,6 +15,7 @@ import { ERROR } from '../../store/actionTypes/actionTypes';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import useStyles from './styles';
 import * as EmailValidator from 'email-validator';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -26,23 +25,18 @@ const RegisterUser = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const classes = useStyles();
-    const [showPassword, setShowPassword] = useState(false);
-    const [showError, setShowError] = useState(false);
+    const [submitError, setSubmitError] = useState('');
+    const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
+    // const [showPassword, setShowPassword] = useState(false); // TODO: re-add this handling
 
     useEffect(() => {
         if (error) {
-            setShowError(true);
+            setSubmitError(error);
+            setOpenErrorDialog(true);
+            dispatch({ type: ERROR, data: null });
         }
     }, [error]);
-
-    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        dispatch({ type: ERROR, data: null });
-        setShowError(false);
-    };
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -60,8 +54,18 @@ const RegisterUser = () => {
 
     const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
 
+    const handleDialogClose = () => {
+        setOpenErrorDialog(false);
+      };
+
     return (
         <Container component="main" maxWidth="xs" style={{ marginTop: "80px" }}>
+            <ErrorDialog
+                open={openErrorDialog}
+                onClose={handleDialogClose}
+                error={submitError}
+                action="Registration"
+            />
             <Paper className={classes.paper} elevation={6}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -136,9 +140,6 @@ const RegisterUser = () => {
                             <Button
                                 onClick={() => history.push('/loginUser')}
                                 color="primary"
-                                sx={{
-                                    marginBottom: 2
-                                }}
                             >
                                 Already have an account? Sign in
                             </Button>
@@ -146,15 +147,6 @@ const RegisterUser = () => {
                     </Grid>
                 </form>
             </Paper>
-            <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
-                <Alert
-                    onClose={handleClose}
-                    severity="info"
-                    className={classes.alert}
-                >
-                    {error}
-                </Alert>
-            </Snackbar>
         </Container>
     );
 };
