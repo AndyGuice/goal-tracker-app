@@ -4,7 +4,6 @@ import {
   Grid,
   CircularProgress,
   Button,
-  Snackbar,
 } from '@mui/material';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
@@ -14,9 +13,8 @@ import {
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
-import Alert from '../../helpers/Alert';
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog';
-import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
+import { ERROR } from '../../store/actionTypes/actionTypes';
 
 const GoalsView = () => {
   const { error } = useSelector((state: any) => state.error);
@@ -31,9 +29,6 @@ const GoalsView = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const profile = localStorage.getItem('profile')!;
-
-  const [showEditSuccess, setShowEditSuccess] = useState(false);
-  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
   const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
@@ -52,42 +47,11 @@ const GoalsView = () => {
   }, [error]);
 
   useEffect(() => {
-    if (updateSuccessful) {
-      setShowEditSuccess(true);
-    }
-  }, [updateSuccessful]);
-
-  useEffect(() => {
-    if (deleteSuccessful) {
-      setShowDeleteSuccess(deleteSuccessful);
-    }
-  }, [deleteSuccessful]);
-
-
-  useEffect(() => {
     const { result } = user || { user: {} };
     const userId = result?.googleId || result?._id;
 
     dispatch(getUserGoals(userId));
   }, [dispatch, user]);
-
-  const handleCloseEditSuccess = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    dispatch({ type: UPDATE_GOAL_SUCCESS, payload: false });
-    setShowEditSuccess(false);
-  };
-
-  const handleCloseDeleteSuccess = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    dispatch({ type: DELETE_GOAL_SUCCESS, payload: false });
-    setShowDeleteSuccess(false);
-  };
 
   const handleUpdateGoals = (goal: any) => {
     dispatch(updateGoal(goal, history));
@@ -132,30 +96,6 @@ const GoalsView = () => {
           onUpdate={(e: any) => handleUpdateGoals(e)}
         />
       }
-      {/* <Snackbar
-        open={showEditSuccess}
-        autoHideDuration={6000}
-        onClose={handleCloseEditSuccess}
-      >
-        <Alert
-          onClose={handleCloseEditSuccess}
-          severity="success"
-        >
-          Edit successful
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={showDeleteSuccess}
-        autoHideDuration={6000}
-        onClose={handleCloseDeleteSuccess}
-      >
-        <Alert
-          onClose={handleCloseDeleteSuccess}
-          severity="success"
-        >
-          Delete successful
-        </Alert>
-      </Snackbar> */}
     </Grid>
   );
 };

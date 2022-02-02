@@ -4,14 +4,12 @@ import {
   Button,
   Grid,
   Paper,
-  // Snackbar,
   TextField,
   Typography
 } from '@mui/material';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import Alert from '../../helpers/Alert';
 import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
 import useStyles from './styles';
@@ -22,7 +20,6 @@ const AddGoal = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { error } = useSelector((state: any) => state.error);
-  const [showError, setShowError] = useState(false);
 
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
@@ -74,19 +71,9 @@ const AddGoal = () => {
     return { ok: true };
   };
 
-  // const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-  //   if (reason === 'clickaway') {
-  //     return;
-  //   }
-
-  //   dispatch({ type: ERROR, data: null });
-  //   setShowError(false);
-  // };
-
   const handleDialogClose = () => {
     setOpenErrorDialog(false);
   };
-
 
   return (
     <Grid
@@ -142,19 +129,6 @@ const AddGoal = () => {
           </Grid>
         </Paper>
       </form>
-      {/* <Snackbar
-        open={showError}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="warning"
-          className={classes.alert}
-        >
-          {error}
-        </Alert>
-      </Snackbar> */}
     </Grid>
   );
 };
