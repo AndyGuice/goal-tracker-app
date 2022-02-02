@@ -6,15 +6,15 @@ import {
     Grid,
     Paper,
     Snackbar,
+    TextField,
     Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import Alert from '../../helpers/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Input from '../../helpers/Input';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import useStyles from './styles';
 import * as EmailValidator from 'email-validator';
 
@@ -68,39 +68,56 @@ const RegisterUser = () => {
                 </Avatar>
                 <Typography component="h1" variant="h5">Sign up</Typography>
                 <form className={classes.form} onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Input
+                    <Grid container spacing={2} justifyContent="center">
+                        <TextField
                             name="firstName"
                             label="First Name"
-                            handleChange={handleChange}
+                            onChange={handleChange}
                             autoFocus
-                            half
+                            sx={{
+                                width: "80%",
+                                marginTop: 2,
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="lastName"
                             label="Last Name"
-                            handleChange={handleChange}
-                            half
+                            onChange={handleChange}
+                            sx={{
+                                width: "80%",
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="email"
                             label="Email Address"
-                            handleChange={handleChange}
+                            onChange={handleChange}
                             type="email"
+                            sx={{
+                                width: "80%",
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="password"
                             label="Password"
-                            handleChange={handleChange}
-                            type={showPassword ? 'text' : 'password'}
-                            handleShowPassword={() => setShowPassword(!showPassword)}
+                            onChange={handleChange}
+                            type="password"
+                            sx={{
+                                width: "80%",
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="confirmPassword"
                             label="Repeat Password"
-                            handleChange={handleChange}
-                            type={showPassword ? 'text' : 'password'}
-                            handleShowPassword={() => setShowPassword(!showPassword)}
+                            onChange={handleChange}
+                            type="password"
+                            sx={{
+                                width: "80%",
+                                marginBottom: 4
+                            }}
                         />
                     </Grid>
                     <Button
@@ -108,15 +125,20 @@ const RegisterUser = () => {
                         fullWidth
                         variant="contained"
                         color="primary"
-                        className={classes.submit}
+                        sx={{
+                            marginBottom: 2
+                        }}
                     >
                         Sign Up
                     </Button>
-                    <Grid container justify="flex-end">
+                    <Grid container>
                         <Grid item>
                             <Button
                                 onClick={() => history.push('/loginUser')}
                                 color="primary"
+                                sx={{
+                                    marginBottom: 2
+                                }}
                             >
                                 Already have an account? Sign in
                             </Button>
