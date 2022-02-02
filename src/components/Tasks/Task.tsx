@@ -8,6 +8,7 @@ import {
   TextField,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ConfirmDialog from '../../components/Shared/ConfirmDialog/ConfirmDialog';
 import useStyles from './styles';
 
 const Task = (props: any) => {
@@ -57,7 +58,7 @@ const Task = (props: any) => {
     onUpdate(goal);
   };
 
-  const handleDeleteTask = (id: any) => {
+  const deleteTask = (id: any) => {
     let updatedGoal = goal;
 
     const updatedTasks = goal.tasks.filter((task: any) => task._id !== id);
@@ -66,8 +67,28 @@ const Task = (props: any) => {
     onUpdate(updatedGoal);
   };
 
+  const [ openConfirmDialog, setOpenConfirmDialog ] = useState(false);
+
+  const handleDeleteTask = () => {
+    setOpenConfirmDialog(true)
+  }
+
+  const handleDialogClose = (confirmDelete: boolean) => {
+    if (confirmDelete) {
+      deleteTask(taskID)
+      setOpenConfirmDialog(false)
+    } else {
+    setOpenConfirmDialog(false)
+    }
+  }
+
   return (
     <Paper className={classes.paper}>
+      <ConfirmDialog
+        open={openConfirmDialog}
+        onClose={handleDialogClose}
+        object="Task"
+      />
       <Grid
         item
         xs={12}
@@ -103,7 +124,7 @@ const Task = (props: any) => {
           <IconButton
             title="Delete task"
             aria-label="Delete task"
-            onClick={() => handleDeleteTask(taskID)}
+            onClick={handleDeleteTask}
             className={classes.button}
           >
             <DeleteIcon color="secondary" />

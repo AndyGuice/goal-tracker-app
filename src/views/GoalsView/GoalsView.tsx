@@ -12,7 +12,6 @@ import {
   updateGoal,
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
-import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog';
 import { ERROR } from '../../store/actionTypes/actionTypes';
 
@@ -21,8 +20,6 @@ const GoalsView = () => {
   const {
     goals,
     isLoading,
-    updateSuccessful,
-    deleteSuccessful
   } = useSelector((state: any) => state.goals);
 
   const history = useHistory();
@@ -53,7 +50,9 @@ const GoalsView = () => {
     dispatch(getUserGoals(userId));
   }, [dispatch, user]);
 
-  const handleUpdateGoals = (goal: any) => {
+  const handleUpdateGoal = (goal: any, action: string) => {
+    console.log({goal})
+    console.log('Action to confirm: ', action)
     dispatch(updateGoal(goal, history));
   };
 
@@ -93,7 +92,7 @@ const GoalsView = () => {
         <Goals
           goals={goals}
           configView={true}
-          onUpdate={(e: any) => handleUpdateGoals(e)}
+          onUpdate={handleUpdateGoal}
         />
       }
     </Grid>

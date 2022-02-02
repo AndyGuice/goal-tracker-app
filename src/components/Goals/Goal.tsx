@@ -43,9 +43,14 @@ const Goal = (props: any) => {
           <CardMedia
             component="img"
             alt="Inspirational goal reaching image thang"
-            height="140"
             image={SuccessImage}
             title="Inspirational goal reaching image"
+            sx={{
+              height: {
+                xs: 140,
+                sm: 300
+              }
+            }}
           />
           <CardContent>
             <Typography className={classes.title} align="center">
