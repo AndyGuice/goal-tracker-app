@@ -6,9 +6,9 @@ import {
   IconButton,
   Paper,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import useStyles from './styles';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 const Task = (props: any) => {
   const {

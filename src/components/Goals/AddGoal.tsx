@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
   Snackbar,
   TextField,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
@@ -29,6 +25,8 @@ const AddGoal = () => {
 
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
+  // const [goalStart, setGoalStart] = useState('');
+  // const [goalEnd, setGoalEnd] = useState('');
 
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));

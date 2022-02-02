@@ -14,6 +14,7 @@ import { signin } from '../../store/actions/auth';
 import useStyles from './styles';
 import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
+import GoogleIcon from '../../helpers/GoogleIcon';
 
 const initialState = {
   firstName: '',
@@ -29,9 +30,10 @@ const LoginUser = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
-  const [showPassword, setShowPassword] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
+
+  // const [showPassword, setShowPassword] = useState(false); // TODO: add this handling again
 
   useEffect(() => {
     if (error) {
@@ -125,6 +127,7 @@ const LoginUser = () => {
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}
                 variant="contained"
+                startIcon={<GoogleIcon />}
                 sx={{
                   marginTop: 2
                 }}

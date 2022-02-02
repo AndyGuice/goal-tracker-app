@@ -4,17 +4,16 @@ import {
   Grid,
   Paper,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
 import TaskModel from '../../types/task';
 import useStyles from './styles';
 
 const AddTask = (props: any) => {
   const { goal, task, onCancel, onUpdate } = props;
-  const { _id: goalID, userId } = goal || { goal: {} };
+  const { _id: goalID } = goal || { goal: {} };
   const { title, description } = task || { task: {} };
 
   const [taskTitle, setTaskTitle] = useState(title);
-  const [taskDescription, setTaskDescription] = useState(description);
 
   const classes = useStyles();
 

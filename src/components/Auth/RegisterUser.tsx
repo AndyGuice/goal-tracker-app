@@ -59,7 +59,7 @@ const RegisterUser = () => {
       };
 
     return (
-        <Container component="main" maxWidth="xs" style={{ marginTop: "80px" }}>
+        <Container component="main" maxWidth="xs">
             <ErrorDialog
                 open={openErrorDialog}
                 onClose={handleDialogClose}

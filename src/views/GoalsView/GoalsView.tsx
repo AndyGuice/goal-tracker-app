@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
   CircularProgress,
-  Paper,
   Button,
   Snackbar,
-} from '@material-ui/core';
+} from '@mui/material';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
 import {

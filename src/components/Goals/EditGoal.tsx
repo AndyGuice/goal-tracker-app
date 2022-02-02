@@ -3,16 +3,12 @@ import {
   Box,
   Button,
   CircularProgress,
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
   Snackbar,
   TextField,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';

@@ -5,7 +5,7 @@ import {
   CardContent,
   CardMedia,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import useStyles from './styles';
 import AddTask from '../Tasks/AddTask';
 import Tasks from '../Tasks/Tasks';

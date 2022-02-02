@@ -1,6 +1,5 @@
 class Task {
   title: String = "";
-  description: String = "";
   goalId: String = "";
   startOn: String = "";
   endOn: String = "";
