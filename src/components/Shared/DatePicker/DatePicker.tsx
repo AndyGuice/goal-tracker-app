@@ -1,10 +1,10 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField'
 import MuiDatePicker from '@mui/lab/DatePicker'
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import IconButton from '@mui/material/IconButton';
 import { addDays } from 'date-fns';
 
 export default function DatePicker(props: any) {

@@ -99,7 +99,9 @@ const AddGoal = () => {
               label="Goal Name"
               placeholder="Enter goal name"
               fullWidth
-              className={classes.button}
+              sx={{
+                marginBottom: 2
+              }}
             />
             <TextField
               id="goal-description-input"
@@ -108,7 +110,6 @@ const AddGoal = () => {
               value={goalDescription}
               placeholder="Enter goal description"
               fullWidth
-              className={classes.button}
             />
             <Box textAlign="center">
               <Button

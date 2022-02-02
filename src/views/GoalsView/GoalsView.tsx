@@ -84,8 +84,11 @@ const GoalsView = () => {
           variant="contained"
           color="primary"
           onClick={() => history.push("/addGoal")}
-          className={classes.button}
-          fullWidth
+          sx={{
+            marginTop: 2,
+            marginBottom: 2,
+            width: "80%"
+          }}
         >
           Add goal
         </Button>

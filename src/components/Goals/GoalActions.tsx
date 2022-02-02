@@ -44,9 +44,8 @@ const GoalActions = (props: any) => {
         <IconButton
           aria-label="Add Task"
           id="Add task button"
-          color="primary"
+          color="secondary"
           onClick={onAddTask}
-          className={classes.button}
           size="small"
         >
           <NoteAddIcon />
@@ -56,7 +55,6 @@ const GoalActions = (props: any) => {
         <IconButton
           aria-label="edit goal"
           onClick={() => history.push(`/editGoal/${goalID}`)}
-          className={classes.button}
           color="secondary"
           size="small"
         >
@@ -67,7 +65,6 @@ const GoalActions = (props: any) => {
         <IconButton
           aria-label="delete goal"
           onClick={() => dispatch(deleteGoal(goalID, history))}
-          className={classes.button}
           size="small"
         >
           <DeleteIcon color="secondary" />
