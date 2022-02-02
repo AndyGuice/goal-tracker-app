@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
   Snackbar,
   TextField,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
@@ -29,6 +25,8 @@ const AddGoal = () => {
 
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
+  // const [goalStart, setGoalStart] = useState('');
+  // const [goalEnd, setGoalEnd] = useState('');
 
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));
@@ -66,9 +64,6 @@ const AddGoal = () => {
     if (goal.title.trim().length === 0) {
       return { ok: false, error: "No goal title" };
     }
-    if (goal.description.trim().length === 0) {
-      return { ok: false, error: "No goal description" };
-    }
     return { ok: true };
   };
 
@@ -104,7 +99,9 @@ const AddGoal = () => {
               label="Goal Name"
               placeholder="Enter goal name"
               fullWidth
-              className={classes.button}
+              sx={{
+                marginBottom: 2
+              }}
             />
             <TextField
               id="goal-description-input"
@@ -113,7 +110,6 @@ const AddGoal = () => {
               value={goalDescription}
               placeholder="Enter goal description"
               fullWidth
-              className={classes.button}
             />
             <Box textAlign="center">
               <Button

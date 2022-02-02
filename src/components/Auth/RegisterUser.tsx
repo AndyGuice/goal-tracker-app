@@ -5,18 +5,17 @@ import {
     Container,
     Grid,
     Paper,
-    Snackbar,
+    TextField,
     Typography
-} from '@material-ui/core';
-import Alert from '../../helpers/Alert';
+} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Input from '../../helpers/Input';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import useStyles from './styles';
 import * as EmailValidator from 'email-validator';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -26,23 +25,18 @@ const RegisterUser = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const classes = useStyles();
-    const [showPassword, setShowPassword] = useState(false);
-    const [showError, setShowError] = useState(false);
+    const [submitError, setSubmitError] = useState('');
+    const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
+    // const [showPassword, setShowPassword] = useState(false); // TODO: re-add this handling
 
     useEffect(() => {
         if (error) {
-            setShowError(true);
+            setSubmitError(error);
+            setOpenErrorDialog(true);
+            dispatch({ type: ERROR, data: null });
         }
     }, [error]);
-
-    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        dispatch({ type: ERROR, data: null });
-        setShowError(false);
-    };
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -60,47 +54,74 @@ const RegisterUser = () => {
 
     const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
 
+    const handleDialogClose = () => {
+        setOpenErrorDialog(false);
+      };
+
     return (
-        <Container component="main" maxWidth="xs" style={{ marginTop: "80px" }}>
+        <Container component="main" maxWidth="xs">
+            <ErrorDialog
+                open={openErrorDialog}
+                onClose={handleDialogClose}
+                error={submitError}
+                action="Registration"
+            />
             <Paper className={classes.paper} elevation={6}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">Sign up</Typography>
                 <form className={classes.form} onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Input
+                    <Grid container spacing={2} justifyContent="center">
+                        <TextField
                             name="firstName"
                             label="First Name"
-                            handleChange={handleChange}
+                            onChange={handleChange}
                             autoFocus
-                            half
+                            sx={{
+                                width: "80%",
+                                marginTop: 2,
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="lastName"
                             label="Last Name"
-                            handleChange={handleChange}
-                            half
+                            onChange={handleChange}
+                            sx={{
+                                width: "80%",
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="email"
                             label="Email Address"
-                            handleChange={handleChange}
+                            onChange={handleChange}
                             type="email"
+                            sx={{
+                                width: "80%",
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="password"
                             label="Password"
-                            handleChange={handleChange}
-                            type={showPassword ? 'text' : 'password'}
-                            handleShowPassword={() => setShowPassword(!showPassword)}
+                            onChange={handleChange}
+                            type="password"
+                            sx={{
+                                width: "80%",
+                                marginBottom: 2
+                            }}
                         />
-                        <Input
+                        <TextField
                             name="confirmPassword"
                             label="Repeat Password"
-                            handleChange={handleChange}
-                            type={showPassword ? 'text' : 'password'}
-                            handleShowPassword={() => setShowPassword(!showPassword)}
+                            onChange={handleChange}
+                            type="password"
+                            sx={{
+                                width: "80%",
+                                marginBottom: 4
+                            }}
                         />
                     </Grid>
                     <Button
@@ -108,11 +129,13 @@ const RegisterUser = () => {
                         fullWidth
                         variant="contained"
                         color="primary"
-                        className={classes.submit}
+                        sx={{
+                            marginBottom: 2
+                        }}
                     >
                         Sign Up
                     </Button>
-                    <Grid container justify="flex-end">
+                    <Grid container>
                         <Grid item>
                             <Button
                                 onClick={() => history.push('/loginUser')}
@@ -124,15 +147,6 @@ const RegisterUser = () => {
                     </Grid>
                 </form>
             </Paper>
-            <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
-                <Alert
-                    onClose={handleClose}
-                    severity="info"
-                    className={classes.alert}
-                >
-                    {error}
-                </Alert>
-            </Snackbar>
         </Container>
     );
 };

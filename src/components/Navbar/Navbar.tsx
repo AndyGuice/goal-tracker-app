@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Avatar from '@material-ui/core/Avatar';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Button from '@material-ui/core/Button';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Badge from '@mui/material/Badge';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Avatar from '@mui/material/Avatar';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import Button from '@mui/material/Button';
 import Drawer from './Drawer';
 import useStyles from './styles';
 
 import {
-    Link,
+    // Link,
     useHistory,
     useLocation
 } from 'react-router-dom';
@@ -34,7 +34,9 @@ export default function Navbar() {
     const profile = localStorage.getItem('profile')!;
     const [user, setUser] = useState(JSON.parse(profile));
     const handleLogin = () => history.push('/loginUser');
-    const homePath = (user ? "/dashboard" : "/");
+
+    // const homePath = (user ? "/dashboard" : "/");
+
     const logout = () => {
         dispatch({ type: actionType.LOGOUT });
         history.push('/');
@@ -177,6 +179,7 @@ export default function Navbar() {
                     <Drawer
                         open={menuDrawerOpen}
                         onChange={handleOnChange}
+                        user={user}
                     />
                     <div className={classes.grow} />
                     {user?.result ? (

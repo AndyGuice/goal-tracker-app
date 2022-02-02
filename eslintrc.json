@@ -5,17 +5,34 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended"
   ],
-  "plugins": ["react", "import", "jsx-a11y"],
+  "plugins": [
+    "react",
+    "import",
+    "jsx-a11y"
+  ],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
   "rules": {
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": true,
+        "semi": true
+      }
+    ],
     "react/prop-types": 0,
-    "indent": ["error", 2],
+    "indent": [
+      "error",
+      2
+    ],
     "linebreak-style": 1,
-    "quotes": ["error", "double"]
+    "@typescript-eslint/quotes": [
+      "error",
+      "double"
+    ]
   },
   "parserOptions": {
     "ecmaVersion": 2021,
@@ -28,5 +45,5 @@
     "es6": true,
     "browser": true,
     "node": true
-  } 
+  }
 }

@@ -3,16 +3,12 @@ import {
   Box,
   Button,
   CircularProgress,
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
   Snackbar,
   TextField,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -136,7 +132,9 @@ export const EditGoal = () => {
               value={goalTitle}
               placeholder="Goal name"
               fullWidth
-              className={classes.button}
+              sx={{
+                marginBottom: 2
+              }}
             />
             <TextField
               id="goal-description-input"
@@ -145,7 +143,9 @@ export const EditGoal = () => {
               value={goalDescription}
               placeholder="Goal description"
               fullWidth
-              className={classes.button}
+              sx={{
+                marginBottom: 2
+              }}
             />
             <Box textAlign="center">
               <Button

@@ -1,16 +1,14 @@
 import React from 'react';
 import Goal from './Goal';
 import GoalModel from '../../types/goal';
-// import useStyles from './styles';
-
-import {
-  Grid,
-  // Typography
-} from '@material-ui/core';
 
 const Goals = (props: any) => {
-  const { goals, configView, date, onUpdate } = props;
-  // const classes = useStyles();
+  const {
+    goals,
+    configView,
+    date,
+    onUpdate
+  } = props;
 
   return (
     goals && (goals.length > 0) && (

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Unauthorized = () => {
     return (
-        <div>UNAUTHORIZED</div>
+        <div>Beep Boop - You are unauthorized!</div>
     )
 }
 

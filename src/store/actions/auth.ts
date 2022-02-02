@@ -4,6 +4,8 @@ import * as api from '../../api';
 export const signin = (formData: any, router: any) => async (dispatch: any) => {
     try {
         const { data } = await api.signIn(formData);
+        console.log('Data: ', data)
+        
         if (data?.error) {
             dispatch({ type: ERROR, data });
             return router.push('/loginUser');
@@ -13,6 +15,7 @@ export const signin = (formData: any, router: any) => async (dispatch: any) => {
         router.push('/dashboard');
     } catch (error) {
         console.log(error);
+        
     }
 };
 

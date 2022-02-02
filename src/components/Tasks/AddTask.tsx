@@ -4,23 +4,18 @@ import {
   Grid,
   Paper,
   TextField,
-} from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+} from '@mui/material';
 import TaskModel from '../../types/task';
 import useStyles from './styles';
 
 const AddTask = (props: any) => {
   const { goal, task, onCancel, onUpdate } = props;
-  const { _id: goalID, userId } = goal || { goal: {} };
+  const { _id: goalID } = goal || { goal: {} };
   const { title, description } = task || { task: {} };
 
   const [taskTitle, setTaskTitle] = useState(title);
-  const [taskDescription, setTaskDescription] = useState(description);
 
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -29,7 +24,6 @@ const AddTask = (props: any) => {
     const today = new Date().toISOString();
 
     task.title = taskTitle.trim();
-    task.description = taskDescription.trim();
     task.createdOn = today;
     task.updatedOn = today;
     task.goalId = goalID;
@@ -58,16 +52,6 @@ const AddTask = (props: any) => {
           className={classes.button}
           size="small"
           onChange={(e: any) => setTaskTitle(e.target.value)}
-        />
-        <TextField
-          id="new task description"
-          aria-label="New task description"
-          label="Description"
-          value={taskDescription}
-          variant="outlined"
-          className={classes.button}
-          size="small"
-          onChange={(e: any) => setTaskDescription(e.target.value)}
         />
         <Button
           id="cancel-task-button"

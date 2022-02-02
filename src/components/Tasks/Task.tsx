@@ -6,9 +6,9 @@ import {
   IconButton,
   Paper,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import useStyles from './styles';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 const Task = (props: any) => {
   const {
@@ -82,16 +82,18 @@ const Task = (props: any) => {
           onChange={(e: any) => setTaskTitle(e.target.value)}
         />
         {!configView &&
-          <FormControlLabel
-            label="Complete"
-            labelPlacement="start"
-            control={
-              <Checkbox
-                checked={taskComplete}
-                onClick={() => handleUpdateTask(!taskComplete)}
-              />
-            }
-          />
+          <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: 5 }}>
+            <FormControlLabel
+              label="Complete"
+              labelPlacement="start"
+              control={
+                <Checkbox
+                  checked={taskComplete}
+                  onClick={() => handleUpdateTask(!taskComplete)}
+                />
+              }
+            />
+          </div>
         }
         {
           loggedUser &&

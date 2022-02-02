@@ -1,17 +1,16 @@
 import React from 'react';
 import {
-  Box,
   CardActions,
   IconButton,
   Tooltip,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import useStyles from './styles';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { deleteGoal } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import useStyles from './styles';
 
 const GoalActions = (props: any) => {
   const {
@@ -45,9 +44,8 @@ const GoalActions = (props: any) => {
         <IconButton
           aria-label="Add Task"
           id="Add task button"
-          color="primary"
+          color="secondary"
           onClick={onAddTask}
-          className={classes.button}
           size="small"
         >
           <NoteAddIcon />
@@ -57,7 +55,6 @@ const GoalActions = (props: any) => {
         <IconButton
           aria-label="edit goal"
           onClick={() => history.push(`/editGoal/${goalID}`)}
-          className={classes.button}
           color="secondary"
           size="small"
         >
@@ -68,7 +65,6 @@ const GoalActions = (props: any) => {
         <IconButton
           aria-label="delete goal"
           onClick={() => dispatch(deleteGoal(goalID, history))}
-          className={classes.button}
           size="small"
         >
           <DeleteIcon color="secondary" />

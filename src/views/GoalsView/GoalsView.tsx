@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
   CircularProgress,
-  Paper,
   Button,
   Snackbar,
-} from '@material-ui/core';
+} from '@mui/material';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
 import {
@@ -85,8 +84,11 @@ const GoalsView = () => {
           variant="contained"
           color="primary"
           onClick={() => history.push("/addGoal")}
-          className={classes.button}
-          fullWidth
+          sx={{
+            marginTop: 2,
+            marginBottom: 2,
+            width: "80%"
+          }}
         >
           Add goal
         </Button>

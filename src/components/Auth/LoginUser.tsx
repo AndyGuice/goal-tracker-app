@@ -5,17 +5,16 @@ import {
   Container,
   Paper,
   Grid,
+  TextField,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { signin } from '../../store/actions/auth';
 import useStyles from './styles';
-import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
-import Snackbar from '@material-ui/core/Snackbar';
-import Alert from '../../helpers/Alert';
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
+import GoogleIcon from '../../helpers/GoogleIcon';
 
 const initialState = {
   firstName: '',
@@ -31,28 +30,19 @@ const LoginUser = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showError, setShowError] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
+  // const [showPassword, setShowPassword] = useState(false); // TODO: add this handling again
+
   useEffect(() => {
     if (error) {
-      setShowError(true);
       setSubmitError(error);
       setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
     // eslint-disable-next-line
   }, [error]);
-
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setShowError(false);
-  };
-
 
   const handleSubmit = (
     e: any
@@ -61,7 +51,6 @@ const LoginUser = () => {
     dispatch(signin(form, history));
   };
 
-  // const googleSuccess = async (res: any) => {
   const googleSuccess = (res: any) => {
     const { profileObj, tokenId } = res;
 
@@ -91,6 +80,7 @@ const LoginUser = () => {
         open={openErrorDialog}
         onClose={handleDialogClose}
         error={submitError}
+        action="Login"
       />
       <Paper className={classes.paper} elevation={6}>
         <Typography
@@ -100,27 +90,31 @@ const LoginUser = () => {
           Sign in
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Input
+            <TextField
               name="email"
               label="Email Address"
-              handleChange={handleChange}
+              onChange={handleChange}
               type="email"
+              fullWidth
+              sx={{
+                marginBottom: 2
+              }}
             />
-            <Input
+            <TextField
               name="password"
               label="Password"
-              handleChange={handleChange}
-              type={showPassword ? 'text' : 'password'}
-              handleShowPassword={() => setShowPassword(!showPassword)}
+              onChange={handleChange}
+              type="password"
+              fullWidth
             />
-          </Grid>
           <Button
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
             onClick={(e) => handleSubmit(e)}
+            sx={{
+              marginTop: 2
+            }}
           >
             Sign In
           </Button>
@@ -128,12 +122,16 @@ const LoginUser = () => {
             clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID || ''}
             render={(renderProps) => (
               <Button
-                className={classes.googleButton}
                 color="primary"
                 fullWidth
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}
-                variant="contained">
+                variant="contained"
+                startIcon={<GoogleIcon />}
+                sx={{
+                  marginTop: 2
+                }}
+              >
                 Google Sign In
               </Button>
             )}
@@ -146,6 +144,9 @@ const LoginUser = () => {
               <Button
                 onClick={() => history.push('/register')}
                 color="primary"
+                sx={{
+                  marginTop: 2
+                }}
               >
                 Don't have an account? Sign Up
               </Button>
@@ -153,19 +154,6 @@ const LoginUser = () => {
           </Grid>
         </form>
       </Paper>
-      <Snackbar
-        open={showError}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="info"
-          className={classes.alert}
-        >
-          Invalid Credentials
-        </Alert>
-      </Snackbar>
     </Container>
   );
 };

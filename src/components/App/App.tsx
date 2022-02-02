@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { createTheme } from '@material-ui/core/styles';
 import Layout from "./Layout";
 import Router from "../Router/Router";
@@ -29,9 +31,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <Layout>
-          <Router />
-        </Layout>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <Layout>
+            <Router />
+          </Layout>
+        </LocalizationProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

@@ -2,12 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: theme.spacing(2),
+    marginTop: theme.spacing(3)
   },
   root: {
     '& .MuiTextField-root': {
@@ -22,13 +21,4 @@ export default makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  googleButton: {
-    marginBottom: theme.spacing(2),
-  },
-  alert: {
-    backgroundColor: '#f50057',
-  }
 }));

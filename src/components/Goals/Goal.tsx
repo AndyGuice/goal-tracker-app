@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
-  Paper,
   Typography
-} from '@material-ui/core';
+} from '@mui/material';
 import useStyles from './styles';
 import AddTask from '../Tasks/AddTask';
 import Tasks from '../Tasks/Tasks';

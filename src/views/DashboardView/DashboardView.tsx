@@ -3,13 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   CircularProgress,
   Grid,
-  Paper,
-} from '@material-ui/core';
+} from '@mui/material';
 import { useHistory } from 'react-router';
 import { getUserGoals, updateTaskComplete } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import DatePicker from '../../components/Shared/DatePicker/DatePicker';
-import { addDays } from 'date-fns';
 import useStyles from './styles';
 
 const DashboardView = () => {
