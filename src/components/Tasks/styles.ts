@@ -11,7 +11,7 @@ export default makeStyles((theme: Theme) =>
       border: '1px solid black',
       width: "60%",
       [theme.breakpoints.down("sm")]: {
-        width: "100%"
+        width: "90%"
       }
     },
     input: {
