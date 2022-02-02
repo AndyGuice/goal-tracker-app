@@ -13,21 +13,17 @@ const Goals = (props: any) => {
   // const classes = useStyles();
 
   return (
-    <>
-      {goals && (goals.length > 0) && (
-        <Grid item xs={12}>
-          {goals.map((goal: GoalModel, index: number) => (
-            <Goal
-              key={index}
-              goal={goal}
-              configView={configView}
-              date={date}
-              onUpdate={onUpdate}
-            />
-          ))}
-        </Grid>
-      )}
-    </>
+    goals && (goals.length > 0) && (
+      goals.map((goal: GoalModel, index: number) => (
+        <Goal
+          key={index}
+          goal={goal}
+          configView={configView}
+          date={date}
+          onUpdate={onUpdate}
+        />
+      ))
+    )
   );
 };
 

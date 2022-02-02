@@ -6,7 +6,7 @@ import {
   Paper,
 } from '@material-ui/core';
 import { useHistory } from 'react-router';
-import { getUserGoals, updateGoal } from '../../store/actions/goals';
+import { getUserGoals, updateTaskComplete } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import DatePicker from '../../components/Shared/DatePicker/DatePicker';
 import { addDays } from 'date-fns';
@@ -42,7 +42,7 @@ const DashboardView = () => {
   };
 
   const handleUpdateGoals = (goal: any) => {
-    dispatch(updateGoal(goal, history));
+    dispatch(updateTaskComplete(goal, history));
   };
 
   return (
@@ -52,32 +52,24 @@ const DashboardView = () => {
       justifyContent="center"
     >
       {isLoading ?
-        <Paper>
-          <CircularProgress
-            size="7em"
-            color="primary"
-            value={100}
-            className={classes.loadingPaper}
-          />
-        </Paper>
+        <CircularProgress
+          size="7em"
+          color="primary"
+          value={100}
+          className={classes.progressCircle}
+        />
         :
         <>
-          <Grid
-            container
-            spacing={3}
-            className={classes.goalContainer}
-          >
-            <DatePicker
-              date={selectedDate}
-              onChange={handleDateChange}
-            />
-            <Goals
-              goals={goals}
-              configView={false}
-              date={selectedDateStr}
-              onUpdate={(e: any) => handleUpdateGoals(e)}
-            />
-          </Grid>
+          <DatePicker
+            date={selectedDate}
+            onChange={handleDateChange}
+          />
+          <Goals
+            goals={goals}
+            configView={false}
+            date={selectedDateStr}
+            onUpdate={(e: any) => handleUpdateGoals(e)}
+          />
         </>
       }
     </Grid>

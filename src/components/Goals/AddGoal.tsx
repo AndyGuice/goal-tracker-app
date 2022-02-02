@@ -92,8 +92,6 @@ const AddGoal = () => {
           <Grid item xs={12}>
             <Typography
               id="goal-add-button"
-              component="h2"
-              variant="h5"
               align="center"
               gutterBottom
             >

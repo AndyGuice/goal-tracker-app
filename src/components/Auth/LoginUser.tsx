@@ -15,7 +15,7 @@ import Input from '../../helpers/Input';
 import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '../../helpers/Alert';
-// import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const initialState = {
   firstName: '',
@@ -34,13 +34,13 @@ const LoginUser = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  // const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   useEffect(() => {
     if (error) {
       setShowError(true);
       setSubmitError(error);
-      // setOpenErrorDialog(true);
+      setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
     // eslint-disable-next-line
@@ -77,21 +77,21 @@ const LoginUser = () => {
     }
   };
 
-  // const handleDialogClose = () => {
-  //   setOpenErrorDialog(false);
-  // };
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false);
+  };
 
   const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later');
 
   const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
 
   return (
-    <Container component="main" maxWidth="xs" style={{ marginTop: "80px" }}>
-      {/* <ErrorDialog
+    <Container component="main" maxWidth="xs">
+      <ErrorDialog
         open={openErrorDialog}
         onClose={handleDialogClose}
         error={submitError}
-      /> */}
+      />
       <Paper className={classes.paper} elevation={6}>
         <Typography
           component="h1"

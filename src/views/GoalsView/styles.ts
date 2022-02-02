@@ -6,14 +6,8 @@ export default makeStyles((theme: Theme) =>
       flexGrow: 1,
       // height: '250px'
     },
-    loadingPaper: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '75vh',
-    },
-    title: {
-      fontSize: 14,
-    },
+    button: {
+      marginTop: 0
+    }
   }),
 );

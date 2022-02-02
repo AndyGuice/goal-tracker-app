@@ -79,26 +79,23 @@ const GoalsView = () => {
   };
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
       {user?.result &&
         <Button
           variant="contained"
           color="primary"
           onClick={() => history.push("/addGoal")}
-          // fullWidth
-          style={{ marginTop: 20, marginBottom: 20, marginLeft: 20 }}
+          className={classes.button}
         >
           Add goal
         </Button>
       }
       {isLoading ?
-        <Paper elevation={6} className={classes.loadingPaper}>
-          <CircularProgress
-            size="7em"
-            color="primary"
-            value={100}
-          />
-        </Paper>
+        <CircularProgress
+          size="7em"
+          color="primary"
+          value={100}
+        />
         :
         <Goals
           goals={goals}

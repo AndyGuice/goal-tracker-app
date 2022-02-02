@@ -8,8 +8,9 @@ export default makeStyles((theme: Theme) =>
       flexDirection: 'row',
       padding: theme.spacing(1),
       marginLeft: theme.spacing(2),
+      marginTop: theme.spacing(1),
       border: '1px solid black',
-      backgroundColor: '#eeeeee'
+      backgroundColor: 'lightblue'
     },
     input: {
       padding: theme.spacing(1)
