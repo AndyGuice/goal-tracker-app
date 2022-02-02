@@ -5,22 +5,22 @@ export default makeStyles((theme: Theme) =>
     title: {
       [theme.breakpoints.down("sm")]: {
         paddingLeft: 10,
-        fontSize: '1rem'
+        fontSize: '1rem',
       },
     },
     paper: {
       display: 'flex',
       alignItems: 'center',
-      flexDirection: 'row',
+      flexDirection: 'column',
       padding: theme.spacing(2),
       marginBottom: theme.spacing(1),
       width: "75%",
       [theme.breakpoints.down("sm")]: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
         width: "100%",
       }
-    },
-    button: {
-      margin: 10,
     },
     alert: {
       backgroundColor: '#f50060',

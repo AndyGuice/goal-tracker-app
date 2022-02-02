@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import {
+  Box,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
   Paper,
   Typography
 } from '@material-ui/core';
 import useStyles from './styles';
 import AddTask from '../Tasks/AddTask';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Tasks from '../Tasks/Tasks';
 import GoalActions from './GoalActions';
+import SuccessImage from '../../images/goal_success_image.png';
 
 const Goal = (props: any) => {
   const {
@@ -35,21 +41,27 @@ const Goal = (props: any) => {
 
   return (
     <>
-      <Paper className={classes.paper} elevation={6}>
-        <AssignmentTurnedInIcon
-          style={{ marginLeft: 10 }}
-        />
-        <Typography
-          className={classes.title}
-        >
-          {title}
-        </Typography>
+      <Card className={classes.paper} elevation={6}>
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            alt="Inspirational goal reaching image thang"
+            height="140"
+            image={SuccessImage}
+            title="Inspirational goal reaching image"
+          />
+          <CardContent>
+            <Typography className={classes.title} align="center">
+              {title}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
         <GoalActions
           onAddTask={handleAddTask}
           configView={configView}
           goal={goal}
         />
-      </Paper>
+      </Card>
       {showAddTask && (
         <AddTask
           goal={goal}

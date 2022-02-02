@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
-  Paper,
-  Grid,
+  CardActions,
   IconButton,
   Tooltip,
-  Typography
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import useStyles from './styles';
@@ -13,10 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { deleteGoal } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
-import AddTask from '../Tasks/AddTask';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import Tasks from '../Tasks/Tasks';
 
 const GoalActions = (props: any) => {
   const {
@@ -41,12 +36,11 @@ const GoalActions = (props: any) => {
   const userID = googleId || _id;
 
   return (
-
     loggedUser &&
     Object.keys(loggedUser).length !== 0 &&
     userID === goalUserID &&
     configView &&
-    <Box>
+    <CardActions>
       <Tooltip title="Add Task">
         <IconButton
           aria-label="Add Task"
@@ -54,6 +48,7 @@ const GoalActions = (props: any) => {
           color="primary"
           onClick={onAddTask}
           className={classes.button}
+          size="small"
         >
           <NoteAddIcon />
         </IconButton>
@@ -64,6 +59,7 @@ const GoalActions = (props: any) => {
           onClick={() => history.push(`/editGoal/${goalID}`)}
           className={classes.button}
           color="secondary"
+          size="small"
         >
           <EditRoundedIcon />
         </IconButton>
@@ -73,12 +69,12 @@ const GoalActions = (props: any) => {
           aria-label="delete goal"
           onClick={() => dispatch(deleteGoal(goalID, history))}
           className={classes.button}
+          size="small"
         >
           <DeleteIcon color="secondary" />
         </IconButton>
       </Tooltip>
-    </Box>
-
+    </CardActions>
   );
 };
 

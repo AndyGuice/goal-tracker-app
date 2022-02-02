@@ -7,7 +7,8 @@ export default makeStyles((theme: Theme) =>
       // height: '250px'
     },
     button: {
-      marginTop: 0
+      marginTop: 10,
+      marginBottom: 10
     }
   }),
 );

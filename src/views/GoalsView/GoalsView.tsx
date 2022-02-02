@@ -79,13 +79,14 @@ const GoalsView = () => {
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container justifyContent="center" className={classes.root}>
       {user?.result &&
         <Button
           variant="contained"
           color="primary"
           onClick={() => history.push("/addGoal")}
           className={classes.button}
+          fullWidth
         >
           Add goal
         </Button>

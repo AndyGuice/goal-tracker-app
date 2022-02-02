@@ -10,10 +10,14 @@ export default makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(2),
       marginTop: theme.spacing(1),
       border: '1px solid black',
-      backgroundColor: 'lightblue'
+      width: "60%",
+      [theme.breakpoints.down("sm")]: {
+        width: "100%"
+      }
     },
     input: {
-      padding: theme.spacing(1)
+      padding: theme.spacing(1),
+      width: "100%"
     }
   })
 );
