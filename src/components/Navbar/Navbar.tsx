@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
+// import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -17,7 +17,7 @@ import Drawer from './Drawer';
 import useStyles from './styles';
 
 import {
-    // Link,
+    Link,
     useHistory,
     useLocation
 } from 'react-router-dom';
@@ -97,9 +97,10 @@ export default function Navbar() {
             keepMounted
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMenuOpen}
+            onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleMenuClose} disabled>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose} disabled>My account</MenuItem>
             <MenuItem onClick={logout}>Log out</MenuItem>
         </Menu>
     );
@@ -115,23 +116,23 @@ export default function Navbar() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
+            <MenuItem disabled>
                 <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
+                    {/* <Badge badgeContent={4} color="secondary"> */}
                         <MailIcon />
-                    </Badge>
+                    {/* </Badge> */}
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem disabled>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
+                    {/* <Badge badgeContent={11} color="secondary"> */}
                         <NotificationsIcon />
-                    </Badge>
+                    {/* </Badge> */}
                 </IconButton>
                 <p>Notifications</p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem onClick={handleProfileMenuOpen} disabled>
                 <IconButton
                     aria-label="account of current user"
                     aria-controls="primary-search-account-menu"
@@ -169,13 +170,13 @@ export default function Navbar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        className={classes.title}
-                        variant="h6"
-                        noWrap
+                    <Button
+                        color="inherit"
+                        size="large"
+                        onClick={() => history.push('/dashboard')}
                     >
                         Goal Tracker
-                    </Typography>
+                    </Button>
                     <Drawer
                         open={menuDrawerOpen}
                         onChange={handleOnChange}
@@ -185,15 +186,15 @@ export default function Navbar() {
                     {user?.result ? (
                         <>
                             <div className={classes.sectionDesktop}>
-                                <IconButton aria-label="show 4 new mails" color="inherit">
-                                    <Badge badgeContent={4} color="secondary">
+                                <IconButton aria-label="show 4 new mails" color="inherit" disabled>
+                                    {/* <Badge badgeContent={4} color="secondary"> */}
                                         <MailIcon />
-                                    </Badge>
+                                    {/* </Badge> */}
                                 </IconButton>
-                                <IconButton aria-label="show 17 new notifications" color="inherit">
-                                    <Badge badgeContent={17} color="secondary">
+                                <IconButton aria-label="show 17 new notifications" color="inherit" disabled>
+                                    {/* <Badge badgeContent={17} color="secondary"> */}
                                         <NotificationsIcon />
-                                    </Badge>
+                                    {/* </Badge> */}
                                 </IconButton>
                                 <IconButton
                                     edge="end"

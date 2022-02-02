@@ -78,6 +78,7 @@ const Task = (props: any) => {
           value={taskTitle}
           className={classes.input}
           size="small"
+          multiline
           disabled={!edit}
           onChange={(e: any) => setTaskTitle(e.target.value)}
         />

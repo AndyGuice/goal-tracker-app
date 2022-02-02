@@ -83,7 +83,7 @@ const AddGoal = () => {
       component="main"
     >
       <form onSubmit={handleSubmit}>
-        <Paper className={classes.paper} elevation={6}>
+        <Paper className={classes.paper} elevation={6} sx={{ marginTop: 2 }}>
           <Grid item xs={12}>
             <Typography
               id="goal-add-button"
