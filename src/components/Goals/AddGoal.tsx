@@ -4,24 +4,22 @@ import {
   Button,
   Grid,
   Paper,
-  Snackbar,
   TextField,
   Typography
 } from '@mui/material';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import Alert from '../../helpers/Alert';
 import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
 import useStyles from './styles';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const AddGoal = () => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const { error } = useSelector((state: any) => state.error);
-  const [showError, setShowError] = useState(false);
 
   const [goalTitle, setGoalTitle] = useState('');
   const [goalDescription, setGoalDescription] = useState('');
@@ -33,9 +31,15 @@ const AddGoal = () => {
 
   useEffect(() => {
     if (error) {
-      setShowError(true);
+      setSubmitError(error);
+      setOpenErrorDialog(true);
+      dispatch({ type: ERROR, data: null });
     }
+    // eslint-disable-next-line
   }, [error]);
+
+  const [submitError, setSubmitError] = useState('');
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -67,13 +71,8 @@ const AddGoal = () => {
     return { ok: true };
   };
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    dispatch({ type: ERROR, data: null });
-    setShowError(false);
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false);
   };
 
   return (
@@ -82,6 +81,12 @@ const AddGoal = () => {
       justifyContent="center"
       component="main"
     >
+      <ErrorDialog
+        open={openErrorDialog}
+        onClose={handleDialogClose}
+        error={submitError}
+        action="Create goal...?"
+      />
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6} sx={{ marginTop: 2 }}>
           <Grid item xs={12}>
@@ -124,19 +129,6 @@ const AddGoal = () => {
           </Grid>
         </Paper>
       </form>
-      <Snackbar
-        open={showError}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="warning"
-          className={classes.alert}
-        >
-          {error}
-        </Alert>
-      </Snackbar>
     </Grid>
   );
 };

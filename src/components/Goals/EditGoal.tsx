@@ -5,7 +5,6 @@ import {
   CircularProgress,
   Grid,
   Paper,
-  Snackbar,
   TextField,
   Typography
 } from '@mui/material';
@@ -13,9 +12,9 @@ import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import Alert from '../../helpers/Alert';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGoal, updateGoal } from '../../store/actions/goals';
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 export const EditGoal = () => {
   const { id } = useParams<any>();
@@ -26,20 +25,16 @@ export const EditGoal = () => {
   const { goal, isLoading } = useSelector((state: any) => state.goals);
   const { error } = useSelector((state: any) => state.error);
 
-  const { title, description } = goal || { title: '', description: '' };
+  const { title, description, tasks } = goal || { title: '', description: '', tasks: [] };
 
-  const [showError, setShowError] = useState(false);
   const [goalTitle, setGoalTitle] = useState(title);
   const [goalDescription, setGoalDescription] = useState(description);
 
+  const [submitError, setSubmitError] = useState('');
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));
-
-  useEffect(() => {
-    if (error) {
-      setShowError(true);
-    }
-  }, [error]);
 
   useEffect(() => {
     dispatch(getGoal(id));
@@ -51,14 +46,14 @@ export const EditGoal = () => {
     setGoalDescription(description);
   }, [description, title]);
 
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
+  useEffect(() => {
+    if (error) {
+      setSubmitError(error);
+      setOpenErrorDialog(true);
+      dispatch({ type: ERROR, data: null });
     }
-
-    dispatch({ type: ERROR, data: null });
-    setShowError(false);
-  };
+    // eslint-disable-next-line
+  }, [error]);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -69,6 +64,7 @@ export const EditGoal = () => {
     goal.userId = user.result._id;
     goal._id = id;
     goal.updatedOn = new Date().toISOString();
+    goal.tasks = tasks;
 
     const goalResult = validateGoal(goal);
     if (!goalResult.ok) {
@@ -88,6 +84,9 @@ export const EditGoal = () => {
     return { ok: true };
   };
 
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false);
+  };
 
   if (isLoading) {
     return (
@@ -113,6 +112,12 @@ export const EditGoal = () => {
       justifyContent="center"
       component="main"
     >
+      <ErrorDialog
+        open={openErrorDialog}
+        onClose={handleDialogClose}
+        error={submitError}
+        action="Edit goal...?"
+      />
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper} elevation={6}>
           <Grid item xs={12}>
@@ -161,19 +166,6 @@ export const EditGoal = () => {
           </Grid>
         </Paper>
       </form>
-      <Snackbar
-        open={showError}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="warning"
-          className={classes.alert}
-        >
-          {error}
-        </Alert>
-      </Snackbar>
     </Grid>
   );
 };

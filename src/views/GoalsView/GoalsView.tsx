@@ -4,7 +4,6 @@ import {
   Grid,
   CircularProgress,
   Button,
-  Snackbar,
 } from '@mui/material';
 import useStyles from './styles';
 import { useHistory } from 'react-router';
@@ -14,9 +13,11 @@ import {
 } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import { DELETE_GOAL_SUCCESS, UPDATE_GOAL_SUCCESS } from '../../store/actionTypes/actionTypes';
-import Alert from '../../helpers/Alert';
+import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog';
+import { ERROR } from '../../store/actionTypes/actionTypes';
 
 const GoalsView = () => {
+  const { error } = useSelector((state: any) => state.error);
   const {
     goals,
     isLoading,
@@ -29,24 +30,21 @@ const GoalsView = () => {
   const dispatch = useDispatch();
   const profile = localStorage.getItem('profile')!;
 
-  const [showEditSuccess, setShowEditSuccess] = useState(false);
-  const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+
   const [
     user,
   ] = useState(JSON.parse(profile));
 
   useEffect(() => {
-    if (updateSuccessful) {
-      setShowEditSuccess(true);
+    if (error) {
+      setSubmitError(error);
+      setOpenErrorDialog(true);
+      dispatch({ type: ERROR, data: null });
     }
-  }, [updateSuccessful]);
-
-  useEffect(() => {
-    if (deleteSuccessful) {
-      setShowDeleteSuccess(deleteSuccessful);
-    }
-  }, [deleteSuccessful]);
-
+    // eslint-disable-next-line
+  }, [error]);
 
   useEffect(() => {
     const { result } = user || { user: {} };
@@ -55,30 +53,22 @@ const GoalsView = () => {
     dispatch(getUserGoals(userId));
   }, [dispatch, user]);
 
-  const handleCloseEditSuccess = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    dispatch({ type: UPDATE_GOAL_SUCCESS, payload: false });
-    setShowEditSuccess(false);
-  };
-
-  const handleCloseDeleteSuccess = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    dispatch({ type: DELETE_GOAL_SUCCESS, payload: false });
-    setShowDeleteSuccess(false);
-  };
-
   const handleUpdateGoals = (goal: any) => {
     dispatch(updateGoal(goal, history));
   };
 
+  const handleDialogClose = () => {
+    setOpenErrorDialog(false);
+  };
+
   return (
     <Grid container justifyContent="center" className={classes.root}>
+      <ErrorDialog
+        open={openErrorDialog}
+        onClose={handleDialogClose}
+        error={submitError}
+        action="Login"
+      />
       {user?.result &&
         <Button
           variant="contained"
@@ -106,30 +96,6 @@ const GoalsView = () => {
           onUpdate={(e: any) => handleUpdateGoals(e)}
         />
       }
-      <Snackbar
-        open={showEditSuccess}
-        autoHideDuration={6000}
-        onClose={handleCloseEditSuccess}
-      >
-        <Alert
-          onClose={handleCloseEditSuccess}
-          severity="success"
-        >
-          Edit successful
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={showDeleteSuccess}
-        autoHideDuration={6000}
-        onClose={handleCloseDeleteSuccess}
-      >
-        <Alert
-          onClose={handleCloseDeleteSuccess}
-          severity="success"
-        >
-          Delete successful
-        </Alert>
-      </Snackbar>
     </Grid>
   );
 };

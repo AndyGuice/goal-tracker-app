@@ -41,6 +41,7 @@ const AddTask = (props: any) => {
   return (
     <Paper className={classes.paper}>
       <Grid
+        item
         xs={12}
       >
         <TextField
