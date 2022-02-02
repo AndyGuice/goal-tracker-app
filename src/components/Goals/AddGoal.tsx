@@ -66,9 +66,6 @@ const AddGoal = () => {
     if (goal.title.trim().length === 0) {
       return { ok: false, error: "No goal title" };
     }
-    if (goal.description.trim().length === 0) {
-      return { ok: false, error: "No goal description" };
-    }
     return { ok: true };
   };
 

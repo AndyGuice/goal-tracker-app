@@ -12,7 +12,6 @@ import {
   UPDATE_GOAL_SUCCESS
 } from "../actionTypes/actionTypes";
 import * as api from '../../api';
-import GoalModel from '../../types/goal';
 
 export const getAllGoals = () => async (dispatch: any) => {
 

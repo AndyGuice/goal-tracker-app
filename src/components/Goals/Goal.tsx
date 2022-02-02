@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
-  Paper,
   Typography
 } from '@material-ui/core';
 import useStyles from './styles';

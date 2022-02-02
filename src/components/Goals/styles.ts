@@ -13,7 +13,6 @@ export default makeStyles((theme: Theme) =>
       alignItems: 'center',
       flexDirection: 'column',
       padding: theme.spacing(2),
-      marginBottom: theme.spacing(1),
       width: "75%",
       [theme.breakpoints.down("sm")]: {
         display: 'flex',

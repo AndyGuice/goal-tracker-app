@@ -7,7 +7,6 @@ export default makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       padding: theme.spacing(1),
-      marginLeft: theme.spacing(2),
       marginTop: theme.spacing(1),
       border: '1px solid black',
       width: "60%",
@@ -17,7 +16,7 @@ export default makeStyles((theme: Theme) =>
     },
     input: {
       padding: theme.spacing(1),
-      width: "100%"
+      width: "100%",
     }
   })
 );
