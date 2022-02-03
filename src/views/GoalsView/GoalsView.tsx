@@ -50,9 +50,7 @@ const GoalsView = () => {
     dispatch(getUserGoals(userId));
   }, [dispatch, user]);
 
-  const handleUpdateGoal = (goal: any, action: string) => {
-    console.log({goal})
-    console.log('Action to confirm: ', action)
+  const handleUpdateGoal = (goal: any) => {
     dispatch(updateGoal(goal, history));
   };
 

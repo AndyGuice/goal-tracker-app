@@ -125,7 +125,6 @@ const Task = (props: any) => {
             title="Delete task"
             aria-label="Delete task"
             onClick={handleDeleteTask}
-            className={classes.button}
           >
             <DeleteIcon color="secondary" />
           </IconButton>

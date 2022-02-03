@@ -11,7 +11,7 @@ import useStyles from './styles';
 const AddTask = (props: any) => {
   const { goal, task, onCancel, onUpdate } = props;
   const { _id: goalID } = goal || { goal: {} };
-  const { title, description } = task || { task: {} };
+  const { title } = task || { task: { title: ''} };
 
   const [taskTitle, setTaskTitle] = useState(title);
 
@@ -40,43 +40,40 @@ const AddTask = (props: any) => {
 
   return (
     <Paper className={classes.paper}>
-      <Grid
-        item
-        xs={12}
-      >
         <TextField
           id="new task title"
           aria-label="New task title"
           label="Title"
           value={taskTitle}
           variant="outlined"
-          className={classes.button}
           size="small"
           onChange={(e: any) => setTaskTitle(e.target.value)}
+          fullWidth
         />
-        <Button
-          id="cancel-task-button"
-          aria-label="Cancel task button"
-          variant="outlined"
-          onClick={handleCancel}
-          size="small"
-          style={{ color: "red" }}
-          className={classes.button}
-        >
-          Cancel
-        </Button>
-        <Button
-          id="save-task-button"
-          aria-label="Save task button"
-          color="primary"
-          variant="outlined"
-          onClick={handleSubmit}
-          size="small"
-          className={classes.button}
-        >
-          Save
-        </Button>
-      </Grid>
+        <Grid item textAlign="center" xs={12} sx={{ margin: 1 }}>
+          <Button
+            id="cancel-task-button"
+            aria-label="Cancel task button"
+            variant="contained"
+            onClick={handleCancel}
+            size="small"
+            color="error"
+            sx={{ margin: 1 }}
+          >
+            Cancel
+          </Button>
+          <Button
+            id="save-task-button"
+            aria-label="Save task button"
+            color="secondary"
+            variant="contained"
+            onClick={handleSubmit}
+            size="small"
+            sx={{ margin: 1 }}
+          >
+            Save
+          </Button>
+        </Grid>
     </Paper>
   );
 };

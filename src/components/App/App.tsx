@@ -1,11 +1,19 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/styles';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { createTheme } from '@material-ui/core/styles';
 import Layout from "./Layout";
 import Router from "../Router/Router";
+import createCache from '@emotion/cache';
+import {
+  CacheProvider,
+  EmotionCache
+} from '@emotion/react';
+import {
+  ThemeProvider,
+  CssBaseline,
+  createTheme
+} from '@mui/material';
 
 const theme = createTheme({
   typography: {
@@ -27,16 +35,24 @@ const theme = createTheme({
   },
 });
 
+export const muiCache = createCache({
+  'key': 'mui',
+  'prepend': true,
+});
+
 const App = () => {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Layout>
-            <Router />
-          </Layout>
-        </LocalizationProvider>
-      </ThemeProvider>
+      <CacheProvider value={muiCache}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <Layout>
+              <Router />
+            </Layout>
+          </LocalizationProvider>
+        </ThemeProvider>
+      </CacheProvider>
     </BrowserRouter>
   );
 };

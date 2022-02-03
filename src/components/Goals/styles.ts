@@ -12,6 +12,7 @@ export default makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'column',
+      margin: theme.spacing(2),
       padding: theme.spacing(2),
       width: "75%",
       [theme.breakpoints.down("sm")]: {
