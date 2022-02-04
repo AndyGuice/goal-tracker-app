@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -6,20 +8,18 @@ import {
   Grid,
   Paper,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import useStyles from './styles';
 import GoalModel from '../../types/goal';
-import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-// import { useHistory, useParams } from 'react-router-dom';
 import { getGoal, updateGoal } from '../../store/actions/goals';
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
-export const EditGoal = () => {
-  // const { id } = useParams<any>();
+export function EditGoal() {
+  const { id } = useParams<any>();
   const classes = useStyles();
-  // const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { goal, isLoading } = useSelector((state: any) => state.goals);
@@ -37,9 +37,8 @@ export const EditGoal = () => {
   const [user] = useState(JSON.parse(profile));
 
   useEffect(() => {
-    // dispatch(getGoal(id));
-    // eslint-disable-next-line
-  }, []);
+    dispatch(getGoal(id));
+  }, [id]);
 
   useEffect(() => {
     setGoalTitle(title);
@@ -52,36 +51,32 @@ export const EditGoal = () => {
       setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
-    // eslint-disable-next-line
   }, [error]);
+
+  const validateGoal = (goalToValidate: GoalModel) => {
+    if (goalToValidate.title.trim().length === 0) {
+      return { ok: false, error: 'No goal name' };
+    }
+    return { ok: true };
+  };
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const goal = new GoalModel();
+    const newGoal = new GoalModel();
 
-    goal.title = goalTitle.trim();
-    goal.description = goalDescription.trim();
-    goal.userId = user.result._id;
-    // goal._id = id;
-    goal.updatedOn = new Date().toISOString();
-    goal.tasks = tasks;
+    newGoal.title = goalTitle.trim();
+    newGoal.description = goalDescription.trim();
+    newGoal.userId = user.result._id;
+    newGoal._id = id || '';
+    newGoal.updatedOn = new Date().toISOString();
+    newGoal.tasks = tasks;
 
-    const goalResult = validateGoal(goal);
+    const goalResult = validateGoal(newGoal);
     if (!goalResult.ok) {
       return dispatch({ type: ERROR, data: { error: goalResult.error } });
     }
 
-    dispatch(updateGoal(goal, history));
-  };
-
-  const validateGoal = (goal: GoalModel) => {
-    if (goal.title.trim().length === 0) {
-      return { ok: false, error: "No goal name" };
-    }
-    if (goal.description.trim().length === 0) {
-      return { ok: false, error: "No goal description" };
-    }
-    return { ok: true };
+    dispatch(updateGoal(newGoal, navigate));
   };
 
   const handleDialogClose = () => {
@@ -92,13 +87,12 @@ export const EditGoal = () => {
     return (
       <Grid
         container
-        component="main"
-        style={{ marginTop: "100px" }}
+        style={{ marginTop: '100px' }}
       >
         <Paper
           elevation={6}
           className={classes.loadingPaper}
-          style={{ marginTop: "80px" }}
+          style={{ marginTop: '80px' }}
         >
           <CircularProgress size="7em" color="secondary" />
         </Paper>
@@ -139,7 +133,7 @@ export const EditGoal = () => {
               fullWidth
               sx={{
                 marginTop: 2,
-                marginBottom: 2
+                marginBottom: 2,
               }}
             />
             <TextField
@@ -150,7 +144,7 @@ export const EditGoal = () => {
               placeholder="Goal description"
               fullWidth
               sx={{
-                marginBottom: 2
+                marginBottom: 2,
               }}
             />
             <Box textAlign="center">
@@ -168,6 +162,6 @@ export const EditGoal = () => {
       </form>
     </Grid>
   );
-};
+}
 
 export default EditGoal;

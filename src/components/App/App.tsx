@@ -7,7 +7,7 @@ import {
   CssBaseline,
 } from '@mui/material';
 import Layout from './Layout';
-import Router from '../../router/Router'
+import Router from '../../router/Router';
 import theme from './theme';
 
 function App() {

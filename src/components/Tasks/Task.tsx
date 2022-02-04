@@ -8,10 +8,9 @@ import {
   TextField,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ConfirmDialog from '../../components/Shared/ConfirmDialog/ConfirmDialog';
-import useStyles from './styles';
+import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog';
 
-const Task = (props: any) => {
+function Task(props: any) {
   const {
     goal,
     task,
@@ -28,9 +27,7 @@ const Task = (props: any) => {
 
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskComplete, setTaskComplete] = useState(false);
-  const [edit, setEdit] = useState(false);
-
-  const classes = useStyles();
+  const [edit] = useState(false);
 
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);
@@ -46,12 +43,14 @@ const Task = (props: any) => {
   const handleUpdateTask = (status: boolean) => {
     setTaskComplete(status);
 
-    let updatedTask = task;
+    const updatedTask = task;
 
     if (status) {
       updatedTask.datesCompleted = [...datesCompleted, selectedDate];
     } else {
-      const updatedDatesCompleted = updatedTask.datesCompleted.filter((date: any) => (date !== selectedDate));
+      const updatedDatesCompleted = updatedTask.datesCompleted.filter(
+        (date: any) => (date !== selectedDate),
+      );
       updatedTask.datesCompleted = updatedDatesCompleted;
     }
 
@@ -59,31 +58,31 @@ const Task = (props: any) => {
   };
 
   const deleteTask = (id: any) => {
-    let updatedGoal = goal;
+    const updatedGoal = goal;
 
-    const updatedTasks = goal.tasks.filter((task: any) => task._id !== id);
+    const updatedTasks = goal.tasks.filter((t: any) => t._id !== id);
     updatedGoal.tasks = updatedTasks;
 
     onUpdate(updatedGoal);
   };
 
-  const [ openConfirmDialog, setOpenConfirmDialog ] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const handleDeleteTask = () => {
-    setOpenConfirmDialog(true)
-  }
+    setOpenConfirmDialog(true);
+  };
 
   const handleDialogClose = (confirmDelete: boolean) => {
     if (confirmDelete) {
-      deleteTask(taskID)
-      setOpenConfirmDialog(false)
+      deleteTask(taskID);
+      setOpenConfirmDialog(false);
     } else {
-    setOpenConfirmDialog(false)
+      setOpenConfirmDialog(false);
     }
-  }
+  };
 
   return (
-    <Paper className={classes.paper}>
+    <Paper>
       <ConfirmDialog
         open={openConfirmDialog}
         onClose={handleDialogClose}
@@ -97,41 +96,55 @@ const Task = (props: any) => {
           id="Task title"
           aria-label="Task title"
           value={taskTitle}
-          className={classes.input}
           size="small"
           multiline
           disabled={!edit}
           onChange={(e: any) => setTaskTitle(e.target.value)}
         />
-        {!configView &&
-          <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: 5 }}>
-            <FormControlLabel
-              label="Complete"
-              labelPlacement="start"
-              control={
-                <Checkbox
-                  checked={taskComplete}
-                  onClick={() => handleUpdateTask(!taskComplete)}
-                />
-              }
-            />
-          </div>
+        {
+          !configView
+          && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingRight: 5,
+              }}
+            >
+              <FormControlLabel
+                label="Complete"
+                labelPlacement="start"
+                control={(
+                  <Checkbox
+                    checked={taskComplete}
+                    onClick={() => handleUpdateTask(!taskComplete)}
+                  />
+                )}
+              />
+            </div>
+          )
         }
         {
-          loggedUser &&
-          Object.keys(loggedUser).length !== 0 &&
-          configView &&
-          <IconButton
-            title="Delete task"
-            aria-label="Delete task"
-            onClick={handleDeleteTask}
-          >
-            <DeleteIcon color="secondary" />
-          </IconButton>
+          loggedUser
+          && (
+            Object.keys(loggedUser).length !== 0
+            && (
+              configView
+              && (
+                <IconButton
+                  title="Delete task"
+                  aria-label="Delete task"
+                  onClick={handleDeleteTask}
+                >
+                  <DeleteIcon color="secondary" />
+                </IconButton>
+              )
+            )
+          )
         }
       </Grid>
     </Paper>
   );
-};
+}
 
 export default Task;

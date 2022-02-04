@@ -8,17 +8,17 @@ const Tasks = (props: any) => {
     configView,
     date,
     goal,
-    onUpdate
+    onUpdate,
   } = props;
 
   return (
     tasks && tasks.length > 0 && (
-      tasks.map((task: TaskSchema, index: number) => {
+      tasks.map((task: TaskSchema) => {
         return (
           <Task
             goal={goal}
             task={task}
-            key={index}
+            key={task._id}
             configView={configView}
             date={date}
             onUpdate={onUpdate}

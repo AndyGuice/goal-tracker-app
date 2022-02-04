@@ -21,20 +21,17 @@ const initialState = {
   lastName: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
 };
 
-const LoginUser = () => {
+function LoginUser() {
   const { error } = useSelector((state: any) => state.error);
   const [form, setForm] = useState(initialState);
   const dispatch = useDispatch();
-  // const history = useHistory();
   const navigate = useNavigate();
   const classes = useStyles();
   const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
-
-  // const [showPassword, setShowPassword] = useState(false); // TODO: add this handling again
 
   useEffect(() => {
     if (error) {
@@ -42,11 +39,10 @@ const LoginUser = () => {
       setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
-    // eslint-disable-next-line
   }, [error]);
 
   const handleSubmit = (
-    e: any
+    e: any,
   ) => {
     e.preventDefault();
     dispatch(signin(form, navigate));
@@ -62,8 +58,8 @@ const LoginUser = () => {
       dispatch({ type: AUTH, data: { result, token } });
 
       navigate('/dashboard');
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -91,30 +87,30 @@ const LoginUser = () => {
           Sign in
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField
-              name="email"
-              label="Email Address"
-              onChange={handleChange}
-              type="email"
-              fullWidth
-              sx={{
-                marginBottom: 2
-              }}
-            />
-            <TextField
-              name="password"
-              label="Password"
-              onChange={handleChange}
-              type="password"
-              fullWidth
-            />
+          <TextField
+            name="email"
+            label="Email Address"
+            onChange={handleChange}
+            type="email"
+            fullWidth
+            sx={{
+              marginBottom: 2,
+            }}
+          />
+          <TextField
+            name="password"
+            label="Password"
+            onChange={handleChange}
+            type="password"
+            fullWidth
+          />
           <Button
             fullWidth
             variant="contained"
             color="primary"
             onClick={(e) => handleSubmit(e)}
             sx={{
-              marginTop: 2
+              marginTop: 2,
             }}
           >
             Sign In
@@ -130,7 +126,7 @@ const LoginUser = () => {
                 variant="contained"
                 startIcon={<GoogleIcon />}
                 sx={{
-                  marginTop: 2
+                  marginTop: 2,
                 }}
               >
                 Google Sign In
@@ -146,10 +142,10 @@ const LoginUser = () => {
                 onClick={() => navigate('/register')}
                 color="primary"
                 sx={{
-                  marginTop: 2
+                  marginTop: 2,
                 }}
               >
-                Don't have an account? Sign Up
+                No account? Sign Up
               </Button>
             </Grid>
           </Grid>
@@ -157,6 +153,6 @@ const LoginUser = () => {
       </Paper>
     </Container>
   );
-};
+}
 
 export default LoginUser;

@@ -9,8 +9,8 @@ import {
   FETCH_GOALS,
   START_LOADING,
   UPDATE_GOAL,
-  UPDATE_GOAL_SUCCESS
-} from "../actionTypes/actionTypes";
+  UPDATE_GOAL_SUCCESS,
+} from '../actionTypes/actionTypes';
 import * as api from '../../api';
 
 export const getAllGoals = () => async (dispatch: any) => {
@@ -52,7 +52,7 @@ export const getGoal = (id: any) => async (dispatch: any) => {
   }
 };
 
-export const createGoal = (goal: any, history: any) => async (dispatch: any) => {
+export const createGoal = (goal: any, navigate: any) => async (dispatch: any) => {
   try {
     dispatch({ type: START_LOADING });
 
@@ -60,19 +60,19 @@ export const createGoal = (goal: any, history: any) => async (dispatch: any) => 
 
     if (data?.error) {
       dispatch({ type: ERROR, data });
-      return history.push('/addGoal');
+      return navigate('/addGoal');
     }
 
     dispatch({ type: END_LOADING });
     dispatch({ type: CREATE, payload: data });
-    return history.push(`/goals`);
+    return navigate('/goals');
   }
   catch (error) {
     console.log(error);
   }
 };
 
-export const updateGoal = (goal: any, history: any) => async (dispatch: any) => {
+export const updateGoal = (goal: any, navigate: any) => async (dispatch: any) => {
 
   try {
     dispatch({ type: START_LOADING });
@@ -81,21 +81,21 @@ export const updateGoal = (goal: any, history: any) => async (dispatch: any) => 
     if (data?.error) {
       dispatch({ type: ERROR, data });
 
-      return history.push(`/editGoal/${goal._id}`);
+      return navigate(`/editGoal/${goal._id}`);
     }
 
     dispatch({ type: UPDATE_GOAL, payload: data });
     dispatch({ type: UPDATE_GOAL_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
-    return history.push(`/goals`);
+    return navigate('/goals');
 
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateTaskComplete = (goal: any, history: any) => async (dispatch: any) => {
+export const updateTaskComplete = (goal: any, navigate: any) => async (dispatch: any) => {
 
   try {
     dispatch({ type: START_LOADING });
@@ -104,21 +104,21 @@ export const updateTaskComplete = (goal: any, history: any) => async (dispatch: 
     if (data?.error) {
       dispatch({ type: ERROR, data });
 
-      // return history.push(`/editGoal/${goal._id}`);
+      return navigate(`/editGoal/${goal._id}`);
     }
 
     dispatch({ type: UPDATE_GOAL, payload: data });
     dispatch({ type: UPDATE_GOAL_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
-    return history.push(`/dashboard`);
+    return navigate('/dashboard');
 
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteGoal = (id: String, history: any) => async (dispatch: any) => {
+export const deleteGoal = (id: String, navigate: any) => async (dispatch: any) => {
 
   try {
     dispatch({ type: START_LOADING });
@@ -128,10 +128,9 @@ export const deleteGoal = (id: String, history: any) => async (dispatch: any) =>
     dispatch({ type: DELETE_GOAL_SUCCESS, payload: true });
     dispatch({ type: END_LOADING });
 
-    return history.push(`/goals`);
+    return navigate('/goals');
 
   } catch (error) {
     console.log(error);
   }
 };
-

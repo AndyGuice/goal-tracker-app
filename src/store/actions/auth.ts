@@ -1,35 +1,33 @@
 import { AUTH, ERROR } from '../actionTypes/actionTypes';
 import * as api from '../../api';
-import { Navigate } from 'react-router-dom'
 
 export const signin = (formData: any, navigate: any) => async (dispatch: any) => {
-    try {
-        const { data } = await api.signIn(formData);
-        
-        if (data?.error) {
-            dispatch({ type: ERROR, data });
-            return navigate('/loginUser');
-        }
-        dispatch({ type: AUTH, data });
+  try {
+    const { data } = await api.signIn(formData);
 
-        navigate('/dashboard');
-    } catch (error) {
-        console.log(error);
-        
+    if (data?.error) {
+      dispatch({ type: ERROR, data });
+      return navigate('/loginUser');
     }
+    dispatch({ type: AUTH, data });
+
+    navigate('/dashboard');
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const signup = (formData: any, navigate: any) => async (dispatch: any) => {
-    try {
-        const { data } = await api.signUp(formData);
-        if (data?.error) {
-            dispatch({ type: ERROR, data });
-            return navigate('/register');
-        }
-        dispatch({ type: AUTH, data });
-
-        navigate('/');
-    } catch (error) {
-        console.log(error);
+  try {
+    const { data } = await api.signUp(formData);
+    if (data?.error) {
+      dispatch({ type: ERROR, data });
+      return navigate('/register');
     }
+    dispatch({ type: AUTH, data });
+
+    navigate('/');
+  } catch (error) {
+    console.log(error);
+  }
 };

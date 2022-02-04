@@ -1,10 +1,11 @@
 class Task {
-  title: String = "";
-  goalId: String = "";
-  startOn: String = "";
-  endOn: String = "";
-  createdOn: String = "";
-  updatedOn: String = "";
+  _id: String = '';
+  title: String = '';
+  goalId: String = '';
+  startOn: String = '';
+  endOn: String = '';
+  createdOn: String = '';
+  updatedOn: String = '';
   datesCompleted: String[] = [];
 }
 

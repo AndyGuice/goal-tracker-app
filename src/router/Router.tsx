@@ -13,7 +13,7 @@ import GoalsView from '../views/GoalsView/GoalsView';
 
 import Unauthorized from '../views/Unauthorized/Unauthorized';
 
-const NavRoutes = () => {
+function NavRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LandingView />} />
