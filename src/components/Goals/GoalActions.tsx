@@ -4,14 +4,14 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { deleteGoal } from '../../store/actions/goals';
 import { useDispatch } from 'react-redux';
 import ConfirmDialog from '../../components/Shared/ConfirmDialog/ConfirmDialog';
-import useStyles from './styles';
+// import useStyles from './styles';
 
 const GoalActions = (props: any) => {
   const {
@@ -25,8 +25,8 @@ const GoalActions = (props: any) => {
     _id: goalID,
   } = goal;
 
-  const classes = useStyles();
-  const history = useHistory();
+  // const classes = useStyles();
+  // const history = useHistory();
   const dispatch = useDispatch();
 
   const profile = localStorage.getItem('profile')!;
@@ -74,7 +74,7 @@ const GoalActions = (props: any) => {
       <Tooltip title="Edit task">
         <IconButton
           aria-label="edit goal"
-          onClick={() => history.push(`/editGoal/${goalID}`)}
+          // onClick={() => history.push(`/editGoal/${goalID}`)}
           color="secondary"
         >
           <EditRoundedIcon />

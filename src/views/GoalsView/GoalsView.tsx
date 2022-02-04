@@ -6,7 +6,7 @@ import {
   Button,
 } from '@mui/material';
 import useStyles from './styles';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import {
   getUserGoals,
   updateGoal,
@@ -22,7 +22,7 @@ const GoalsView = () => {
     isLoading,
   } = useSelector((state: any) => state.goals);
 
-  const history = useHistory();
+  // const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
   const profile = localStorage.getItem('profile')!;
@@ -70,7 +70,7 @@ const GoalsView = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => history.push("/addGoal")}
+          // onClick={() => history.push("/addGoal")}
           sx={{
             marginTop: 2,
             marginBottom: 2,

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
 
-const Layout = (props: any) => {
+function Layout(props: any) {
   const { children } = props;
 
   return (
@@ -11,6 +11,6 @@ const Layout = (props: any) => {
     </>
 
   );
-};
+}
 
 export default Layout;

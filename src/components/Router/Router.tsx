@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import LoginUser from '../Auth/LoginUser';
 
 import RegisterUser from '../Auth/RegisterUser';
@@ -12,22 +12,21 @@ import GoalsView from '../../views/GoalsView/GoalsView';
 
 import Unauthorized from '../../views/Unauthorized/Unauthorized';
 
-const Router = () => {
-
+function Router() {
   return (
-    <Switch>
-      <Route path="/" exact component={LandingView} />
-      <Route path="/dashboard" exact component={DashboardView} />
-      <Route path="/goals" exact component={GoalsView} />
+    <Routes>
+      <Route path="/" element={LandingView} />
+      <Route path="/dashboard" element={DashboardView} />
+      <Route path="/goals" element={GoalsView} />
 
-      <Route path="/addGoal" exact component={AddGoal} />
-      <Route path="/editGoal/:id" exact component={EditGoal} />
+      <Route path="/addGoal" element={AddGoal} />
+      <Route path="/editGoal/:id" element={EditGoal} />
 
-      <Route path="/loginUser" exact component={LoginUser} />
-      <Route path="/register" exact component={RegisterUser} />
-      <Route path="/unauthorized" exact component={Unauthorized} />
-    </Switch>
+      <Route path="/loginUser" element={LoginUser} />
+      <Route path="/register" element={RegisterUser} />
+      <Route path="/unauthorized" element={Unauthorized} />
+    </Routes>
   );
-};
+}
 
 export default Router;

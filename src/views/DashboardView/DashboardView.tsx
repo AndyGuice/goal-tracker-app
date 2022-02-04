@@ -4,7 +4,7 @@ import {
   CircularProgress,
   Grid,
 } from '@mui/material';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import { getUserGoals, updateTaskComplete } from '../../store/actions/goals';
 import Goals from '../../components/Goals/Goals';
 import DatePicker from '../../components/Shared/DatePicker/DatePicker';
@@ -22,7 +22,7 @@ const DashboardView = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const profile = localStorage.getItem('profile')!;
 
   const [user] = useState(JSON.parse(profile));

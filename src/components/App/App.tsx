@@ -2,15 +2,15 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import Layout from "./Layout";
-import Router from "../Router/Router";
 import {
   ThemeProvider,
   CssBaseline,
 } from '@mui/material';
-import theme from './theme'
+import Layout from './Layout';
+import Router from '../Router/Router';
+import theme from './theme';
 
-const App = () => {
+function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
@@ -23,6 +23,6 @@ const App = () => {
       </ThemeProvider>
     </BrowserRouter>
   );
-};
+}
 
 export default App;

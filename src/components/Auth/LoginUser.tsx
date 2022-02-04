@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { signin } from '../../store/actions/auth';
 import useStyles from './styles';
@@ -28,7 +28,7 @@ const LoginUser = () => {
   const { error } = useSelector((state: any) => state.error);
   const [form, setForm] = useState(initialState);
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const classes = useStyles();
   const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
@@ -60,7 +60,7 @@ const LoginUser = () => {
     try {
       dispatch({ type: AUTH, data: { result, token } });
 
-      history.push('/dashboard');
+      // history.push('/dashboard');
     } catch (error) {
       console.log(error);
     }
@@ -142,7 +142,7 @@ const LoginUser = () => {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button
-                onClick={() => history.push('/register')}
+                // onClick={() => history.push('/register')}
                 color="primary"
                 sx={{
                   marginTop: 2

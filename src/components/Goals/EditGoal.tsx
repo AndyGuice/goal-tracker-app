@@ -12,14 +12,14 @@ import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import { useHistory, useParams } from 'react-router-dom';
+// import { useHistory, useParams } from 'react-router-dom';
 import { getGoal, updateGoal } from '../../store/actions/goals';
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 export const EditGoal = () => {
-  const { id } = useParams<any>();
+  // const { id } = useParams<any>();
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
 
   const { goal, isLoading } = useSelector((state: any) => state.goals);
@@ -37,7 +37,7 @@ export const EditGoal = () => {
   const [user] = useState(JSON.parse(profile));
 
   useEffect(() => {
-    dispatch(getGoal(id));
+    // dispatch(getGoal(id));
     // eslint-disable-next-line
   }, []);
 
@@ -62,7 +62,7 @@ export const EditGoal = () => {
     goal.title = goalTitle.trim();
     goal.description = goalDescription.trim();
     goal.userId = user.result._id;
-    goal._id = id;
+    // goal._id = id;
     goal.updatedOn = new Date().toISOString();
     goal.tasks = tasks;
 

@@ -10,14 +10,14 @@ import {
 import GoalModel from '../../types/goal';
 import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
 import useStyles from './styles';
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 const AddGoal = () => {
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
   const { error } = useSelector((state: any) => state.error);
 

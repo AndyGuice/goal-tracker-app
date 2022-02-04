@@ -9,7 +9,7 @@ import {
     Typography
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import { signup } from '../../store/actions/auth';
 import { ERROR } from '../../store/actionTypes/actionTypes';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -23,7 +23,7 @@ const RegisterUser = () => {
     const { error } = useSelector((state: any) => state.error);
     const [form, setForm] = useState(initialState);
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
     const classes = useStyles();
     const [submitError, setSubmitError] = useState('');
     const [openErrorDialog, setOpenErrorDialog] = useState(false);
@@ -138,7 +138,7 @@ const RegisterUser = () => {
                     <Grid container>
                         <Grid item>
                             <Button
-                                onClick={() => history.push('/loginUser')}
+                                // onClick={() => history.push('/loginUser')}
                                 color="primary"
                             >
                                 Already have an account? Sign in
