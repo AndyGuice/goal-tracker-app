@@ -14,11 +14,12 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
 
-// import {
-// //   Link,
-//   useHistory,
-//   useLocation,
-// } from 'react-router-dom';
+import {
+//   Link,
+  // useHistory,
+  // useLocation,
+  useNavigate
+} from 'react-router-dom';
 import decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
 import useStyles from './styles';
@@ -30,10 +31,11 @@ export default function Navbar() {
 //   const location = useLocation();
 //   const history = useHistory();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const profile = localStorage.getItem('profile')!;
   const [user, setUser] = useState(JSON.parse(profile));
-  //   const handleLogin = () => history.push('/loginUser');
+  const handleLogin = () => navigate('/loginUser');
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -230,7 +232,7 @@ export default function Navbar() {
             <Button
               color="secondary"
               variant="contained"
-            //   onClick={handleLogin}
+              onClick={handleLogin}
             >
               Sign In
             </Button>

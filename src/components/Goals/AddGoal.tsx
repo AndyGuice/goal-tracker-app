@@ -13,7 +13,7 @@ import { ERROR } from '../../store/actionTypes/actionTypes';
 // import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
 import useStyles from './styles';
-import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
+import ErrorDialog from "../Shared/ErrorDialog/ErrorDialog";
 
 const AddGoal = () => {
   const classes = useStyles();
