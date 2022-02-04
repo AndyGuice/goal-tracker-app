@@ -7,14 +7,15 @@ const Goals = (props: any) => {
     goals,
     configView,
     date,
-    onUpdate
+    onUpdate,
   } = props;
 
   return (
-    goals && (goals.length > 0) && (
-      goals.map((goal: GoalModel, index: number) => (
+    goals && (goals.length > 0)
+    && (
+      goals.map((goal: GoalModel) => (
         <Goal
-          key={index}
+          key={goal._id}
           goal={goal}
           configView={configView}
           date={date}
@@ -26,4 +27,3 @@ const Goals = (props: any) => {
 };
 
 export default Goals;
-

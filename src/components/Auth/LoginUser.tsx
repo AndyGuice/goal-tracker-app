@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -8,10 +9,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { signin } from '../../store/actions/auth';
-import useStyles from './styles';
 import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 import GoogleIcon from '../../helpers/GoogleIcon';
@@ -29,7 +28,6 @@ function LoginUser() {
   const [form, setForm] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const classes = useStyles();
   const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
 
@@ -79,14 +77,14 @@ function LoginUser() {
         error={submitError}
         action="Login"
       />
-      <Paper className={classes.paper} elevation={6}>
+      <Paper elevation={6}>
         <Typography
           component="h1"
           variant="h5"
         >
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <TextField
             name="email"
             label="Email Address"

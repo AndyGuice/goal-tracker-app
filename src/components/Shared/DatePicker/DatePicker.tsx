@@ -35,8 +35,8 @@ export default function DatePicker(props: any) {
       </IconButton>
       <MuiDatePicker
         renderInput={
-            /* eslint-disable-next-line react/jsx-props-no-spreading */
-            (inputProps: any) => <TextField {...inputProps} label="Selected Date" />
+          /* eslint-disable-next-line react/jsx-props-no-spreading */
+          (inputProps: any) => <TextField {...inputProps} label="Selected Date" />
         }
         onChange={(e: any) => handleDateChange(e.target.value)}
         value={selectedDate}

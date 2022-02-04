@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
   Grid,
   Paper,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import GoalModel from '../../types/goal';
-import { useDispatch, useSelector } from 'react-redux';
 import { ERROR } from '../../store/actionTypes/actionTypes';
-// import { useHistory } from 'react-router-dom';
 import { createGoal } from '../../store/actions/goals';
-import useStyles from './styles';
-import ErrorDialog from "../Shared/ErrorDialog/ErrorDialog";
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
-const AddGoal = () => {
-  const classes = useStyles();
-  // const history = useHistory();
+function AddGoal() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { error } = useSelector((state: any) => state.error);
 
   const [goalTitle, setGoalTitle] = useState('');
@@ -29,17 +27,23 @@ const AddGoal = () => {
   const profile = localStorage.getItem('profile')!;
   const [user] = useState(JSON.parse(profile));
 
+  const [submitError, setSubmitError] = useState('');
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+
   useEffect(() => {
     if (error) {
       setSubmitError(error);
       setOpenErrorDialog(true);
       dispatch({ type: ERROR, data: null });
     }
-    // eslint-disable-next-line
   }, [error]);
 
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const validateGoal = (goal: GoalModel) => {
+    if (goal.title.trim().length === 0) {
+      return { ok: false, error: 'No goal title' };
+    }
+    return { ok: true };
+  };
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -61,14 +65,7 @@ const AddGoal = () => {
       return dispatch({ type: ERROR, data: { error: goalResult.error } });
     }
 
-    dispatch(createGoal(goal, history));
-  };
-
-  const validateGoal = (goal: GoalModel) => {
-    if (goal.title.trim().length === 0) {
-      return { ok: false, error: "No goal title" };
-    }
-    return { ok: true };
+    dispatch(createGoal(goal, navigate));
   };
 
   const handleDialogClose = () => {
@@ -88,7 +85,12 @@ const AddGoal = () => {
         action="Create goal...?"
       />
       <form onSubmit={handleSubmit}>
-        <Paper className={classes.paper} elevation={6} sx={{ marginTop: 2 }}>
+        <Paper
+          elevation={6}
+          sx={{
+            marginTop: 2,
+          }}
+        >
           <Grid item xs={12}>
             <Typography
               id="goal-add-button"
@@ -105,7 +107,7 @@ const AddGoal = () => {
               placeholder="Enter goal name"
               fullWidth
               sx={{
-                marginBottom: 2
+                marginBottom: 2,
               }}
             />
             <TextField
@@ -131,6 +133,6 @@ const AddGoal = () => {
       </form>
     </Grid>
   );
-};
+}
 
 export default AddGoal;

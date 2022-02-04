@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
 
 import {
   useLocation,
-  useNavigate
+  useNavigate,
 } from 'react-router-dom';
 import decode from 'jwt-decode';
 import { useDispatch } from 'react-redux';
@@ -61,7 +61,7 @@ export default function Navbar() {
     setUser(JSON.parse(profile));
 
     // eslint-disable-next-line
-    }, [location]);
+  }, [location]);
   // end auth handling
 
   const classes = useStyles();

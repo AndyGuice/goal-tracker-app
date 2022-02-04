@@ -4,20 +4,19 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Typography
+  Typography,
 } from '@mui/material';
-import useStyles from './styles';
 import AddTask from '../Tasks/AddTask';
 import Tasks from '../Tasks/Tasks';
 import GoalActions from './GoalActions';
 import SuccessImage from '../../images/goal_success_image.png';
 
-const Goal = (props: any) => {
+function Goal(props: any) {
   const {
     goal,
     configView,
     date,
-    onUpdate
+    onUpdate,
   } = props;
 
   const {
@@ -25,7 +24,6 @@ const Goal = (props: any) => {
     tasks,
   } = goal;
 
-  const classes = useStyles();
   const [showAddTask, setShowAddTask] = useState(false);
 
   const handleCancelTask = () => {
@@ -38,7 +36,9 @@ const Goal = (props: any) => {
 
   return (
     <>
-      <Card className={classes.paper} elevation={6}>
+      <Card
+        elevation={6}
+      >
         <CardActionArea>
           <CardMedia
             component="img"
@@ -48,12 +48,12 @@ const Goal = (props: any) => {
             sx={{
               height: {
                 xs: 140,
-                sm: 300
-              }
+                sm: 300,
+              },
             }}
           />
           <CardContent>
-            <Typography className={classes.title} align="center">
+            <Typography align="center">
               {title}
             </Typography>
           </CardContent>
@@ -71,17 +71,18 @@ const Goal = (props: any) => {
           onUpdate={onUpdate}
         />
       )}
-      {tasks && (
-        <Tasks
-          configView={configView}
-          date={date}
-          goal={goal}
-          tasks={tasks}
-          onUpdate={onUpdate}
-        />
-      )}
+      {tasks
+        && (
+          <Tasks
+            configView={configView}
+            date={date}
+            goal={goal}
+            tasks={tasks}
+            onUpdate={onUpdate}
+          />
+        )}
     </>
   );
-};
+}
 
 export default Goal;

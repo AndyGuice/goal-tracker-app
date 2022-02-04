@@ -10,7 +10,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import useStyles from './styles';
 import GoalModel from '../../types/goal';
 import { ERROR } from '../../store/actionTypes/actionTypes';
 import { getGoal, updateGoal } from '../../store/actions/goals';
@@ -18,7 +17,6 @@ import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
 
 export function EditGoal() {
   const { id } = useParams<any>();
-  const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -91,7 +89,6 @@ export function EditGoal() {
       >
         <Paper
           elevation={6}
-          className={classes.loadingPaper}
           style={{ marginTop: '80px' }}
         >
           <CircularProgress size="7em" color="secondary" />
@@ -113,7 +110,9 @@ export function EditGoal() {
         action="Edit goal...?"
       />
       <form onSubmit={handleSubmit}>
-        <Paper className={classes.paper} elevation={6}>
+        <Paper
+          elevation={6}
+        >
           <Grid item xs={12}>
             <Typography
               id="goal-edit-button"

@@ -4,20 +4,19 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
-// import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { deleteGoal } from '../../store/actions/goals';
-import { useDispatch } from 'react-redux';
-import ConfirmDialog from '../../components/Shared/ConfirmDialog/ConfirmDialog';
-// import useStyles from './styles';
+import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog';
 
-const GoalActions = (props: any) => {
+function GoalActions(props: any) {
   const {
     goal,
     configView,
-    onAddTask
+    onAddTask,
   } = props;
 
   const {
@@ -25,9 +24,8 @@ const GoalActions = (props: any) => {
     _id: goalID,
   } = goal;
 
-  // const classes = useStyles();
-  // const history = useHistory();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const profile = localStorage.getItem('profile')!;
   const loggedUser = JSON.parse(profile);
@@ -35,61 +33,69 @@ const GoalActions = (props: any) => {
   const { googleId, _id } = result || { googleId: {}, _id: {} };
   const userID = googleId || _id;
 
-  const [ openConfirmDialog, setOpenConfirmDialog ] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const handleDeleteGoal = () => {
-    setOpenConfirmDialog(true)
-  }
+    setOpenConfirmDialog(true);
+  };
 
   const handleDialogClose = (confirmDelete: boolean) => {
     if (confirmDelete) {
-      dispatch(deleteGoal(goalID, history))
-      setOpenConfirmDialog(false)
+      dispatch(deleteGoal(goalID, navigate));
+      setOpenConfirmDialog(false);
     } else {
-    setOpenConfirmDialog(false)
+      setOpenConfirmDialog(false);
     }
-  }
+  };
 
   return (
-    loggedUser &&
-    Object.keys(loggedUser).length !== 0 &&
-    userID === goalUserID &&
-    configView &&
-    <CardActions>
-      <ConfirmDialog
-        open={openConfirmDialog}
-        onClose={handleDialogClose}
-        object="Goal"
-      />
-      <Tooltip title="Add Task">
-        <IconButton
-          aria-label="Add Task"
-          id="Add task button"
-          color="secondary"
-          onClick={onAddTask}
-        >
-          <NoteAddIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Edit task">
-        <IconButton
-          aria-label="edit goal"
-          // onClick={() => history.push(`/editGoal/${goalID}`)}
-          color="secondary"
-        >
-          <EditRoundedIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Delete task">
-        <IconButton
-          aria-label="delete goal"
-          onClick={handleDeleteGoal}
-        >
-          <DeleteIcon color="secondary" />
-        </IconButton>
-      </Tooltip>
-    </CardActions>
+    loggedUser
+    && (
+      Object.keys(loggedUser).length !== 0
+      && (
+        userID === goalUserID
+        && (
+          configView
+          && (
+            <CardActions>
+              <ConfirmDialog
+                open={openConfirmDialog}
+                onClose={handleDialogClose}
+                object="Goal"
+              />
+              <Tooltip title="Add Task">
+                <IconButton
+                  aria-label="Add Task"
+                  id="Add task button"
+                  color="secondary"
+                  onClick={onAddTask}
+                >
+                  <NoteAddIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Edit task">
+                <IconButton
+                  aria-label="edit goal"
+                  // onClick={() => history.push(`/editGoal/${goalID}`)}
+                  color="secondary"
+                >
+                  <EditRoundedIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete task">
+                <IconButton
+                  aria-label="delete goal"
+                  onClick={handleDeleteGoal}
+                >
+                  <DeleteIcon color="secondary" />
+                </IconButton>
+              </Tooltip>
+            </CardActions>
+          )
+        )
+      )
+    )
   );
-};
+}
 
 export default GoalActions;
