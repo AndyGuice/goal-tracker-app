@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import {
 //   Link,
   // useHistory,
-  // useLocation,
+  useLocation,
   useNavigate
 } from 'react-router-dom';
 import decode from 'jwt-decode';
@@ -28,7 +28,7 @@ import * as actionType from '../../store/actionTypes/actionTypes';
 
 export default function Navbar() {
   // TODO: move auth handling to hooks func
-//   const location = useLocation();
+  const location = useLocation();
 //   const history = useHistory();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ export default function Navbar() {
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
-    // history.push('/');
+    navigate('/');
     setUser(null);
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -176,7 +176,7 @@ export default function Navbar() {
           <Button
             color="inherit"
             size="large"
-            // onClick={() => history.push('/dashboard')}
+            onClick={() => navigate('/dashboard')}
           >
             Goal Tracker
           </Button>

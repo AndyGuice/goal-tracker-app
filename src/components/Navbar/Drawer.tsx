@@ -11,8 +11,12 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import BuildIcon from '@mui/icons-material/Build';
 import LoginIcon from '@mui/icons-material/Login';
 import {
-  makeStyles, useTheme, Theme, createStyles,
+  makeStyles,
+  useTheme,
+  Theme,
+  createStyles,
 } from '@material-ui/core/styles';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -54,6 +58,7 @@ export default function ResponsiveDrawer(props: any) {
 
   const classes = useStyles();
   const theme = useTheme();
+  const navigate = useNavigate();
   // const history = useHistory();
 
   const handleDrawerToggle = (state: boolean) => {
@@ -68,7 +73,7 @@ export default function ResponsiveDrawer(props: any) {
         <List>
           <ListItem
             button
-            // onClick={() => history.push('/dashboard')}
+            onClick={() => navigate('/dashboard')}
           >
             <ListItemIcon>
               <DashboardIcon />
@@ -77,7 +82,7 @@ export default function ResponsiveDrawer(props: any) {
           </ListItem>
           <ListItem
             button
-            // onClick={() => history.push('/goals')}
+            onClick={() => navigate('/goals')}
           >
             <ListItemIcon>
               <BuildIcon />
@@ -89,7 +94,7 @@ export default function ResponsiveDrawer(props: any) {
         <List>
           <ListItem
             button
-            // onClick={() => history.push('/loginUser')}
+            onClick={() => navigate('/loginUser')}
           >
             <ListItemIcon>
               <LoginIcon />

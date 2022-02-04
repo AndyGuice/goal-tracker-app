@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { signin } from '../../store/actions/auth';
 import useStyles from './styles';
@@ -29,6 +29,7 @@ const LoginUser = () => {
   const [form, setForm] = useState(initialState);
   const dispatch = useDispatch();
   // const history = useHistory();
+  const navigate = useNavigate();
   const classes = useStyles();
   const [submitError, setSubmitError] = useState('');
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
@@ -48,7 +49,7 @@ const LoginUser = () => {
     e: any
   ) => {
     e.preventDefault();
-    dispatch(signin(form, history));
+    dispatch(signin(form, navigate));
   };
 
   const googleSuccess = (res: any) => {
@@ -60,7 +61,7 @@ const LoginUser = () => {
     try {
       dispatch({ type: AUTH, data: { result, token } });
 
-      // history.push('/dashboard');
+      navigate('/dashboard');
     } catch (error) {
       console.log(error);
     }
@@ -142,7 +143,7 @@ const LoginUser = () => {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button
-                // onClick={() => history.push('/register')}
+                onClick={() => navigate('/register')}
                 color="primary"
                 sx={{
                   marginTop: 2

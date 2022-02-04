@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 const LandingView = () => {
   const profile = localStorage.getItem('profile')!;
-  const navigate = useNavigate();
   const [
     user,
   ] = useState(JSON.parse(profile));
 
   if (user) {
-    navigate('/dashboard');
+    return <Navigate to='/dashboard' />
   } else {
     return (
       <Box textAlign="center" style={{ paddingTop: 40 }}> 
