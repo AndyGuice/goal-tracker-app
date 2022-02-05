@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   Avatar,
   Button,
@@ -9,12 +9,12 @@ import {
   Paper,
   TextField,
   Typography,
-} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import * as EmailValidator from 'email-validator';
-import { signup } from '../../store/actions/auth';
-import { ERROR } from '../../store/actionTypes/actionTypes';
-import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
+} from '@mui/material'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import * as EmailValidator from 'email-validator'
+import { signup } from '../../store/actions/auth'
+import { ERROR } from '../../store/actionTypes/actionTypes'
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 
 const initialState = {
   firstName: '',
@@ -22,45 +22,45 @@ const initialState = {
   email: '',
   password: '',
   confirmPassword: '',
-};
+}
 
 function RegisterUser() {
-  const { error } = useSelector((state: any) => state.error);
-  const [form, setForm] = useState(initialState);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const { error } = useSelector((state: any) => state.error)
+  const [form, setForm] = useState(initialState)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [submitError, setSubmitError] = useState('')
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   // const [showPassword, setShowPassword] = useState(false); // TODO: re-add this handling
 
   useEffect(() => {
     if (error) {
-      setSubmitError(error);
-      setOpenErrorDialog(true);
-      dispatch({ type: ERROR, data: null });
+      setSubmitError(error)
+      setOpenErrorDialog(true)
+      dispatch({ type: ERROR, data: null })
     }
-  }, [error]);
+  }, [error])
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (form.password !== form.confirmPassword) {
-      return dispatch({ type: ERROR, data: { error: 'Passwords are not equal' } });
+      return dispatch({ type: ERROR, data: { error: 'Passwords are not equal' } })
     }
 
     if (!EmailValidator.validate(form.email)) {
-      return dispatch({ type: ERROR, data: { error: 'Wrong email format' } });
+      return dispatch({ type: ERROR, data: { error: 'Wrong email format' } })
     }
 
-    dispatch(signup(form, navigate));
-  };
+    dispatch(signup(form, navigate))
+  }
 
-  const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value })
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false);
-  };
+    setOpenErrorDialog(false)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -154,7 +154,7 @@ function RegisterUser() {
         </form>
       </Paper>
     </Container>
-  );
+  )
 }
 
-export default RegisterUser;
+export default RegisterUser

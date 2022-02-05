@@ -1,52 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   CardActions,
   IconButton,
   Tooltip,
-} from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import { deleteGoal } from '../../store/actions/goals';
-import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog';
+} from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import NoteAddIcon from '@mui/icons-material/NoteAdd'
+import { deleteGoal } from '../../store/actions/goals'
+import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
 function GoalActions(props: any) {
   const {
     goal,
     configView,
     onAddTask,
-  } = props;
+  } = props
 
   const {
     userId: goalUserID,
     _id: goalID,
-  } = goal;
+  } = goal
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const profile = localStorage.getItem('profile')!;
-  const loggedUser = JSON.parse(profile);
-  const { result } = loggedUser || { result: {} };
-  const { googleId, _id } = result || { googleId: {}, _id: {} };
-  const userID = googleId || _id;
+  const profile = localStorage.getItem('profile')!
+  const loggedUser = JSON.parse(profile)
+  const { result } = loggedUser || { result: {} }
+  const { googleId, _id } = result || { googleId: {}, _id: {} }
+  const userID = googleId || _id
 
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
 
   const handleDeleteGoal = () => {
-    setOpenConfirmDialog(true);
-  };
+    setOpenConfirmDialog(true)
+  }
 
   const handleDialogClose = (confirmDelete: boolean) => {
     if (confirmDelete) {
-      dispatch(deleteGoal(goalID, navigate));
-      setOpenConfirmDialog(false);
+      dispatch(deleteGoal(goalID, navigate))
+      setOpenConfirmDialog(false)
     } else {
-      setOpenConfirmDialog(false);
+      setOpenConfirmDialog(false)
     }
-  };
+  }
 
   return (
     loggedUser
@@ -95,7 +95,7 @@ function GoalActions(props: any) {
         )
       )
     )
-  );
+  )
 }
 
-export default GoalActions;
+export default GoalActions

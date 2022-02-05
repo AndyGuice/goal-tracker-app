@@ -1,41 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Button,
   Grid,
   Paper,
   TextField,
-} from '@mui/material';
-import TaskModel from '../../types/task';
+} from '@mui/material'
+import TaskModel from '../../types/task'
 
 function AddTask(props: any) {
   const {
     goal, task, onCancel, onUpdate,
-  } = props;
-  const { _id: goalID } = goal || { goal: {} };
-  const { title } = task || { title: '' };
+  } = props
+  const { _id: goalID } = goal || { goal: {} }
+  const { title } = task || { title: '' }
 
-  const [taskTitle, setTaskTitle] = useState(title);
+  const [taskTitle, setTaskTitle] = useState(title)
 
   const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const newTask = new TaskModel();
-    const today = new Date().toISOString();
+    const newTask = new TaskModel()
+    const today = new Date().toISOString()
 
-    newTask.title = taskTitle.trim();
-    newTask.createdOn = today;
-    newTask.updatedOn = today;
-    newTask.goalId = goalID;
+    newTask.title = taskTitle.trim()
+    newTask.createdOn = today
+    newTask.updatedOn = today
+    newTask.goalId = goalID
 
-    const updatedGoal = goal;
-    updatedGoal.tasks.push(newTask);
+    const updatedGoal = goal
+    updatedGoal.tasks.push(newTask)
 
-    onUpdate(updatedGoal);
-  };
+    onUpdate(updatedGoal)
+  }
 
   const handleCancel = () => {
-    onCancel();
-  };
+    onCancel()
+  }
 
   return (
     <Paper>
@@ -74,7 +74,7 @@ function AddTask(props: any) {
         </Button>
       </Grid>
     </Paper>
-  );
+  )
 }
 
-export default AddTask;
+export default AddTask

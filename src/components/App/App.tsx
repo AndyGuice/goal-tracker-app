@@ -1,14 +1,14 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import {
   ThemeProvider,
   CssBaseline,
-} from '@mui/material';
-import Layout from './Layout';
-import Router from '../../router/Router';
-import theme from './theme';
+} from '@mui/material'
+import Layout from './Layout'
+import Router from '../../router/Router'
+import theme from '../../config/theme'
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         </LocalizationProvider>
       </ThemeProvider>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,93 +1,93 @@
-import React, { useState, useEffect } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
+import React, { useState, useEffect } from 'react'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
 // import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Avatar from '@mui/material/Avatar';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem'
+import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import Avatar from '@mui/material/Avatar'
+import MailIcon from '@mui/icons-material/Mail'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import MoreIcon from '@mui/icons-material/MoreVert'
+import Button from '@mui/material/Button'
 
 import {
   useLocation,
   useNavigate,
-} from 'react-router-dom';
-import decode from 'jwt-decode';
-import { useDispatch } from 'react-redux';
-import useStyles from './styles';
-import Drawer from './Drawer';
-import * as actionType from '../../store/actionTypes/actionTypes';
+} from 'react-router-dom'
+import decode from 'jwt-decode'
+import { useDispatch } from 'react-redux'
+import useStyles from './styles'
+import Drawer from './Drawer'
+import * as actionType from '../../store/actionTypes/actionTypes'
 
 export default function Navbar() {
   // TODO: move auth handling to hooks func
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const profile = localStorage.getItem('profile')!;
-  const [user, setUser] = useState(JSON.parse(profile));
-  const handleLogin = () => navigate('/loginUser');
+  const profile = localStorage.getItem('profile')!
+  const [user, setUser] = useState(JSON.parse(profile))
+  const handleLogin = () => navigate('/loginUser')
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null)
 
   // const homePath = (user ? "/dashboard" : "/");
 
   const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+    setMobileMoreAnchorEl(null)
+  }
 
   const logout = () => {
-    dispatch({ type: actionType.LOGOUT });
-    navigate('/');
-    setUser(null);
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+    dispatch({ type: actionType.LOGOUT })
+    navigate('/')
+    setUser(null)
+    setAnchorEl(null)
+    handleMobileMenuClose()
+  }
 
   useEffect(() => {
-    const token = user?.token;
+    const token = user?.token
 
     if (token) {
-      const decodedToken = decode<any>(token);
-      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+      const decodedToken = decode<any>(token)
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout()
     }
 
-    setUser(JSON.parse(profile));
+    setUser(JSON.parse(profile))
 
     // eslint-disable-next-line
-  }, [location]);
+  }, [location])
   // end auth handling
 
-  const classes = useStyles();
-  const [menuDrawerOpen, setMenuDrawerOpen] = useState(false);
+  const classes = useStyles()
+  const [menuDrawerOpen, setMenuDrawerOpen] = useState(false)
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isMenuOpen = Boolean(anchorEl)
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+    setAnchorEl(null)
+    handleMobileMenuClose()
+  }
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+    setMobileMoreAnchorEl(event.currentTarget)
+  }
 
   const handleOnChange = (e: any) => {
-    setMenuDrawerOpen(e);
-  };
+    setMenuDrawerOpen(e)
+  }
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = 'primary-search-account-menu'
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -102,9 +102,9 @@ export default function Navbar() {
       <MenuItem onClick={handleMenuClose} disabled>My account</MenuItem>
       <MenuItem onClick={logout}>Log out</MenuItem>
     </Menu>
-  );
+  )
 
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = 'primary-search-account-menu-mobile'
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -154,7 +154,7 @@ export default function Navbar() {
         <p>Logout</p>
       </MenuItem>
     </Menu>
-  );
+  )
 
   return (
     <div className={classes.grow}>
@@ -238,5 +238,5 @@ export default function Navbar() {
       {renderMobileMenu}
       {renderMenu}
     </div>
-  );
+  )
 }

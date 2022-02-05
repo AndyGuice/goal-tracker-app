@@ -1,24 +1,24 @@
-import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import Hidden from '@mui/material/Hidden';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import BuildIcon from '@mui/icons-material/Build';
-import LoginIcon from '@mui/icons-material/Login';
+import React from 'react'
+import CssBaseline from '@mui/material/CssBaseline'
+import Divider from '@mui/material/Divider'
+import Drawer from '@mui/material/Drawer'
+import Hidden from '@mui/material/Hidden'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import BuildIcon from '@mui/icons-material/Build'
+import LoginIcon from '@mui/icons-material/Login'
 import {
   makeStyles,
   useTheme,
   Theme,
   createStyles,
-} from '@material-ui/core/styles';
-import { useNavigate } from 'react-router-dom';
+} from '@material-ui/core/styles'
+import { useNavigate } from 'react-router-dom'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -51,19 +51,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-}));
+}))
 
 export default function ResponsiveDrawer(props: any) {
-  const { open, onChange, user } = props;
+  const { open, onChange, user } = props
 
-  const classes = useStyles();
-  const theme = useTheme();
-  const navigate = useNavigate();
+  const classes = useStyles()
+  const theme = useTheme()
+  const navigate = useNavigate()
   // const history = useHistory();
 
   const handleDrawerToggle = (state: boolean) => {
-    onChange(state);
-  };
+    onChange(state)
+  }
 
   const drawer = (
     <div>
@@ -104,7 +104,7 @@ export default function ResponsiveDrawer(props: any) {
         </List>
       )}
     </div>
-  );
+  )
 
   return (
     <div className={classes.root}>
@@ -140,5 +140,5 @@ export default function ResponsiveDrawer(props: any) {
         </Hidden>
       </nav>
     </div>
-  );
+  )
 }

@@ -1,55 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   CircularProgress,
   Grid,
-} from '@mui/material';
-import { addDays } from 'date-fns';
-import { getUserGoals, updateTaskComplete } from '../../store/actions/goals';
-import Goals from '../../components/Goals/Goals';
-import DatePicker from '../../components/Shared/DatePicker/DatePicker';
+} from '@mui/material'
+import { addDays } from 'date-fns'
+import { getUserGoals, updateTaskComplete } from '../../store/actions/goals'
+import Goals from '../../components/Goals/Goals'
+import DatePicker from '../../components/Shared/DatePicker/DatePicker'
 
 function DashboardView() {
   const {
     goals,
     isLoading,
-  } = useSelector((state: any) => state.goals);
+  } = useSelector((state: any) => state.goals)
 
-  const today = new Date();
-  const [selectedDate, setSelectedDate] = useState(today);
-  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString());
+  const today = new Date()
+  const [selectedDate, setSelectedDate] = useState(today)
+  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString())
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const profile = localStorage.getItem('profile')!;
+  const profile = localStorage.getItem('profile')!
 
-  const [user] = useState(JSON.parse(profile));
+  const [user] = useState(JSON.parse(profile))
 
   useEffect(() => {
-    const { result } = user || { user: {} };
-    const userId = result?.googleId || result?._id;
+    const { result } = user || { user: {} }
+    const userId = result?.googleId || result?._id
 
-    dispatch(getUserGoals(userId));
-  }, [user]);
+    dispatch(getUserGoals(userId))
+  }, [user])
 
   const handleDateChange = (date: any) => {
-    setSelectedDate(date);
-    setSelectedDateStr(date.toLocaleDateString());
-  };
+    setSelectedDate(date)
+    setSelectedDateStr(date.toLocaleDateString())
+  }
 
   const handleUpdateGoals = (goal: any) => {
-    dispatch(updateTaskComplete(goal, navigate));
-  };
+    dispatch(updateTaskComplete(goal, navigate))
+  }
 
   const handleDateIncrement = () => {
-    setSelectedDate(addDays(selectedDate, 1));
-  };
+    setSelectedDate(addDays(selectedDate, 1))
+  }
 
   const handleDateDecrement = () => {
-    setSelectedDate(addDays(selectedDate, -1));
-  };
+    setSelectedDate(addDays(selectedDate, -1))
+  }
 
   return (
     <Grid
@@ -81,7 +81,7 @@ function DashboardView() {
           </>
         )}
     </Grid>
-  );
+  )
 }
 
-export default DashboardView;
+export default DashboardView

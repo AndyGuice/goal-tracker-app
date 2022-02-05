@@ -1,8 +1,7 @@
 import {
-//   alpha,
+  //   alpha,
   makeStyles, Theme, createStyles,
-} from '@material-ui/core/styles';
-// import { deepPurple } from '@material-ui/core/colors';
+} from '@material-ui/core/styles'
 
 export default makeStyles((theme: Theme) => createStyles({
   grow: {
@@ -42,4 +41,4 @@ export default makeStyles((theme: Theme) => createStyles({
       display: 'none',
     },
   },
-}));
+}))

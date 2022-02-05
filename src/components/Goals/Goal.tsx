@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
   Typography,
-} from '@mui/material';
-import AddTask from '../Tasks/AddTask';
-import Tasks from '../Tasks/Tasks';
-import GoalActions from './GoalActions';
-import SuccessImage from '../../images/goal_success_image.png';
+} from '@mui/material'
+import AddTask from '../Tasks/AddTask'
+import Tasks from '../Tasks/Tasks'
+import GoalActions from './GoalActions'
+import SuccessImage from '../../images/goal_success_image.png'
 
 function Goal(props: any) {
   const {
@@ -17,22 +17,22 @@ function Goal(props: any) {
     configView,
     date,
     onUpdate,
-  } = props;
+  } = props
 
   const {
     title,
     tasks,
-  } = goal;
+  } = goal
 
-  const [showAddTask, setShowAddTask] = useState(false);
+  const [showAddTask, setShowAddTask] = useState(false)
 
   const handleCancelTask = () => {
-    setShowAddTask(false);
-  };
+    setShowAddTask(false)
+  }
 
   const handleAddTask = () => {
-    setShowAddTask(true);
-  };
+    setShowAddTask(true)
+  }
 
   return (
     <>
@@ -82,7 +82,7 @@ function Goal(props: any) {
           />
         )}
     </>
-  );
+  )
 }
 
-export default Goal;
+export default Goal

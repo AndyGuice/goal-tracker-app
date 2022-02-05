@@ -1,6 +1,6 @@
-import React from 'react';
-import Goal from './Goal';
-import GoalModel from '../../types/goal';
+import React from 'react'
+import Goal from './Goal'
+import GoalModel from '../../types/goal'
 
 const Goals = (props: any) => {
   const {
@@ -8,7 +8,7 @@ const Goals = (props: any) => {
     configView,
     date,
     onUpdate,
-  } = props;
+  } = props
 
   return (
     goals && (goals.length > 0)
@@ -23,7 +23,7 @@ const Goals = (props: any) => {
         />
       ))
     )
-  );
-};
+  )
+}
 
-export default Goals;
+export default Goals

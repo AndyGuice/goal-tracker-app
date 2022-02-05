@@ -1,6 +1,6 @@
-import React from 'react';
-import Task from './Task';
-import TaskSchema from '../../types/task';
+import React from 'react'
+import Task from './Task'
+import TaskSchema from '../../types/task'
 
 const Tasks = (props: any) => {
   const {
@@ -9,7 +9,7 @@ const Tasks = (props: any) => {
     date,
     goal,
     onUpdate,
-  } = props;
+  } = props
 
   return (
     tasks && tasks.length > 0 && (
@@ -23,10 +23,10 @@ const Tasks = (props: any) => {
             date={date}
             onUpdate={onUpdate}
           />
-        );
+        )
       })
     )
-  );
-};
+  )
+}
 
-export default Tasks;
+export default Tasks

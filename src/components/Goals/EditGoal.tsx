@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Box,
   Button,
@@ -9,77 +9,77 @@ import {
   Paper,
   TextField,
   Typography,
-} from '@mui/material';
-import GoalModel from '../../types/goal';
-import { ERROR } from '../../store/actionTypes/actionTypes';
-import { getGoal, updateGoal } from '../../store/actions/goals';
-import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
+} from '@mui/material'
+import GoalModel from '../../types/goal'
+import { ERROR } from '../../store/actionTypes/actionTypes'
+import { getGoal, updateGoal } from '../../store/actions/goals'
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 
 export function EditGoal() {
-  const { id } = useParams<any>();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { id } = useParams<any>()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const { goal, isLoading } = useSelector((state: any) => state.goals);
-  const { error } = useSelector((state: any) => state.error);
+  const { goal, isLoading } = useSelector((state: any) => state.goals)
+  const { error } = useSelector((state: any) => state.error)
 
-  const { title, description, tasks } = goal || { title: '', description: '', tasks: [] };
+  const { title, description, tasks } = goal || { title: '', description: '', tasks: [] }
 
-  const [goalTitle, setGoalTitle] = useState(title);
-  const [goalDescription, setGoalDescription] = useState(description);
+  const [goalTitle, setGoalTitle] = useState(title)
+  const [goalDescription, setGoalDescription] = useState(description)
 
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const [submitError, setSubmitError] = useState('')
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
-  const profile = localStorage.getItem('profile')!;
-  const [user] = useState(JSON.parse(profile));
-
-  useEffect(() => {
-    dispatch(getGoal(id));
-  }, [id]);
+  const profile = localStorage.getItem('profile')!
+  const [user] = useState(JSON.parse(profile))
 
   useEffect(() => {
-    setGoalTitle(title);
-    setGoalDescription(description);
-  }, [description, title]);
+    dispatch(getGoal(id))
+  }, [id])
+
+  useEffect(() => {
+    setGoalTitle(title)
+    setGoalDescription(description)
+  }, [description, title])
 
   useEffect(() => {
     if (error) {
-      setSubmitError(error);
-      setOpenErrorDialog(true);
-      dispatch({ type: ERROR, data: null });
+      setSubmitError(error)
+      setOpenErrorDialog(true)
+      dispatch({ type: ERROR, data: null })
     }
-  }, [error]);
+  }, [error])
 
   const validateGoal = (goalToValidate: GoalModel) => {
     if (goalToValidate.title.trim().length === 0) {
-      return { ok: false, error: 'No goal name' };
+      return { ok: false, error: 'No goal name' }
     }
-    return { ok: true };
-  };
+    return { ok: true }
+  }
 
   const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-    const newGoal = new GoalModel();
+    event.preventDefault()
+    const newGoal = new GoalModel()
 
-    newGoal.title = goalTitle.trim();
-    newGoal.description = goalDescription.trim();
-    newGoal.userId = user.result._id;
-    newGoal._id = id || '';
-    newGoal.updatedOn = new Date().toISOString();
-    newGoal.tasks = tasks;
+    newGoal.title = goalTitle.trim()
+    newGoal.description = goalDescription.trim()
+    newGoal.userId = user.result._id
+    newGoal._id = id || ''
+    newGoal.updatedOn = new Date().toISOString()
+    newGoal.tasks = tasks
 
-    const goalResult = validateGoal(newGoal);
+    const goalResult = validateGoal(newGoal)
     if (!goalResult.ok) {
-      return dispatch({ type: ERROR, data: { error: goalResult.error } });
+      return dispatch({ type: ERROR, data: { error: goalResult.error } })
     }
 
-    dispatch(updateGoal(newGoal, navigate));
-  };
+    dispatch(updateGoal(newGoal, navigate))
+  }
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false);
-  };
+    setOpenErrorDialog(false)
+  }
 
   if (isLoading) {
     return (
@@ -94,7 +94,7 @@ export function EditGoal() {
           <CircularProgress size="7em" color="secondary" />
         </Paper>
       </Grid>
-    );
+    )
   }
 
   return (
@@ -126,7 +126,7 @@ export function EditGoal() {
             <TextField
               id="goal-title-input"
               label="Goal Title"
-              onChange={(e) => { setGoalTitle(e.target.value); }}
+              onChange={(e) => { setGoalTitle(e.target.value) }}
               value={goalTitle}
               placeholder="Goal name"
               fullWidth
@@ -138,7 +138,7 @@ export function EditGoal() {
             <TextField
               id="goal-description-input"
               label="Goal Description"
-              onChange={(e) => { setGoalDescription(e.target.value); }}
+              onChange={(e) => { setGoalDescription(e.target.value) }}
               value={goalDescription}
               placeholder="Goal description"
               fullWidth
@@ -160,7 +160,7 @@ export function EditGoal() {
         </Paper>
       </form>
     </Grid>
-  );
+  )
 }
 
-export default EditGoal;
+export default EditGoal

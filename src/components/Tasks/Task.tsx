@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   Checkbox,
   FormControlLabel,
@@ -6,9 +6,9 @@ import {
   IconButton,
   Paper,
   TextField,
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog';
+} from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
 function Task(props: any) {
   const {
@@ -17,69 +17,69 @@ function Task(props: any) {
     configView,
     date: selectedDate,
     onUpdate,
-  } = props;
+  } = props
 
   const {
     title,
     _id: taskID,
     datesCompleted = [],
-  } = task;
+  } = task
 
-  const [taskTitle, setTaskTitle] = useState(title);
-  const [taskComplete, setTaskComplete] = useState(false);
-  const [edit] = useState(false);
+  const [taskTitle, setTaskTitle] = useState(title)
+  const [taskComplete, setTaskComplete] = useState(false)
+  const [edit] = useState(false)
 
-  const profile = localStorage.getItem('profile')!;
-  const loggedUser = JSON.parse(profile);
+  const profile = localStorage.getItem('profile')!
+  const loggedUser = JSON.parse(profile)
 
   useEffect(() => {
     if (datesCompleted.includes(selectedDate)) {
-      setTaskComplete(true);
+      setTaskComplete(true)
     } else {
-      setTaskComplete(false);
+      setTaskComplete(false)
     }
-  }, [selectedDate]);
+  }, [selectedDate])
 
   const handleUpdateTask = (status: boolean) => {
-    setTaskComplete(status);
+    setTaskComplete(status)
 
-    const updatedTask = task;
+    const updatedTask = task
 
     if (status) {
-      updatedTask.datesCompleted = [...datesCompleted, selectedDate];
+      updatedTask.datesCompleted = [...datesCompleted, selectedDate]
     } else {
       const updatedDatesCompleted = updatedTask.datesCompleted.filter(
         (date: any) => (date !== selectedDate),
-      );
-      updatedTask.datesCompleted = updatedDatesCompleted;
+      )
+      updatedTask.datesCompleted = updatedDatesCompleted
     }
 
-    onUpdate(goal);
-  };
+    onUpdate(goal)
+  }
 
   const deleteTask = (id: any) => {
-    const updatedGoal = goal;
+    const updatedGoal = goal
 
-    const updatedTasks = goal.tasks.filter((t: any) => t._id !== id);
-    updatedGoal.tasks = updatedTasks;
+    const updatedTasks = goal.tasks.filter((t: any) => t._id !== id)
+    updatedGoal.tasks = updatedTasks
 
-    onUpdate(updatedGoal);
-  };
+    onUpdate(updatedGoal)
+  }
 
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
 
   const handleDeleteTask = () => {
-    setOpenConfirmDialog(true);
-  };
+    setOpenConfirmDialog(true)
+  }
 
   const handleDialogClose = (confirmDelete: boolean) => {
     if (confirmDelete) {
-      deleteTask(taskID);
-      setOpenConfirmDialog(false);
+      deleteTask(taskID)
+      setOpenConfirmDialog(false)
     } else {
-      setOpenConfirmDialog(false);
+      setOpenConfirmDialog(false)
     }
-  };
+  }
 
   return (
     <Paper>
@@ -144,7 +144,7 @@ function Task(props: any) {
         }
       </Grid>
     </Paper>
-  );
+  )
 }
 
-export default Task;
+export default Task

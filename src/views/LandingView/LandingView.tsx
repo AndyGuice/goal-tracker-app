@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Navigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import { Navigate } from 'react-router-dom'
 
 function LandingView() {
-  const profile = localStorage.getItem('profile')!;
+  const profile = localStorage.getItem('profile')!
   const [
     user,
-  ] = useState(JSON.parse(profile));
+  ] = useState(JSON.parse(profile))
 
   if (user) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard" />
   }
   return (
     <Box textAlign="center" style={{ paddingTop: 40 }}>
@@ -20,7 +20,7 @@ function LandingView() {
         Please login to view your goals and do all the things!
       </Typography>
     </Box>
-  );
+  )
 }
 
-export default LandingView;
+export default LandingView

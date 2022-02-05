@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   Button,
   Container,
@@ -8,12 +8,12 @@ import {
   Grid,
   TextField,
   Typography,
-} from '@mui/material';
-import { GoogleLogin } from 'react-google-login';
-import { signin } from '../../store/actions/auth';
-import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
-import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
-import GoogleIcon from '../../helpers/GoogleIcon';
+} from '@mui/material'
+import { GoogleLogin } from 'react-google-login'
+import { signin } from '../../store/actions/auth'
+import { AUTH, ERROR } from '../../store/actionTypes/actionTypes'
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
+import GoogleIcon from '../../helpers/GoogleIcon'
 
 const initialState = {
   firstName: '',
@@ -21,53 +21,53 @@ const initialState = {
   email: '',
   password: '',
   confirmPassword: '',
-};
+}
 
 function LoginUser() {
-  const { error } = useSelector((state: any) => state.error);
-  const [form, setForm] = useState(initialState);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const { error } = useSelector((state: any) => state.error)
+  const [form, setForm] = useState(initialState)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [submitError, setSubmitError] = useState('')
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   useEffect(() => {
     if (error) {
-      setSubmitError(error);
-      setOpenErrorDialog(true);
-      dispatch({ type: ERROR, data: null });
+      setSubmitError(error)
+      setOpenErrorDialog(true)
+      dispatch({ type: ERROR, data: null })
     }
-  }, [error]);
+  }, [error])
 
   const handleSubmit = (
     e: any,
   ) => {
-    e.preventDefault();
-    dispatch(signin(form, navigate));
-  };
+    e.preventDefault()
+    dispatch(signin(form, navigate))
+  }
 
   const googleSuccess = (res: any) => {
-    const { profileObj, tokenId } = res;
+    const { profileObj, tokenId } = res
 
-    const result = profileObj;
-    const token = tokenId;
+    const result = profileObj
+    const token = tokenId
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch({ type: AUTH, data: { result, token } })
 
-      navigate('/dashboard');
+      navigate('/dashboard')
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false);
-  };
+    setOpenErrorDialog(false)
+  }
 
-  const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later');
+  const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later')
 
-  const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value })
 
   return (
     <Container component="main" maxWidth="xs">
@@ -150,7 +150,7 @@ function LoginUser() {
         </form>
       </Paper>
     </Container>
-  );
+  )
 }
 
-export default LoginUser;
+export default LoginUser

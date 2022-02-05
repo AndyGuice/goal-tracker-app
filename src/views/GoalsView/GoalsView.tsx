@@ -1,59 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   Grid,
   CircularProgress,
   Button,
-} from '@mui/material';
+} from '@mui/material'
 import {
   getUserGoals,
   updateGoal,
-} from '../../store/actions/goals';
-import { ERROR } from '../../store/actionTypes/actionTypes';
-import Goals from '../../components/Goals/Goals';
-import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog';
+} from '../../store/actions/goals'
+import { ERROR } from '../../store/actionTypes/actionTypes'
+import Goals from '../../components/Goals/Goals'
+import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
 
 function GoalsView() {
-  const { error } = useSelector((state: any) => state.error);
+  const { error } = useSelector((state: any) => state.error)
   const {
     goals,
     isLoading,
-  } = useSelector((state: any) => state.goals);
+  } = useSelector((state: any) => state.goals)
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const profile = localStorage.getItem('profile')!;
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const profile = localStorage.getItem('profile')!
 
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const [submitError, setSubmitError] = useState('')
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   const [
     user,
-  ] = useState(JSON.parse(profile));
+  ] = useState(JSON.parse(profile))
 
   useEffect(() => {
     if (error) {
-      setSubmitError(error);
-      setOpenErrorDialog(true);
-      dispatch({ type: ERROR, data: null });
+      setSubmitError(error)
+      setOpenErrorDialog(true)
+      dispatch({ type: ERROR, data: null })
     }
-  }, [error]);
+  }, [error])
 
   useEffect(() => {
-    const { result } = user || { user: {} };
-    const userId = result?.googleId || result?._id;
+    const { result } = user || { user: {} }
+    const userId = result?.googleId || result?._id
 
-    dispatch(getUserGoals(userId));
-  }, [dispatch, user]);
+    dispatch(getUserGoals(userId))
+  }, [dispatch, user])
 
   const handleUpdateGoal = (goal: any) => {
-    dispatch(updateGoal(goal, navigate));
-  };
+    dispatch(updateGoal(goal, navigate))
+  }
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false);
-  };
+    setOpenErrorDialog(false)
+  }
 
   return (
     <Grid
@@ -97,7 +97,7 @@ function GoalsView() {
           />
         )}
     </Grid>
-  );
+  )
 }
 
-export default GoalsView;
+export default GoalsView

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   Box,
   Button,
@@ -8,69 +8,69 @@ import {
   Paper,
   TextField,
   Typography,
-} from '@mui/material';
-import GoalModel from '../../types/goal';
-import { ERROR } from '../../store/actionTypes/actionTypes';
-import { createGoal } from '../../store/actions/goals';
-import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
+} from '@mui/material'
+import GoalModel from '../../types/goal'
+import { ERROR } from '../../store/actionTypes/actionTypes'
+import { createGoal } from '../../store/actions/goals'
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 
 function AddGoal() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { error } = useSelector((state: any) => state.error);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { error } = useSelector((state: any) => state.error)
 
-  const [goalTitle, setGoalTitle] = useState('');
-  const [goalDescription, setGoalDescription] = useState('');
+  const [goalTitle, setGoalTitle] = useState('')
+  const [goalDescription, setGoalDescription] = useState('')
   // const [goalStart, setGoalStart] = useState('');
   // const [goalEnd, setGoalEnd] = useState('');
 
-  const profile = localStorage.getItem('profile')!;
-  const [user] = useState(JSON.parse(profile));
+  const profile = localStorage.getItem('profile')!
+  const [user] = useState(JSON.parse(profile))
 
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const [submitError, setSubmitError] = useState('')
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   useEffect(() => {
     if (error) {
-      setSubmitError(error);
-      setOpenErrorDialog(true);
-      dispatch({ type: ERROR, data: null });
+      setSubmitError(error)
+      setOpenErrorDialog(true)
+      dispatch({ type: ERROR, data: null })
     }
-  }, [error]);
+  }, [error])
 
   const validateGoal = (goal: GoalModel) => {
     if (goal.title.trim().length === 0) {
-      return { ok: false, error: 'No goal title' };
+      return { ok: false, error: 'No goal title' }
     }
-    return { ok: true };
-  };
+    return { ok: true }
+  }
 
   const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const { result } = user;
-    const { googleId } = result;
+    const { result } = user
+    const { googleId } = result
 
-    const goal = new GoalModel();
-    const today = new Date().toISOString();
+    const goal = new GoalModel()
+    const today = new Date().toISOString()
 
-    goal.title = goalTitle.trim();
-    goal.description = goalDescription.trim();
-    goal.userId = googleId || result._id;
-    goal.createdOn = today;
-    goal.updatedOn = today;
+    goal.title = goalTitle.trim()
+    goal.description = goalDescription.trim()
+    goal.userId = googleId || result._id
+    goal.createdOn = today
+    goal.updatedOn = today
 
-    const goalResult = validateGoal(goal);
+    const goalResult = validateGoal(goal)
     if (!goalResult.ok) {
-      return dispatch({ type: ERROR, data: { error: goalResult.error } });
+      return dispatch({ type: ERROR, data: { error: goalResult.error } })
     }
 
-    dispatch(createGoal(goal, navigate));
-  };
+    dispatch(createGoal(goal, navigate))
+  }
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false);
-  };
+    setOpenErrorDialog(false)
+  }
 
   return (
     <Grid
@@ -101,7 +101,7 @@ function AddGoal() {
             </Typography>
             <TextField
               id="goal-title-input"
-              onChange={(e) => { setGoalTitle(e.target.value); }}
+              onChange={(e) => { setGoalTitle(e.target.value) }}
               value={goalTitle}
               label="Goal Name"
               placeholder="Enter goal name"
@@ -112,7 +112,7 @@ function AddGoal() {
             />
             <TextField
               id="goal-description-input"
-              onChange={(e) => { setGoalDescription(e.target.value); }}
+              onChange={(e) => { setGoalDescription(e.target.value) }}
               label="Goal Description"
               value={goalDescription}
               placeholder="Enter goal description"
@@ -132,7 +132,7 @@ function AddGoal() {
         </Paper>
       </form>
     </Grid>
-  );
+  )
 }
 
-export default AddGoal;
+export default AddGoal
