@@ -6,7 +6,6 @@ import {
   Grid,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { addDays } from 'date-fns'
 import { getUserGoals, updateTaskComplete } from '../../store/actions/goals'
 import Goals from '../../components/Goals/Goals'
 import DatePicker from '../../components/Shared/DatePicker/DatePicker'
@@ -16,7 +15,7 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
   title: {
-    // display: 'flex',
+    display: 'flex',
     textAlign: 'center',
   },
   progressCircle: {
@@ -49,21 +48,13 @@ function DashboardView() {
     dispatch(getUserGoals(userId))
   }, [user])
 
-  const handleDateChange = (date: any) => {
+  const handleDateUpdate = (date: any) => {
     setSelectedDate(date)
     setSelectedDateStr(date.toLocaleDateString())
   }
 
   const handleUpdateGoals = (goal: any) => {
     dispatch(updateTaskComplete(goal, navigate))
-  }
-
-  const handleDateIncrement = () => {
-    setSelectedDate(addDays(selectedDate, 1))
-  }
-
-  const handleDateDecrement = () => {
-    setSelectedDate(addDays(selectedDate, -1))
   }
 
   return (
@@ -85,9 +76,7 @@ function DashboardView() {
           <>
             <DatePicker
               date={selectedDate}
-              onChange={handleDateChange}
-              onDateIncrement={handleDateIncrement}
-              onDateDecrement={handleDateDecrement}
+              onChange={(e: any) => handleDateUpdate(e)}
             />
             <Goals
               goals={goals}

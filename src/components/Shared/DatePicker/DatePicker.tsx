@@ -5,14 +5,20 @@ import MuiDatePicker from '@mui/lab/DatePicker'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import IconButton from '@mui/material/IconButton'
+import { addDays } from 'date-fns'
 
 export default function DatePicker(props: any) {
   const {
-    date, onChange, onDateIncrement, onDateDecrement,
+    date, onChange,
   } = props
   const selectedDate = date
 
-  const handleDateChange = (newDate: Date) => {
+  const handleUpdate = (newDate: Date) => {
+    onChange(newDate)
+  }
+
+  const handleDateChange = (adjAmount: number) => {
+    const newDate = addDays(selectedDate, adjAmount)
     onChange(newDate)
   }
 
@@ -27,7 +33,7 @@ export default function DatePicker(props: any) {
       }}
     >
       <IconButton
-        onClick={onDateDecrement}
+        onClick={() => handleDateChange(-1)}
       >
         <ArrowBackIosIcon
           color="primary"
@@ -38,11 +44,11 @@ export default function DatePicker(props: any) {
           /* eslint-disable-next-line react/jsx-props-no-spreading */
           (inputProps: any) => <TextField {...inputProps} label="Selected Date" />
         }
-        onChange={(e: any) => handleDateChange(e.target.value)}
+        onChange={(e: any) => handleUpdate(e.target.value)}
         value={selectedDate}
       />
       <IconButton
-        onClick={onDateIncrement}
+        onClick={() => handleDateChange(1)}
       >
         <ArrowForwardIosIcon
           color="primary"
