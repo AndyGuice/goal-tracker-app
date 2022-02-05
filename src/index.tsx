@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import './styles/global.css'
-import { reducers } from './store/reducers'
-import App from './components/App/App'
 import {
   ThemeProvider,
   CssBaseline,
 } from '@mui/material'
+import './styles/global.css'
+import { reducers } from './store/reducers'
+import App from './components/App/App'
 import theme from './config/theme'
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
