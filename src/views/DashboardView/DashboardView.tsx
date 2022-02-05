@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
   },
   title: {
-    display: 'flex',
+    // display: 'flex',
     textAlign: 'center',
   },
   progressCircle: {

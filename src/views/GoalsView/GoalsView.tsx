@@ -15,13 +15,9 @@ import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-  },
-  button: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
   },
 }))
 
@@ -86,7 +82,11 @@ function GoalsView() {
             variant="contained"
             color="primary"
             onClick={() => navigate('/addGoal')}
-            className={classes.button}
+            sx={{
+              marginTop: 2,
+              marginBottom: 2,
+              width: '80%'
+            }}
           >
             Add goal
           </Button>
