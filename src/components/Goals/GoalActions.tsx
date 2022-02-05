@@ -4,6 +4,7 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -11,6 +12,12 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { deleteGoal } from '../../store/actions/goals'
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
+
+const useStyles = makeStyles((theme: any) => ({
+  actions: {
+    margin: theme.spacing(1)
+  }
+}))
 
 function GoalActions(props: any) {
   const {
@@ -26,6 +33,7 @@ function GoalActions(props: any) {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const classes = useStyles()
 
   const profile = localStorage.getItem('profile')!
   const loggedUser = JSON.parse(profile)
@@ -57,7 +65,7 @@ function GoalActions(props: any) {
         && (
           configView
           && (
-            <CardActions>
+            <CardActions className={classes.actions}>
               <ConfirmDialog
                 open={openConfirmDialog}
                 onClose={handleDialogClose}

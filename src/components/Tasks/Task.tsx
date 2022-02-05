@@ -7,8 +7,27 @@ import {
   Paper,
   TextField,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
+
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    border: '1px solid black',
+    width: '60%',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
+    }
+  },
+  input: {
+    padding: theme.spacing(1),
+    width: '100%',
+  }
+}))
 
 function Task(props: any) {
   const {
@@ -25,6 +44,7 @@ function Task(props: any) {
     datesCompleted = [],
   } = task
 
+  const classes = useStyles()
   const [taskTitle, setTaskTitle] = useState(title)
   const [taskComplete, setTaskComplete] = useState(false)
   const [edit] = useState(false)
@@ -82,7 +102,7 @@ function Task(props: any) {
   }
 
   return (
-    <Paper>
+    <Paper className={classes.paper}>
       <ConfirmDialog
         open={openConfirmDialog}
         onClose={handleDialogClose}
@@ -100,6 +120,7 @@ function Task(props: any) {
           multiline
           disabled={!edit}
           onChange={(e: any) => setTaskTitle(e.target.value)}
+          className={classes.input}
         />
         {
           !configView

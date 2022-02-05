@@ -9,20 +9,38 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import GoalModel from '../../types/goal'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import { createGoal } from '../../store/actions/goals'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 
-function AddGoal() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { error } = useSelector((state: any) => state.error)
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(2),
+    width: '75%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      width: '100%',
+    }
+  },
+}))
 
+function AddGoal() {
+  const { error } = useSelector((state: any) => state.error)
   const [goalTitle, setGoalTitle] = useState('')
   const [goalDescription, setGoalDescription] = useState('')
   // const [goalStart, setGoalStart] = useState('');
   // const [goalEnd, setGoalEnd] = useState('');
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const classes = useStyles()
 
   const profile = localStorage.getItem('profile')!
   const [user] = useState(JSON.parse(profile))
@@ -84,7 +102,7 @@ function AddGoal() {
         error={submitError}
         action="Create goal...?"
       />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={classes.paper}>
         <Paper
           elevation={6}
           sx={{

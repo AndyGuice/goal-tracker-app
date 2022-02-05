@@ -10,17 +10,12 @@ import ListItemText from '@mui/material/ListItemText'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import BuildIcon from '@mui/icons-material/Build'
 import LoginIcon from '@mui/icons-material/Login'
-import {
-  makeStyles,
-  useTheme,
-  Theme,
-  createStyles,
-} from '@material-ui/core/styles'
+import { makeStyles } from '@mui/styles'
 import { useNavigate } from 'react-router-dom'
 
 const drawerWidth = 240
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: any) => ({
   root: {
     display: 'flex',
   },
@@ -57,7 +52,6 @@ export default function ResponsiveDrawer(props: any) {
   const { open, onChange, user } = props
 
   const classes = useStyles()
-  const theme = useTheme()
   const navigate = useNavigate()
   // const history = useHistory();
 
@@ -113,7 +107,7 @@ export default function ResponsiveDrawer(props: any) {
         <Hidden smUp implementation="css">
           <Drawer
             variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            anchor="left"
             open={open}
             onClick={() => handleDrawerToggle(!open)}
             classes={{

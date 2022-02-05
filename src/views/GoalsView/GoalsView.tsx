@@ -6,6 +6,7 @@ import {
   CircularProgress,
   Button,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import {
   getUserGoals,
   updateGoal,
@@ -13,6 +14,16 @@ import {
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
+
+const useStyles = makeStyles((theme: any) => ({
+  root: {
+    flexGrow: 1,
+  },
+  button: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  },
+}))
 
 function GoalsView() {
   const { error } = useSelector((state: any) => state.error)
@@ -23,6 +34,8 @@ function GoalsView() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const classes = useStyles()
+
   const profile = localStorage.getItem('profile')!
 
   const [submitError, setSubmitError] = useState('')
@@ -59,6 +72,7 @@ function GoalsView() {
     <Grid
       container
       justifyContent="center"
+      className={classes.root}
     >
       <ErrorDialog
         open={openErrorDialog}
@@ -72,11 +86,7 @@ function GoalsView() {
             variant="contained"
             color="primary"
             onClick={() => navigate('/addGoal')}
-            sx={{
-              marginTop: 2,
-              marginBottom: 2,
-              width: '80%',
-            }}
+            className={classes.button}
           >
             Add goal
           </Button>

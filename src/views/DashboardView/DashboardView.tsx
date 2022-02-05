@@ -5,10 +5,24 @@ import {
   CircularProgress,
   Grid,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import { addDays } from 'date-fns'
 import { getUserGoals, updateTaskComplete } from '../../store/actions/goals'
 import Goals from '../../components/Goals/Goals'
 import DatePicker from '../../components/Shared/DatePicker/DatePicker'
+
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    display: 'flex',
+    textAlign: 'center',
+  },
+  progressCircle: {
+    padding: 10
+  },
+}))
 
 function DashboardView() {
   const {
@@ -22,6 +36,7 @@ function DashboardView() {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const classes = useStyles()
 
   const profile = localStorage.getItem('profile')!
 
@@ -55,6 +70,7 @@ function DashboardView() {
     <Grid
       container
       justifyContent="center"
+      className={classes.root}
     >
       {isLoading
         ? (
@@ -62,6 +78,7 @@ function DashboardView() {
             size="7em"
             color="primary"
             value={100}
+            className={classes.progressCircle}
           />
         )
         : (

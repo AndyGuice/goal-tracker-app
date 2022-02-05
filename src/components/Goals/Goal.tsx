@@ -6,10 +6,27 @@ import {
   CardMedia,
   Typography,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import AddTask from '../Tasks/AddTask'
 import Tasks from '../Tasks/Tasks'
 import GoalActions from './GoalActions'
 import SuccessImage from '../../images/goal_success_image.png'
+
+const useStyles = makeStyles((theme: any) => ({
+  card: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(2),
+    width: '75%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      width: '100%',
+    }
+  },
+}))
 
 function Goal(props: any) {
   const {
@@ -24,6 +41,7 @@ function Goal(props: any) {
     tasks,
   } = goal
 
+  const classes = useStyles()
   const [showAddTask, setShowAddTask] = useState(false)
 
   const handleCancelTask = () => {
@@ -38,6 +56,7 @@ function Goal(props: any) {
     <>
       <Card
         elevation={6}
+        className={classes.card}
       >
         <CardActionArea>
           <CardMedia

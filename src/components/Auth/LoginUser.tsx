@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(3)
   },
   form: {
     width: '100%',
@@ -29,11 +31,8 @@ const useStyles = makeStyles((theme: any) => ({
 }))
 
 const initialState = {
-  firstName: '',
-  lastName: '',
   email: '',
   password: '',
-  confirmPassword: '',
 }
 
 function LoginUser() {

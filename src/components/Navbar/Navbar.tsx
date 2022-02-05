@@ -12,6 +12,7 @@ import MailIcon from '@mui/icons-material/Mail'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import MoreIcon from '@mui/icons-material/MoreVert'
 import Button from '@mui/material/Button'
+import { makeStyles } from '@mui/styles'
 
 import {
   useLocation,
@@ -19,9 +20,48 @@ import {
 } from 'react-router-dom'
 import decode from 'jwt-decode'
 import { useDispatch } from 'react-redux'
-import useStyles from './styles'
 import Drawer from './Drawer'
 import * as actionType from '../../store/actionTypes/actionTypes'
+
+const useStyles = makeStyles((theme: any) => ({
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+}))
 
 export default function Navbar() {
   // TODO: move auth handling to hooks func

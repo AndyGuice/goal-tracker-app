@@ -10,15 +10,33 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import GoalModel from '../../types/goal'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import { getGoal, updateGoal } from '../../store/actions/goals'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(2),
+    width: '75%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      width: '100%',
+    }
+  },
+}))
+
 export function EditGoal() {
   const { id } = useParams<any>()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const classes = useStyles()
 
   const { goal, isLoading } = useSelector((state: any) => state.goals)
   const { error } = useSelector((state: any) => state.error)
@@ -112,6 +130,7 @@ export function EditGoal() {
       <form onSubmit={handleSubmit}>
         <Paper
           elevation={6}
+          className={classes.paper}
         >
           <Grid item xs={12}>
             <Typography

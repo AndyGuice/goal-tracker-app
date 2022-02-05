@@ -10,11 +10,26 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import * as EmailValidator from 'email-validator'
 import { signup } from '../../store/actions/auth'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
+
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(3)
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+  },
+}))
 
 const initialState = {
   firstName: '',
@@ -27,8 +42,11 @@ const initialState = {
 function RegisterUser() {
   const { error } = useSelector((state: any) => state.error)
   const [form, setForm] = useState(initialState)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const classes = useStyles()
+
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
@@ -70,14 +88,14 @@ function RegisterUser() {
         error={submitError}
         action="Registration"
       />
-      <Paper elevation={6}>
+      <Paper elevation={6} className={classes.paper}>
         <Avatar>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={classes.form}>
           <Grid container spacing={2} justifyContent="center">
             <TextField
               name="firstName"
