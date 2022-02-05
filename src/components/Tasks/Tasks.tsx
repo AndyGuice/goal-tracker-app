@@ -18,7 +18,8 @@ const Tasks = (props: any) => {
           <Task
             goal={goal}
             task={task}
-            key={task._id}
+            // key={task.id}
+            key={task.createdOn}
             configView={configView}
             date={date}
             onUpdate={onUpdate}

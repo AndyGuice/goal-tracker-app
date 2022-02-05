@@ -1,5 +1,5 @@
 class Task {
-  _id: String = ''
+  id: String = ''
   title: String = ''
   goalId: String = ''
   startOn: String = ''

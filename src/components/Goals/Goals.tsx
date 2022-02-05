@@ -15,7 +15,8 @@ const Goals = (props: any) => {
     && (
       goals.map((goal: GoalModel) => (
         <Goal
-          key={goal._id}
+          // key={goal._id}
+          key={goal.createdOn}
           goal={goal}
           configView={configView}
           date={date}
