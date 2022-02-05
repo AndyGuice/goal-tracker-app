@@ -54,7 +54,7 @@ function GoalsView() {
     const userId = result?.googleId || result?._id
 
     dispatch(getUserGoals(userId))
-  }, [dispatch, user])
+  }, [user])
 
   const handleUpdateGoal = (goal: any) => {
     dispatch(updateGoal(goal, navigate))

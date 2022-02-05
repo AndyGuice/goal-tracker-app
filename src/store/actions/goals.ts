@@ -98,18 +98,12 @@ export const updateGoal = (goal: any, navigate: any) => async (dispatch: any) =>
 export const updateTaskComplete = (goal: any, navigate: any) => async (dispatch: any) => {
 
   try {
-    dispatch({ type: START_LOADING })
     const { data } = await api.updateGoal(goal._id, goal)
 
     if (data?.error) {
       dispatch({ type: ERROR, data })
-
       return navigate(`/editGoal/${goal._id}`)
     }
-
-    dispatch({ type: UPDATE_GOAL, payload: data })
-    dispatch({ type: UPDATE_GOAL_SUCCESS, payload: true })
-    dispatch({ type: END_LOADING })
 
     return navigate('/dashboard')
 
