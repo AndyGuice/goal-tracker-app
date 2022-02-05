@@ -10,10 +10,23 @@ import {
   Typography,
 } from '@mui/material'
 import { GoogleLogin } from 'react-google-login'
+import { makeStyles } from '@mui/styles'
 import { signin } from '../../store/actions/auth'
 import { AUTH, ERROR } from '../../store/actionTypes/actionTypes'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 import GoogleIcon from '../../helpers/GoogleIcon'
+
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+  },
+}))
 
 const initialState = {
   firstName: '',
@@ -26,10 +39,12 @@ const initialState = {
 function LoginUser() {
   const { error } = useSelector((state: any) => state.error)
   const [form, setForm] = useState(initialState)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const classes = useStyles()
 
   useEffect(() => {
     if (error) {
@@ -77,14 +92,14 @@ function LoginUser() {
         error={submitError}
         action="Login"
       />
-      <Paper elevation={6}>
+      <Paper elevation={6} className={classes.paper}>
         <Typography
           component="h1"
           variant="h5"
         >
           Sign in
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
             name="email"
             label="Email Address"

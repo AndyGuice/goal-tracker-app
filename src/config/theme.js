@@ -1,48 +1,24 @@
 import { createTheme } from '@mui/material/styles'
-import { grey, red, amber } from '@mui/material/colors'
 
 const theme = createTheme({
   typography: {
-    useNextVariants: true,
-    p: {
-      fontFamily: 'Futura Normal, Arial, sans-serif',
-    },
-    body1: {
-      fontFamily: 'Futura Normal, Arial, sans-serif',
-    },
-    body2: {
-      fontFamily: 'Futura Normal, Arial, sans-serif',
-    },
-    subtitle1: {
-      fontFamily: 'Futura Normal, Arial, sans-serif',
-    },
-    h1: {
-      fontFamily: 'Nicotine',
-    },
-    h2: {
-      fontFamily: 'Nicotine',
-    },
-    h3: {
-      fontFamily: 'Nicotine',
-    },
-    h4: {
-      fontFamily: 'Nicotine',
-    },
-    h5: {
-      fontFamily: 'Nicotine',
-    },
+    fontFamily: '"roboto", sans-serif',
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 700,
   },
   palette: {
-    primary: amber,
-    secondary: amber,
-    type: 'light',
-    common: {
-      black: '#282c34',
-      white: '#fff',
+    primary: {
+      main: '#8316e2',
     },
-    error: red,
-    grey,
+    secondary: {
+      main: '#75e216',
+    },
+    warning: {
+      main: '#e21675',
+    },
   },
+  spacing: 8
 })
 
 export default theme

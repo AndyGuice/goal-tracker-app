@@ -6,12 +6,20 @@ import thunk from 'redux-thunk'
 import './styles/global.css'
 import { reducers } from './store/reducers'
 import App from './components/App/App'
+import {
+  ThemeProvider,
+  CssBaseline,
+} from '@mui/material'
+import theme from './config/theme'
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <CssBaseline />
+      <App />
+    </Provider>
+  </ThemeProvider>,
   document.getElementById('root'),
 )

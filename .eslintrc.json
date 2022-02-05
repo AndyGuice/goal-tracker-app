@@ -24,7 +24,7 @@
   "rules": {
     "indent": "off",
     "@typescript-eslint/indent": [
-      "none",
+      0,
       {
         "SwitchCase": 0
       }
@@ -49,6 +49,7 @@
     "padded-blocks": 0,
     "brace-style": 0,
     "consistent-return": 0,
+    "comma-dangle": 0,
     "lines-between-class-members": 0,
     "import/prefer-default-export": 0,
     "import/no-named-as-default": 0,

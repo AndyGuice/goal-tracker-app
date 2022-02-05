@@ -11,8 +11,6 @@ import DashboardView from '../views/DashboardView/DashboardView'
 import LandingView from '../views/LandingView/LandingView'
 import GoalsView from '../views/GoalsView/GoalsView'
 
-import Unauthorized from '../views/Unauthorized/Unauthorized'
-
 function NavRoutes() {
   return (
     <Routes>
@@ -25,7 +23,6 @@ function NavRoutes() {
 
       <Route path="/loginUser" element={<LoginUser />} />
       <Route path="/register" element={<RegisterUser />} />
-      <Route path="/unauthorized" element={<Unauthorized />} />
     </Routes>
   )
 }
