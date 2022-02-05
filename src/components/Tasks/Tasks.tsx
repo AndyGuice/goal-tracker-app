@@ -1,6 +1,6 @@
-import React from 'react';
-import Task from './Task';
-import TaskSchema from '../../types/task';
+import React from 'react'
+import Task from './Task'
+import TaskSchema from '../../types/task'
 
 const Tasks = (props: any) => {
   const {
@@ -8,25 +8,25 @@ const Tasks = (props: any) => {
     configView,
     date,
     goal,
-    onUpdate
-  } = props;
+    onUpdate,
+  } = props
 
   return (
     tasks && tasks.length > 0 && (
-      tasks.map((task: TaskSchema, index: number) => {
+      tasks.map((task: TaskSchema) => {
         return (
           <Task
             goal={goal}
             task={task}
-            key={index}
+            key={task._id}
             configView={configView}
             date={date}
             onUpdate={onUpdate}
           />
-        );
+        )
       })
     )
-  );
-};
+  )
+}
 
-export default Tasks;
+export default Tasks

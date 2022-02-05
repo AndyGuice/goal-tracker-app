@@ -1,44 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
-  Typography
-} from '@mui/material';
-import useStyles from './styles';
-import AddTask from '../Tasks/AddTask';
-import Tasks from '../Tasks/Tasks';
-import GoalActions from './GoalActions';
-import SuccessImage from '../../images/goal_success_image.png';
+  Typography,
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import AddTask from '../Tasks/AddTask'
+import Tasks from '../Tasks/Tasks'
+import GoalActions from './GoalActions'
+import SuccessImage from '../../images/goal_success_image.png'
 
-const Goal = (props: any) => {
+const useStyles = makeStyles((theme: any) => ({
+  card: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(2),
+    width: '75%',
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      width: '100%',
+    }
+  },
+}))
+
+function Goal(props: any) {
   const {
     goal,
     configView,
     date,
-    onUpdate
-  } = props;
+    onUpdate,
+  } = props
 
   const {
     title,
     tasks,
-  } = goal;
+  } = goal
 
-  const classes = useStyles();
-  const [showAddTask, setShowAddTask] = useState(false);
+  const classes = useStyles()
+  const [showAddTask, setShowAddTask] = useState(false)
 
   const handleCancelTask = () => {
-    setShowAddTask(false);
-  };
+    setShowAddTask(false)
+  }
 
   const handleAddTask = () => {
-    setShowAddTask(true);
-  };
+    setShowAddTask(true)
+  }
 
   return (
     <>
-      <Card className={classes.paper} elevation={6}>
+      <Card
+        elevation={6}
+        className={classes.card}
+      >
         <CardActionArea>
           <CardMedia
             component="img"
@@ -48,12 +67,12 @@ const Goal = (props: any) => {
             sx={{
               height: {
                 xs: 140,
-                sm: 300
-              }
+                sm: 300,
+              },
             }}
           />
           <CardContent>
-            <Typography className={classes.title} align="center">
+            <Typography align="center">
               {title}
             </Typography>
           </CardContent>
@@ -71,17 +90,18 @@ const Goal = (props: any) => {
           onUpdate={onUpdate}
         />
       )}
-      {tasks && (
-        <Tasks
-          configView={configView}
-          date={date}
-          goal={goal}
-          tasks={tasks}
-          onUpdate={onUpdate}
-        />
-      )}
+      {tasks
+        && (
+          <Tasks
+            configView={configView}
+            date={date}
+            goal={goal}
+            tasks={tasks}
+            onUpdate={onUpdate}
+          />
+        )}
     </>
-  );
-};
+  )
+}
 
-export default Goal;
+export default Goal

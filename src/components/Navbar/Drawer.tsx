@@ -1,65 +1,63 @@
-import React from 'react';
-import { useHistory } from 'react-router';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import Hidden from '@mui/material/Hidden';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import BuildIcon from '@mui/icons-material/Build';
-import LoginIcon from '@mui/icons-material/Login';
-import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
+import React from 'react'
+import CssBaseline from '@mui/material/CssBaseline'
+import Divider from '@mui/material/Divider'
+import Drawer from '@mui/material/Drawer'
+import Hidden from '@mui/material/Hidden'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import BuildIcon from '@mui/icons-material/Build'
+import LoginIcon from '@mui/icons-material/Login'
+import { makeStyles } from '@mui/styles'
+import { useNavigate } from 'react-router-dom'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-    },
-    drawer: {
-      [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-    },
-    appBar: {
-      [theme.breakpoints.up('sm')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-      },
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
-        display: 'none',
-      },
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
+const useStyles = makeStyles((theme: any) => ({
+  root: {
+    display: 'flex',
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
+      flexShrink: 0,
     },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
+  },
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
     },
-  }),
-);
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+}))
 
 export default function ResponsiveDrawer(props: any) {
-  const { open, onChange, user } = props;
+  const { open, onChange, user } = props
 
-  const classes = useStyles();
-  const theme = useTheme();
-  const history = useHistory();
+  const classes = useStyles()
+  const navigate = useNavigate()
+  // const history = useHistory();
 
   const handleDrawerToggle = (state: boolean) => {
-    onChange(state);
-  };
+    onChange(state)
+  }
 
   const drawer = (
     <div>
@@ -67,31 +65,40 @@ export default function ResponsiveDrawer(props: any) {
       <Divider />
       {user ? (
         <List>
-          <ListItem button onClick={() => history.push('/dashboard')}>
+          <ListItem
+            button
+            onClick={() => navigate('/dashboard')}
+          >
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItem>
-          <ListItem button onClick={() => history.push('/goals')}>
+          <ListItem
+            button
+            onClick={() => navigate('/goals')}
+          >
             <ListItemIcon>
               <BuildIcon />
             </ListItemIcon>
             <ListItemText primary="Setup" />
           </ListItem>
         </List>
-       ) : (
-         <List>
-           <ListItem button onClick={() => history.push('/loginUser')}>
+      ) : (
+        <List>
+          <ListItem
+            button
+            onClick={() => navigate('/loginUser')}
+          >
             <ListItemIcon>
               <LoginIcon />
             </ListItemIcon>
             <ListItemText primary="Login" />
           </ListItem>
-         </List>
-       )}
+        </List>
+      )}
     </div>
-  );
+  )
 
   return (
     <div className={classes.root}>
@@ -100,9 +107,9 @@ export default function ResponsiveDrawer(props: any) {
         <Hidden smUp implementation="css">
           <Drawer
             variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            anchor="left"
             open={open}
-            onClick={(e: any) => handleDrawerToggle(!open)}
+            onClick={() => handleDrawerToggle(!open)}
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -120,12 +127,12 @@ export default function ResponsiveDrawer(props: any) {
             }}
             variant="temporary"
             open={open}
-            onClick={(e: any) => handleDrawerToggle(!open)}
+            onClick={() => handleDrawerToggle(!open)}
           >
             {drawer}
           </Drawer>
         </Hidden>
       </nav>
     </div>
-  );
+  )
 }

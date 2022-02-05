@@ -1,102 +1,113 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   Grid,
   CircularProgress,
   Button,
-} from '@mui/material';
-import useStyles from './styles';
-import { useHistory } from 'react-router';
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import {
   getUserGoals,
   updateGoal,
-} from '../../store/actions/goals';
-import Goals from '../../components/Goals/Goals';
-import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog';
-import { ERROR } from '../../store/actionTypes/actionTypes';
+} from '../../store/actions/goals'
+import { ERROR } from '../../store/actionTypes/actionTypes'
+import Goals from '../../components/Goals/Goals'
+import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
 
-const GoalsView = () => {
-  const { error } = useSelector((state: any) => state.error);
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+  },
+}))
+
+function GoalsView() {
+  const { error } = useSelector((state: any) => state.error)
   const {
     goals,
     isLoading,
-  } = useSelector((state: any) => state.goals);
+  } = useSelector((state: any) => state.goals)
 
-  const history = useHistory();
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const profile = localStorage.getItem('profile')!;
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const classes = useStyles()
 
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const profile = localStorage.getItem('profile')!
+
+  const [submitError, setSubmitError] = useState('')
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   const [
     user,
-  ] = useState(JSON.parse(profile));
+  ] = useState(JSON.parse(profile))
 
   useEffect(() => {
     if (error) {
-      setSubmitError(error);
-      setOpenErrorDialog(true);
-      dispatch({ type: ERROR, data: null });
+      setSubmitError(error)
+      setOpenErrorDialog(true)
+      dispatch({ type: ERROR, data: null })
     }
-    // eslint-disable-next-line
-  }, [error]);
+  }, [error])
 
   useEffect(() => {
-    const { result } = user || { user: {} };
-    const userId = result?.googleId || result?._id;
+    const { result } = user || { user: {} }
+    const userId = result?.googleId || result?._id
 
-    dispatch(getUserGoals(userId));
-  }, [dispatch, user]);
+    dispatch(getUserGoals(userId))
+  }, [dispatch, user])
 
-  const handleUpdateGoal = (goal: any, action: string) => {
-    console.log({goal})
-    console.log('Action to confirm: ', action)
-    dispatch(updateGoal(goal, history));
-  };
+  const handleUpdateGoal = (goal: any) => {
+    dispatch(updateGoal(goal, navigate))
+  }
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false);
-  };
+    setOpenErrorDialog(false)
+  }
 
   return (
-    <Grid container justifyContent="center" className={classes.root}>
+    <Grid
+      container
+      justifyContent="center"
+      className={classes.root}
+    >
       <ErrorDialog
         open={openErrorDialog}
         onClose={handleDialogClose}
         error={submitError}
         action="Login"
       />
-      {user?.result &&
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => history.push("/addGoal")}
-          sx={{
-            marginTop: 2,
-            marginBottom: 2,
-            width: "80%"
-          }}
-        >
-          Add goal
-        </Button>
-      }
-      {isLoading ?
-        <CircularProgress
-          size="7em"
-          color="primary"
-          value={100}
-        />
-        :
-        <Goals
-          goals={goals}
-          configView={true}
-          onUpdate={handleUpdateGoal}
-        />
-      }
+      {user?.result
+        && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate('/addGoal')}
+            sx={{
+              marginTop: 2,
+              marginBottom: 2,
+              width: '80%'
+            }}
+          >
+            Add goal
+          </Button>
+        )}
+      {isLoading
+        ? (
+          <CircularProgress
+            size="7em"
+            color="primary"
+            value={100}
+          />
+        )
+        : (
+          <Goals
+            goals={goals}
+            configView
+            onUpdate={handleUpdateGoal}
+          />
+        )}
     </Grid>
-  );
-};
+  )
+}
 
-export default GoalsView;
+export default GoalsView

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   Checkbox,
   FormControlLabel,
@@ -6,68 +6,87 @@ import {
   IconButton,
   Paper,
   TextField,
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ConfirmDialog from '../../components/Shared/ConfirmDialog/ConfirmDialog';
-import useStyles from './styles';
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import DeleteIcon from '@mui/icons-material/Delete'
+import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
-const Task = (props: any) => {
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    border: '1px solid black',
+    width: '60%',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
+    }
+  },
+  input: {
+    padding: theme.spacing(1),
+    width: '100%',
+  }
+}))
+
+function Task(props: any) {
   const {
     goal,
     task,
     configView,
     date: selectedDate,
     onUpdate,
-  } = props;
+  } = props
 
   const {
     title,
     _id: taskID,
     datesCompleted = [],
-  } = task;
+  } = task
 
-  const [taskTitle, setTaskTitle] = useState(title);
-  const [taskComplete, setTaskComplete] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const classes = useStyles()
+  const [taskTitle, setTaskTitle] = useState(title)
+  const [taskComplete, setTaskComplete] = useState(false)
+  const [edit] = useState(false)
 
-  const classes = useStyles();
-
-  const profile = localStorage.getItem('profile')!;
-  const loggedUser = JSON.parse(profile);
+  const profile = localStorage.getItem('profile')!
+  const loggedUser = JSON.parse(profile)
 
   useEffect(() => {
     if (datesCompleted.includes(selectedDate)) {
-      setTaskComplete(true);
+      setTaskComplete(true)
     } else {
-      setTaskComplete(false);
+      setTaskComplete(false)
     }
-  }, [selectedDate]);
+  }, [selectedDate])
 
   const handleUpdateTask = (status: boolean) => {
-    setTaskComplete(status);
+    setTaskComplete(status)
 
-    let updatedTask = task;
+    const updatedTask = task
 
     if (status) {
-      updatedTask.datesCompleted = [...datesCompleted, selectedDate];
+      updatedTask.datesCompleted = [...datesCompleted, selectedDate]
     } else {
-      const updatedDatesCompleted = updatedTask.datesCompleted.filter((date: any) => (date !== selectedDate));
-      updatedTask.datesCompleted = updatedDatesCompleted;
+      const updatedDatesCompleted = updatedTask.datesCompleted.filter(
+        (date: any) => (date !== selectedDate),
+      )
+      updatedTask.datesCompleted = updatedDatesCompleted
     }
 
-    onUpdate(goal);
-  };
+    onUpdate(goal)
+  }
 
   const deleteTask = (id: any) => {
-    let updatedGoal = goal;
+    const updatedGoal = goal
 
-    const updatedTasks = goal.tasks.filter((task: any) => task._id !== id);
-    updatedGoal.tasks = updatedTasks;
+    const updatedTasks = goal.tasks.filter((t: any) => t._id !== id)
+    updatedGoal.tasks = updatedTasks
 
-    onUpdate(updatedGoal);
-  };
+    onUpdate(updatedGoal)
+  }
 
-  const [ openConfirmDialog, setOpenConfirmDialog ] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
 
   const handleDeleteTask = () => {
     setOpenConfirmDialog(true)
@@ -78,7 +97,7 @@ const Task = (props: any) => {
       deleteTask(taskID)
       setOpenConfirmDialog(false)
     } else {
-    setOpenConfirmDialog(false)
+      setOpenConfirmDialog(false)
     }
   }
 
@@ -97,42 +116,56 @@ const Task = (props: any) => {
           id="Task title"
           aria-label="Task title"
           value={taskTitle}
-          className={classes.input}
           size="small"
           multiline
           disabled={!edit}
           onChange={(e: any) => setTaskTitle(e.target.value)}
+          className={classes.input}
         />
-        {!configView &&
-          <div style={{ display: "flex", justifyContent: "flex-end", paddingRight: 5 }}>
-            <FormControlLabel
-              label="Complete"
-              labelPlacement="start"
-              control={
-                <Checkbox
-                  checked={taskComplete}
-                  onClick={() => handleUpdateTask(!taskComplete)}
-                />
-              }
-            />
-          </div>
+        {
+          !configView
+          && (
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingRight: 5,
+              }}
+            >
+              <FormControlLabel
+                label="Complete"
+                labelPlacement="start"
+                control={(
+                  <Checkbox
+                    checked={taskComplete}
+                    onClick={() => handleUpdateTask(!taskComplete)}
+                  />
+                )}
+              />
+            </div>
+          )
         }
         {
-          loggedUser &&
-          Object.keys(loggedUser).length !== 0 &&
-          configView &&
-          <IconButton
-            title="Delete task"
-            aria-label="Delete task"
-            onClick={handleDeleteTask}
-            className={classes.button}
-          >
-            <DeleteIcon color="secondary" />
-          </IconButton>
+          loggedUser
+          && (
+            Object.keys(loggedUser).length !== 0
+            && (
+              configView
+              && (
+                <IconButton
+                  title="Delete task"
+                  aria-label="Delete task"
+                  onClick={handleDeleteTask}
+                >
+                  <DeleteIcon color="secondary" />
+                </IconButton>
+              )
+            )
+          )
         }
       </Grid>
     </Paper>
-  );
-};
+  )
+}
 
-export default Task;
+export default Task

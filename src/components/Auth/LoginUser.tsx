@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   Button,
   Container,
@@ -7,72 +8,80 @@ import {
   Grid,
   TextField,
   Typography,
-} from '@mui/material';
-import { useHistory } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
-import { signin } from '../../store/actions/auth';
-import useStyles from './styles';
-import { AUTH, ERROR } from '../../store/actionTypes/actionTypes';
-import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog';
-import GoogleIcon from '../../helpers/GoogleIcon';
+} from '@mui/material'
+import { GoogleLogin } from 'react-google-login'
+import { makeStyles } from '@mui/styles'
+import { signin } from '../../store/actions/auth'
+import { AUTH, ERROR } from '../../store/actionTypes/actionTypes'
+import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
+import GoogleIcon from '../../helpers/GoogleIcon'
+
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+    marginTop: theme.spacing(3)
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+  },
+}))
 
 const initialState = {
-  firstName: '',
-  lastName: '',
   email: '',
   password: '',
-  confirmPassword: ''
-};
+}
 
-const LoginUser = () => {
-  const { error } = useSelector((state: any) => state.error);
-  const [form, setForm] = useState(initialState);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const classes = useStyles();
-  const [submitError, setSubmitError] = useState('');
-  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+function LoginUser() {
+  const { error } = useSelector((state: any) => state.error)
+  const [form, setForm] = useState(initialState)
+  const [submitError, setSubmitError] = useState('')
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
-  // const [showPassword, setShowPassword] = useState(false); // TODO: add this handling again
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const classes = useStyles()
 
   useEffect(() => {
     if (error) {
-      setSubmitError(error);
-      setOpenErrorDialog(true);
-      dispatch({ type: ERROR, data: null });
+      setSubmitError(error)
+      setOpenErrorDialog(true)
+      dispatch({ type: ERROR, data: null })
     }
-    // eslint-disable-next-line
-  }, [error]);
+  }, [error])
 
   const handleSubmit = (
-    e: any
+    e: any,
   ) => {
-    e.preventDefault();
-    dispatch(signin(form, history));
-  };
+    e.preventDefault()
+    dispatch(signin(form, navigate))
+  }
 
   const googleSuccess = (res: any) => {
-    const { profileObj, tokenId } = res;
+    const { profileObj, tokenId } = res
 
-    const result = profileObj;
-    const token = tokenId;
+    const result = profileObj
+    const token = tokenId
 
     try {
-      dispatch({ type: AUTH, data: { result, token } });
+      dispatch({ type: AUTH, data: { result, token } })
 
-      history.push('/dashboard');
-    } catch (error) {
-      console.log(error);
+      navigate('/dashboard')
+    } catch (err) {
+      console.log(err)
     }
-  };
+  }
 
   const handleDialogClose = () => {
-    setOpenErrorDialog(false);
-  };
+    setOpenErrorDialog(false)
+  }
 
-  const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later');
+  const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later')
 
-  const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value })
 
   return (
     <Container component="main" maxWidth="xs">
@@ -82,38 +91,38 @@ const LoginUser = () => {
         error={submitError}
         action="Login"
       />
-      <Paper className={classes.paper} elevation={6}>
+      <Paper elevation={6} className={classes.paper}>
         <Typography
           component="h1"
           variant="h5"
         >
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField
-              name="email"
-              label="Email Address"
-              onChange={handleChange}
-              type="email"
-              fullWidth
-              sx={{
-                marginBottom: 2
-              }}
-            />
-            <TextField
-              name="password"
-              label="Password"
-              onChange={handleChange}
-              type="password"
-              fullWidth
-            />
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
+            name="email"
+            label="Email Address"
+            onChange={handleChange}
+            type="email"
+            fullWidth
+            sx={{
+              marginBottom: 2,
+            }}
+          />
+          <TextField
+            name="password"
+            label="Password"
+            onChange={handleChange}
+            type="password"
+            fullWidth
+          />
           <Button
             fullWidth
             variant="contained"
             color="primary"
             onClick={(e) => handleSubmit(e)}
             sx={{
-              marginTop: 2
+              marginTop: 2,
             }}
           >
             Sign In
@@ -129,7 +138,7 @@ const LoginUser = () => {
                 variant="contained"
                 startIcon={<GoogleIcon />}
                 sx={{
-                  marginTop: 2
+                  marginTop: 2,
                 }}
               >
                 Google Sign In
@@ -142,20 +151,20 @@ const LoginUser = () => {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button
-                onClick={() => history.push('/register')}
+                onClick={() => navigate('/register')}
                 color="primary"
                 sx={{
-                  marginTop: 2
+                  marginTop: 2,
                 }}
               >
-                Don't have an account? Sign Up
+                No account? Sign Up
               </Button>
             </Grid>
           </Grid>
         </form>
       </Paper>
     </Container>
-  );
-};
+  )
+}
 
-export default LoginUser;
+export default LoginUser

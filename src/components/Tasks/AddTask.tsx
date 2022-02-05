@@ -1,84 +1,103 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Button,
   Grid,
   Paper,
   TextField,
-} from '@mui/material';
-import TaskModel from '../../types/task';
-import useStyles from './styles';
+} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import TaskModel from '../../types/task'
 
-const AddTask = (props: any) => {
-  const { goal, task, onCancel, onUpdate } = props;
-  const { _id: goalID } = goal || { goal: {} };
-  const { title, description } = task || { task: {} };
+const useStyles = makeStyles((theme: any) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'row',
+    padding: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    border: '1px solid black',
+    width: '60%',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
+    }
+  },
+  input: {
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
+    width: '100%',
+  }
+}))
 
-  const [taskTitle, setTaskTitle] = useState(title);
+function AddTask(props: any) {
+  const {
+    goal, task, onCancel, onUpdate,
+  } = props
 
-  const classes = useStyles();
+  const { _id: goalID } = goal || { goal: {} }
+  const { title } = task || { title: '' }
+  const classes = useStyles()
+
+  const [taskTitle, setTaskTitle] = useState(title)
 
   const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const task = new TaskModel();
-    const today = new Date().toISOString();
+    const newTask = new TaskModel()
+    const today = new Date().toISOString()
 
-    task.title = taskTitle.trim();
-    task.createdOn = today;
-    task.updatedOn = today;
-    task.goalId = goalID;
+    newTask.title = taskTitle.trim()
+    newTask.createdOn = today
+    newTask.updatedOn = today
+    newTask.goalId = goalID
 
-    let updatedGoal = goal;
-    updatedGoal.tasks.push(task);
+    const updatedGoal = goal
+    updatedGoal.tasks.push(newTask)
 
-    onUpdate(updatedGoal);
-  };
+    onUpdate(updatedGoal)
+  }
 
   const handleCancel = () => {
-    onCancel();
-  };
+    onCancel()
+  }
 
   return (
     <Paper className={classes.paper}>
-      <Grid
-        item
-        xs={12}
-      >
-        <TextField
-          id="new task title"
-          aria-label="New task title"
-          label="Title"
-          value={taskTitle}
-          variant="outlined"
-          className={classes.button}
-          size="small"
-          onChange={(e: any) => setTaskTitle(e.target.value)}
-        />
+      <TextField
+        id="new task title"
+        aria-label="New task title"
+        label="Title"
+        value={taskTitle}
+        variant="outlined"
+        size="small"
+        onChange={(e: any) => setTaskTitle(e.target.value)}
+        fullWidth
+        className={classes.input}
+      />
+      <Grid item textAlign="center" xs={12} sx={{ margin: 1 }}>
         <Button
           id="cancel-task-button"
           aria-label="Cancel task button"
-          variant="outlined"
+          variant="contained"
           onClick={handleCancel}
           size="small"
-          style={{ color: "red" }}
-          className={classes.button}
+          color="error"
+          className={classes.input}
         >
           Cancel
         </Button>
         <Button
           id="save-task-button"
           aria-label="Save task button"
-          color="primary"
-          variant="outlined"
+          color="secondary"
+          variant="contained"
           onClick={handleSubmit}
           size="small"
-          className={classes.button}
+          className={classes.input}
         >
           Save
         </Button>
       </Grid>
     </Paper>
-  );
-};
+  )
+}
 
-export default AddTask;
+export default AddTask

@@ -1,54 +1,53 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
+import React from 'react'
+import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import MuiDatePicker from '@mui/lab/DatePicker'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import IconButton from '@mui/material/IconButton';
-import { addDays } from 'date-fns';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import IconButton from '@mui/material/IconButton'
 
 export default function DatePicker(props: any) {
-  const { date, onChange } = props;
-  let selectedDate = date;
+  const {
+    date, onChange, onDateIncrement, onDateDecrement,
+  } = props
+  const selectedDate = date
 
   const handleDateChange = (newDate: Date) => {
-    onChange(newDate);
-  };
-
-  const handleClick = (dateAdjustment: number) => {
-    const newDate = addDays(date, dateAdjustment);
-    onChange(newDate);
-  };
+    onChange(newDate)
+  }
 
   return (
-      <Grid
-        item
-        xs={12}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          padding: 20
-        }}
+    <Grid
+      item
+      xs={12}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        padding: 20,
+      }}
+    >
+      <IconButton
+        onClick={onDateDecrement}
       >
-        <IconButton>
-          <ArrowBackIosIcon
-            onClick={() => handleClick(-1)}
-            color="primary"
-          />
-        </IconButton>
-        <MuiDatePicker
-          renderInput={
-            props => <TextField {...props} label="Selected Date" />
-          }
-          onChange={handleDateChange}
-          value={selectedDate}
+        <ArrowBackIosIcon
+          color="primary"
         />
-        <IconButton>
-          <ArrowForwardIosIcon
-            onClick={() => handleClick(1)}
-            color="primary"
-          />
-        </IconButton>
-      </Grid>
-  );
+      </IconButton>
+      <MuiDatePicker
+        renderInput={
+          /* eslint-disable-next-line react/jsx-props-no-spreading */
+          (inputProps: any) => <TextField {...inputProps} label="Selected Date" />
+        }
+        onChange={(e: any) => handleDateChange(e.target.value)}
+        value={selectedDate}
+      />
+      <IconButton
+        onClick={onDateIncrement}
+      >
+        <ArrowForwardIosIcon
+          color="primary"
+        />
+      </IconButton>
+    </Grid>
+  )
 }
