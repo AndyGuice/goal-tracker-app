@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
+    marginTop: theme.spacing(1),
     padding: theme.spacing(2),
-    width: '75%',
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
       alignItems: 'center',
@@ -168,11 +168,25 @@ export function EditGoal() {
             <Box textAlign="center">
               <Button
                 variant="contained"
+                color="warning"
+                onClick={() => navigate('/goals')}
+                sx={{
+                  margin: 2,
+                  width: 100
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
                 color="primary"
                 type="submit"
-                style={{ marginTop: 20 }}
+                sx={{
+                  margin: 2,
+                  width: 100
+                }}
               >
-                Save goal
+                Save
               </Button>
             </Box>
           </Grid>

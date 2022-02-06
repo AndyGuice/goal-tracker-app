@@ -9,14 +9,12 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import NoteAddIcon from '@mui/icons-material/NoteAdd'
+import AddTaskIcon from '@mui/icons-material/AddTask'
 import { deleteGoal } from '../../store/actions/goals'
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
-const useStyles = makeStyles((theme: any) => ({
-  actions: {
-    margin: theme.spacing(1)
-  }
+const useStyles = makeStyles(() => ({
+  actions: {}
 }))
 
 function GoalActions(props: any) {
@@ -65,37 +63,42 @@ function GoalActions(props: any) {
         && (
           configView
           && (
-            <CardActions className={classes.actions}>
+            <CardActions
+              className={classes.actions}
+            >
               <ConfirmDialog
                 open={openConfirmDialog}
                 onClose={handleDialogClose}
                 object="Goal"
               />
-              <Tooltip title="Add Task">
+              <Tooltip title="Add task">
                 <IconButton
-                  aria-label="Add Task"
+                  aria-label="Add task button"
                   id="Add task button"
-                  color="secondary"
+                  color="primary"
                   onClick={onAddTask}
                 >
-                  <NoteAddIcon />
+                  <AddTaskIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Edit task">
+              <Tooltip title="Edit goal">
                 <IconButton
-                  aria-label="edit goal"
-                  // onClick={() => history.push(`/editGoal/${goalID}`)}
-                  color="secondary"
+                  aria-label="Edit goal button"
+                  id="Edit goal button"
+                  onClick={() => navigate(`/editGoal/${goalID}`)}
+                  color="primary"
                 >
                   <EditRoundedIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Delete task">
+              <Tooltip title="Delete goal">
                 <IconButton
-                  aria-label="delete goal"
+                  id="Delete goal button"
+                  aria-label="Delete goal button"
                   onClick={handleDeleteGoal}
+                  color="warning"
                 >
-                  <DeleteIcon color="secondary" />
+                  <DeleteIcon />
                 </IconButton>
               </Tooltip>
             </CardActions>

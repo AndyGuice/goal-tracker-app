@@ -8,6 +8,7 @@ import {
   TextField,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
@@ -26,6 +27,10 @@ const useStyles = makeStyles((theme: any) => ({
   input: {
     padding: theme.spacing(1),
     width: '100%',
+  },
+  actionButtons: {
+    display: 'flex',
+    justifyContent: 'flex-end'
   }
 }))
 
@@ -152,13 +157,27 @@ function Task(props: any) {
             && (
               configView
               && (
-                <IconButton
-                  title="Delete task"
-                  aria-label="Delete task"
-                  onClick={handleDeleteTask}
+                <Grid
+                  item
+                  xs={12}
+                  className={classes.actionButtons}
                 >
-                  <DeleteIcon color="secondary" />
-                </IconButton>
+                  <IconButton
+                    title="Edit task"
+                    aria-label="Edit task button"
+                    color="primary"
+                  >
+                    <EditRoundedIcon />
+                  </IconButton>
+                  <IconButton
+                    title="Delete task"
+                    aria-label="Delete task"
+                    onClick={handleDeleteTask}
+                    color="warning"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
               )
             )
           )

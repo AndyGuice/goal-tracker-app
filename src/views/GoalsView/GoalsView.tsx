@@ -2,23 +2,38 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
-  Grid,
   CircularProgress,
-  Button,
+  FormControlLabel,
+  FormGroup,
+  IconButton,
+  Grid,
+  Switch,
+  Tooltip,
 } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
 import {
   getUserGoals,
-  updateGoal,
+  updateTaskComplete,
 } from '../../store/actions/goals'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
+import DatePicker from '../../components/Shared/DatePicker/DatePicker'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: any) => ({
   root: {
     flexGrow: 1,
+    padding: theme.spacing(1),
+    backgroundColor: '#DDD'
   },
+  actionButtons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: theme.spacing(2),
+    padding: theme.spacing(1)
+  }
 }))
 
 function GoalsView() {
@@ -36,6 +51,11 @@ function GoalsView() {
 
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
+  const [editView, setEditView] = useState(false)
+
+  const today = new Date()
+  const [selectedDate, setSelectedDate] = useState(today)
+  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString())
 
   const [
     user,
@@ -56,12 +76,17 @@ function GoalsView() {
     dispatch(getUserGoals(userId))
   }, [user])
 
-  const handleUpdateGoal = (goal: any) => {
-    dispatch(updateGoal(goal, navigate))
-  }
-
   const handleDialogClose = () => {
     setOpenErrorDialog(false)
+  }
+
+  const handleDateUpdate = (date: any) => {
+    setSelectedDate(date)
+    setSelectedDateStr(date.toLocaleDateString())
+  }
+
+  const handleUpdateTask = (goal: any) => {
+    dispatch(updateTaskComplete(goal, navigate))
   }
 
   return (
@@ -78,18 +103,30 @@ function GoalsView() {
       />
       {user?.result
         && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => navigate('/addGoal')}
-            sx={{
-              marginTop: 2,
-              marginBottom: 2,
-              width: '80%'
-            }}
-          >
-            Add goal
-          </Button>
+          <Grid item xs={12} className={classes.actionButtons}>
+            {editView
+              && (
+                <Tooltip title="Add goal">
+                  <IconButton
+                    id="Add goal button"
+                    aria-label="Add goal button"
+                    color="primary"
+                    onClick={() => navigate('/addGoal')}
+                  >
+                    <NoteAddIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            <Tooltip title="Edit View">
+              <FormGroup>
+                <FormControlLabel
+                  control={<Switch />}
+                  label="Edit"
+                  onChange={() => setEditView(!editView)}
+                />
+              </FormGroup>
+            </Tooltip>
+          </Grid>
         )}
       {isLoading
         ? (
@@ -100,11 +137,18 @@ function GoalsView() {
           />
         )
         : (
-          <Goals
-            goals={goals}
-            configView
-            onUpdate={handleUpdateGoal}
-          />
+          <>
+            <DatePicker
+              date={selectedDate}
+              onChange={(e: any) => handleDateUpdate(e)}
+            />
+            <Goals
+              goals={goals}
+              configView={editView}
+              date={selectedDateStr}
+              onUpdate={(e: any) => handleUpdateTask(e)}
+            />
+          </>
         )}
     </Grid>
   )

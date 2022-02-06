@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
-  CircularProgress,
+  Button,
+  // CircularProgress,
   Grid,
+  Stack,
+  Typography,
 } from '@mui/material'
+import NoteIcon from '@mui/icons-material/Note'
+import FeedbackIcon from '@mui/icons-material/Feedback'
 import { makeStyles } from '@mui/styles'
 import { getUserGoals, updateTaskComplete } from '../../store/actions/goals'
-import Goals from '../../components/Goals/Goals'
-import DatePicker from '../../components/Shared/DatePicker/DatePicker'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: any) => ({
   root: {
     flexGrow: 1,
-  },
-  title: {
     display: 'flex',
-    textAlign: 'center',
-  },
-  progressCircle: {
-    padding: 10
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
 }))
 
@@ -30,8 +31,6 @@ function DashboardView() {
   } = useSelector((state: any) => state.goals)
 
   const today = new Date()
-  const [selectedDate, setSelectedDate] = useState(today)
-  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString())
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -48,44 +47,40 @@ function DashboardView() {
     dispatch(getUserGoals(userId))
   }, [user])
 
-  const handleDateUpdate = (date: any) => {
-    setSelectedDate(date)
-    setSelectedDateStr(date.toLocaleDateString())
-  }
-
-  const handleUpdateGoals = (goal: any) => {
-    dispatch(updateTaskComplete(goal, navigate))
+  const handleSubmitFeedback = () => {
+    console.log('Submitting feedback magically')
   }
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      className={classes.root}
-    >
-      {isLoading
-        ? (
-          <CircularProgress
-            size="7em"
-            color="primary"
-            value={100}
-            className={classes.progressCircle}
-          />
-        )
-        : (
-          <>
-            <DatePicker
-              date={selectedDate}
-              onChange={(e: any) => handleDateUpdate(e)}
-            />
-            <Goals
-              goals={goals}
-              configView={false}
-              date={selectedDateStr}
-              onUpdate={(e: any) => handleUpdateGoals(e)}
-            />
-          </>
-        )}
+    <Grid container className={classes.root}>
+      <Grid item xs={12}>
+        <Typography
+          align="center"
+          variant="h2"
+        >
+          Dashboard
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Stack>
+          <Button
+            variant="outlined"
+            startIcon={<NoteIcon />}
+            onClick={() => navigate('/goals')}
+            sx={{ margin: 2 }}
+          >
+            Log an Entry
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<FeedbackIcon />}
+            onClick={() => handleSubmitFeedback()}
+            sx={{ margin: 2 }}
+          >
+            Submit feedback
+          </Button>
+        </Stack>
+      </Grid>
     </Grid>
   )
 }
