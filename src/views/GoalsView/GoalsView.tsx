@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
   CircularProgress,
+  FormControlLabel,
+  FormGroup,
   IconButton,
   Grid,
+  Switch,
   Tooltip,
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
@@ -115,14 +118,13 @@ function GoalsView() {
                 </Tooltip>
               )}
             <Tooltip title="Edit View">
-              <IconButton
-                id="Edit view button"
-                aria-label="Edit view button"
-                color="primary"
-                onClick={() => setEditView(!editView)}
-              >
-                <EditIcon />
-              </IconButton>
+              <FormGroup>
+                <FormControlLabel
+                  control={<Switch />}
+                  label="Edit"
+                  onChange={() => setEditView(!editView)}
+                />
+              </FormGroup>
             </Tooltip>
           </Grid>
         )}
