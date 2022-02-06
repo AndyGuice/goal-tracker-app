@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
-  Grid,
   CircularProgress,
-  Button,
+  IconButton,
+  Grid,
+  Tooltip,
 } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
 import {
   getUserGoals,
@@ -15,10 +18,18 @@ import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: any) => ({
   root: {
     flexGrow: 1,
+    padding: theme.spacing(1),
+    backgroundColor: '#DDD'
   },
+  actionButtons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: theme.spacing(2),
+    padding: theme.spacing(1)
+  }
 }))
 
 function GoalsView() {
@@ -36,6 +47,7 @@ function GoalsView() {
 
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
+  const [editView, setEditView] = useState(false)
 
   const [
     user,
@@ -78,18 +90,27 @@ function GoalsView() {
       />
       {user?.result
         && (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => navigate('/addGoal')}
-            sx={{
-              marginTop: 2,
-              marginBottom: 2,
-              width: '80%'
-            }}
-          >
-            Add goal
-          </Button>
+          <Grid item xs={12} className={classes.actionButtons}>
+            {editView
+              && (
+                <Tooltip title="Add goal">
+                  <IconButton
+                    color="primary"
+                    onClick={() => navigate('/addGoal')}
+                  >
+                    <NoteAddIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            <Tooltip title="Edit goals">
+              <IconButton
+                color="primary"
+                onClick={() => setEditView(!editView)}
+              >
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+          </Grid>
         )}
       {isLoading
         ? (
@@ -102,7 +123,7 @@ function GoalsView() {
         : (
           <Goals
             goals={goals}
-            configView
+            configView={editView}
             onUpdate={handleUpdateGoal}
           />
         )}

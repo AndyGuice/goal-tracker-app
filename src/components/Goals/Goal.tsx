@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
     width: '75%',
     [theme.breakpoints.down('sm')]: {
       display: 'flex',

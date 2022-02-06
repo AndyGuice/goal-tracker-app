@@ -45,6 +45,7 @@
         ]
       }
     ],
+    "no-unused-vars": 1,
     "no-underscore-dangle": 0,
     "padded-blocks": 0,
     "brace-style": 0,

@@ -19,11 +19,6 @@ const useStyles = makeStyles((theme: any) => ({
     [theme.breakpoints.down('sm')]: {
       width: '90%'
     }
-  },
-  input: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
-    width: '100%',
   }
 }))
 
@@ -70,7 +65,6 @@ function AddTask(props: any) {
         size="small"
         onChange={(e: any) => setTaskTitle(e.target.value)}
         fullWidth
-        className={classes.input}
       />
       <Grid item textAlign="center" xs={12} sx={{ margin: 1 }}>
         <Button
@@ -80,7 +74,6 @@ function AddTask(props: any) {
           onClick={handleCancel}
           size="small"
           color="error"
-          className={classes.input}
         >
           Cancel
         </Button>
@@ -91,7 +84,6 @@ function AddTask(props: any) {
           variant="contained"
           onClick={handleSubmit}
           size="small"
-          className={classes.input}
         >
           Save
         </Button>
