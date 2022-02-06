@@ -12,11 +12,12 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
 import {
   getUserGoals,
-  updateGoal,
+  updateTaskComplete,
 } from '../../store/actions/goals'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
+import DatePicker from '../../components/Shared/DatePicker/DatePicker'
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -49,6 +50,10 @@ function GoalsView() {
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
   const [editView, setEditView] = useState(false)
 
+  const today = new Date()
+  const [selectedDate, setSelectedDate] = useState(today)
+  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString())
+
   const [
     user,
   ] = useState(JSON.parse(profile))
@@ -68,12 +73,17 @@ function GoalsView() {
     dispatch(getUserGoals(userId))
   }, [user])
 
-  const handleUpdateGoal = (goal: any) => {
-    dispatch(updateGoal(goal, navigate))
-  }
-
   const handleDialogClose = () => {
     setOpenErrorDialog(false)
+  }
+
+  const handleDateUpdate = (date: any) => {
+    setSelectedDate(date)
+    setSelectedDateStr(date.toLocaleDateString())
+  }
+
+  const handleUpdateTask = (goal: any) => {
+    dispatch(updateTaskComplete(goal, navigate))
   }
 
   return (
@@ -95,6 +105,8 @@ function GoalsView() {
               && (
                 <Tooltip title="Add goal">
                   <IconButton
+                    id="Add goal button"
+                    aria-label="Add goal button"
                     color="primary"
                     onClick={() => navigate('/addGoal')}
                   >
@@ -102,8 +114,10 @@ function GoalsView() {
                   </IconButton>
                 </Tooltip>
               )}
-            <Tooltip title="Edit goals">
+            <Tooltip title="Edit View">
               <IconButton
+                id="Edit view button"
+                aria-label="Edit view button"
                 color="primary"
                 onClick={() => setEditView(!editView)}
               >
@@ -121,11 +135,18 @@ function GoalsView() {
           />
         )
         : (
-          <Goals
-            goals={goals}
-            configView={editView}
-            onUpdate={handleUpdateGoal}
-          />
+          <>
+            <DatePicker
+              date={selectedDate}
+              onChange={(e: any) => handleDateUpdate(e)}
+            />
+            <Goals
+              goals={goals}
+              configView={editView}
+              date={selectedDateStr}
+              onUpdate={(e: any) => handleUpdateTask(e)}
+            />
+          </>
         )}
     </Grid>
   )
