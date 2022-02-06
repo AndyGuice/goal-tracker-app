@@ -15,7 +15,7 @@ API.interceptors.response.use((response) => response, (error) => {
   if (error.response.status === 401) {
     window.location.assign('/loginUser')
   } else if (error.response.status === 500) {
-    // alert('Server error');
+    console.log('Server error')
   }
   return error
 })
