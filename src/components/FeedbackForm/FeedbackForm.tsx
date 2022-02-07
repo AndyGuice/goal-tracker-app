@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
   Button,
@@ -7,6 +8,8 @@ import {
   Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { createFeedbackMessage } from '../../store/actions/feedback'
+import FeedbackModel from '../../types/feedback'
 
 const useStyles = makeStyles((theme: any) => ({
   form: {
@@ -27,9 +30,23 @@ const useStyles = makeStyles((theme: any) => ({
 function FeedbackForm() {
   const classes = useStyles()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [message, setMessage] = useState('')
+
+  const profile = localStorage.getItem('profile')!
+  const [user] = useState(JSON.parse(profile))
+  const { result } = user
+  const { googleId } = result
 
   const handleSubmit = () => {
-    console.log('Submitting...')
+
+    const feedback = new FeedbackModel()
+    feedback.message = message
+    feedback.userID = googleId || result._id
+
+    dispatch(createFeedbackMessage(feedback, navigate))
+
     navigate('/dashboard')
   }
 
@@ -46,6 +63,8 @@ function FeedbackForm() {
         <TextField
           name="feedback-message-input"
           aria-label="Feedback message input box"
+          value={message}
+          onChange={(e: any) => setMessage(e.target.value)}
           label="Details"
           type="message"
           multiline

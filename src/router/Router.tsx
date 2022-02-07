@@ -11,6 +11,7 @@ import FeedbackForm from '../components/FeedbackForm/FeedbackForm'
 import DashboardView from '../views/DashboardView/DashboardView'
 import LandingView from '../views/LandingView/LandingView'
 import GoalsView from '../views/GoalsView/GoalsView'
+import AdminView from '../views/AdminView/AdminView'
 
 function NavRoutes() {
   return (
@@ -25,6 +26,7 @@ function NavRoutes() {
 
       <Route path="/loginUser" element={<LoginUser />} />
       <Route path="/register" element={<RegisterUser />} />
+      <Route path="/admin" element={<AdminView />} />
     </Routes>
   )
 }

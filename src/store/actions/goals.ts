@@ -105,8 +105,6 @@ export const updateTaskComplete = (goal: any, navigate: any) => async (dispatch:
       return navigate(`/editGoal/${goal._id}`)
     }
 
-    return navigate('/dashboard')
-
   } catch (error) {
     console.log(error)
   }

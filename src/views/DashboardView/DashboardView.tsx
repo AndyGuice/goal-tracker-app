@@ -24,13 +24,6 @@ const useStyles = makeStyles((theme: any) => ({
 }))
 
 function DashboardView() {
-  const {
-    goals,
-    isLoading,
-  } = useSelector((state: any) => state.goals)
-
-  const today = new Date()
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const classes = useStyles()
