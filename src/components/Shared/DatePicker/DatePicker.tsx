@@ -40,7 +40,6 @@ export default function DatePicker(props: any) {
       style={{
         display: 'flex',
         justifyContent: 'center',
-        padding: 20,
       }}
     >
       <Paper className={classes.paper}>

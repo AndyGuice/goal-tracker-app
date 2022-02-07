@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
   Button,
-  // CircularProgress,
   Grid,
   Stack,
   Typography,
@@ -11,7 +10,7 @@ import {
 import NoteIcon from '@mui/icons-material/Note'
 import FeedbackIcon from '@mui/icons-material/Feedback'
 import { makeStyles } from '@mui/styles'
-import { getUserGoals, updateTaskComplete } from '../../store/actions/goals'
+import { getUserGoals } from '../../store/actions/goals'
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -25,13 +24,6 @@ const useStyles = makeStyles((theme: any) => ({
 }))
 
 function DashboardView() {
-  const {
-    goals,
-    isLoading,
-  } = useSelector((state: any) => state.goals)
-
-  const today = new Date()
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const classes = useStyles()
@@ -48,7 +40,7 @@ function DashboardView() {
   }, [user])
 
   const handleSubmitFeedback = () => {
-    console.log('Submitting feedback magically')
+    navigate('/feedback')
   }
 
   return (

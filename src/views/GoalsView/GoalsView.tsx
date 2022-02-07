@@ -104,23 +104,10 @@ function GoalsView() {
       {user?.result
         && (
           <Grid item xs={12} className={classes.actionButtons}>
-            {editView
-              && (
-                <Tooltip title="Add goal">
-                  <IconButton
-                    id="Add goal button"
-                    aria-label="Add goal button"
-                    color="primary"
-                    onClick={() => navigate('/addGoal')}
-                  >
-                    <NoteAddIcon />
-                  </IconButton>
-                </Tooltip>
-              )}
             <Tooltip title="Edit View">
               <FormGroup>
                 <FormControlLabel
-                  control={<Switch />}
+                  control={<Switch size="small" />}
                   label="Edit"
                   onChange={() => setEditView(!editView)}
                 />
@@ -142,6 +129,21 @@ function GoalsView() {
               date={selectedDate}
               onChange={(e: any) => handleDateUpdate(e)}
             />
+            {editView
+              && (
+                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Tooltip title="Add goal">
+                    <IconButton
+                      id="Add goal button"
+                      aria-label="Add goal button"
+                      color="primary"
+                      onClick={() => navigate('/addGoal')}
+                    >
+                      <NoteAddIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Grid>
+              )}
             <Goals
               goals={goals}
               configView={editView}
