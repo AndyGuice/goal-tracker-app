@@ -10,7 +10,6 @@ import {
   Switch,
   Tooltip,
 } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
 import {

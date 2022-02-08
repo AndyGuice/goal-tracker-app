@@ -15,13 +15,13 @@ API.interceptors.response.use((response) => response, (error) => {
   if (error.response.status === 401) {
     window.location.assign('/loginUser')
   } else if (error.response.status === 500) {
-    console.log('Server error')
+    // console.log('Server error')
   }
   return error
 })
 
-export const signIn = (formData: any) => API.post('/user/signin', formData)
-export const signUp = (formData: any) => API.post('/user/signup', formData)
+export const signIn = (formData: any) => API.post('/user/signIn', formData)
+export const signUp = (formData: any) => API.post('/user/signUp', formData)
 
 export const fetchAllGoals = () => API.get('/goals')
 export const fetchUserGoals = (id: String) => API.get(`/goals/users/${id}`)
