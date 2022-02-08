@@ -18,7 +18,7 @@ export const getAllFeedbackMessages = () => async (dispatch: any) => {
     dispatch({ type: END_LOADING })
   }
   catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -31,7 +31,7 @@ export const getFeedbackMessage = (id: any) => async (dispatch: any) => {
     dispatch({ type: END_LOADING })
   }
   catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -51,7 +51,7 @@ export const createFeedbackMessage = (message: any, navigate: any) => async (dis
     return navigate('/dashboard')
   }
   catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -67,6 +67,6 @@ export const deleteFeedbackMessage = (id: String, navigate: any) => async (dispa
     return navigate('/dashboard')
 
   } catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }

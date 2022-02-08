@@ -13,7 +13,7 @@ import {
 import { makeStyles } from '@mui/styles'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import * as EmailValidator from 'email-validator'
-import { signup } from '../../store/actions/auth'
+import { signUp } from '../../store/actions/auth'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 
@@ -71,7 +71,7 @@ function RegisterUser() {
       return dispatch({ type: ERROR, data: { error: 'Wrong email format' } })
     }
 
-    dispatch(signup(form, navigate))
+    dispatch(signUp(form, navigate))
   }
 
   const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value })

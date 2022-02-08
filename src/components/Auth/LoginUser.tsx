@@ -11,8 +11,8 @@ import {
 } from '@mui/material'
 import { GoogleLogin } from 'react-google-login'
 import { makeStyles } from '@mui/styles'
-import { signin } from '../../store/actions/auth'
-import { AUTH, ERROR } from '../../store/actionTypes/actionTypes'
+import { signIn } from '../../store/actions/auth'
+import { ERROR } from '../../store/actionTypes/actionTypes'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 import GoogleIcon from '../../helpers/GoogleIcon'
 
@@ -57,21 +57,21 @@ function LoginUser() {
     e: any,
   ) => {
     e.preventDefault()
-    dispatch(signin(form, navigate))
+    dispatch(signIn(form, navigate))
   }
 
   const googleSuccess = (res: any) => {
-    const { profileObj, tokenId } = res
+    const { profileObj } = res
 
     const result = profileObj
-    const token = tokenId
+    // const token = tokenId
 
     try {
-      dispatch({ type: AUTH, data: { result, token } })
+      dispatch(signIn(result, navigate))
 
       navigate('/dashboard')
     } catch (err) {
-      console.log(err)
+      dispatch({ type: ERROR, err })
     }
   }
 
@@ -79,7 +79,10 @@ function LoginUser() {
     setOpenErrorDialog(false)
   }
 
-  const googleError = () => console.log('Unable to sign in via Google at this time. Please try again later')
+  const googleError = () => {
+    setSubmitError('Unable to sign in via Google at this time. Please try again later')
+    setOpenErrorDialog(true)
+  }
 
   const handleChange = (e: any) => setForm({ ...form, [e.target.name]: e.target.value })
 

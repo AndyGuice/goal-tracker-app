@@ -22,7 +22,7 @@ export const getAllGoals = () => async (dispatch: any) => {
     dispatch({ type: END_LOADING })
   }
   catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -35,7 +35,7 @@ export const getUserGoals = (userId: String) => async (dispatch: any) => {
     dispatch({ type: END_LOADING })
   }
   catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -48,7 +48,7 @@ export const getGoal = (id: any) => async (dispatch: any) => {
     dispatch({ type: END_LOADING })
   }
   catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -68,7 +68,7 @@ export const createGoal = (goal: any, navigate: any) => async (dispatch: any) =>
     return navigate('/goals')
   }
   catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -91,7 +91,7 @@ export const updateGoal = (goal: any, navigate: any) => async (dispatch: any) =>
     return navigate('/goals')
 
   } catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -106,7 +106,7 @@ export const updateTaskComplete = (goal: any, navigate: any) => async (dispatch:
     }
 
   } catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
 
@@ -123,6 +123,6 @@ export const deleteGoal = (id: String, navigate: any) => async (dispatch: any) =
     return navigate('/goals')
 
   } catch (error) {
-    console.log(error)
+    dispatch({ type: ERROR, error })
   }
 }
