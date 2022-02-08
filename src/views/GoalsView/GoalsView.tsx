@@ -14,7 +14,8 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
 import {
   getUserGoals,
-  updateTaskComplete,
+  updateGoal,
+  updateGoalTaskComplete,
 } from '../../store/actions/goals'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
@@ -84,8 +85,14 @@ function GoalsView() {
     setSelectedDateStr(date.toLocaleDateString())
   }
 
+  const handleUpdateGoal = (goal: any) => {
+    console.log('Dispatching updateGoal')
+    dispatch(updateGoal(goal, navigate))
+  }
+
   const handleUpdateTask = (goal: any) => {
-    dispatch(updateTaskComplete(goal, navigate))
+    console.log('Dispatching updateTaskComplete')
+    dispatch(updateGoalTaskComplete(goal, navigate))
   }
 
   return (
@@ -147,7 +154,8 @@ function GoalsView() {
               goals={goals}
               configView={editView}
               date={selectedDateStr}
-              onUpdate={(e: any) => handleUpdateTask(e)}
+              onUpdateGoal={(e: any) => handleUpdateGoal(e)}
+              onUpdateTask={(e: any) => handleUpdateTask(e)}
             />
           </>
         )}

@@ -35,6 +35,7 @@ function GoalActions(props: any) {
 
   const profile = localStorage.getItem('profile')!
   const loggedUser = JSON.parse(profile)
+
   const { result } = loggedUser || { result: {} }
   const { googleId, _id } = result || { googleId: {}, _id: {} }
   const userID = googleId || _id

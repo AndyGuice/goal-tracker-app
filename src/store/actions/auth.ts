@@ -4,7 +4,6 @@ import * as api from '../../api'
 export const signIn = (formData: any, navigate: any) => async (dispatch: any) => {
   try {
     const { data } = await api.signIn(formData)
-
     if (data?.error) {
       dispatch({ type: ERROR, data })
       return navigate('/loginUser')

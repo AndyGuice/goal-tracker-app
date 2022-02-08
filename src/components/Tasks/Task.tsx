@@ -40,7 +40,8 @@ function Task(props: any) {
     task,
     configView,
     date: selectedDate,
-    onUpdate,
+    onUpdateGoal,
+    onUpdateTask,
   } = props
 
   const {
@@ -79,7 +80,7 @@ function Task(props: any) {
       updatedTask.datesCompleted = updatedDatesCompleted
     }
 
-    onUpdate(goal)
+    onUpdateTask(goal)
   }
 
   const deleteTask = (id: any) => {
@@ -88,7 +89,7 @@ function Task(props: any) {
     const updatedTasks = goal.tasks.filter((t: any) => t._id !== id)
     updatedGoal.tasks = updatedTasks
 
-    onUpdate(updatedGoal)
+    onUpdateGoal(updatedGoal)
   }
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)

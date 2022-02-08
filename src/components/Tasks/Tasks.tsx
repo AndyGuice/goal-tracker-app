@@ -8,7 +8,8 @@ const Tasks = (props: any) => {
     configView,
     date,
     goal,
-    onUpdate,
+    onUpdateGoal,
+    onUpdateTask,
   } = props
 
   return (
@@ -18,11 +19,11 @@ const Tasks = (props: any) => {
           <Task
             goal={goal}
             task={task}
-            // key={task.id}
             key={task.createdOn}
             configView={configView}
             date={date}
-            onUpdate={onUpdate}
+            onUpdateGoal={onUpdateGoal}
+            onUpdateTask={onUpdateTask}
           />
         )
       })

@@ -18,6 +18,7 @@ export const getAllGoals = () => async (dispatch: any) => {
   try {
     dispatch({ type: START_LOADING })
     const { data: { data } } = await api.fetchAllGoals()
+
     dispatch({ type: FETCH_ALL, payload: { data } })
     dispatch({ type: END_LOADING })
   }
@@ -27,6 +28,7 @@ export const getAllGoals = () => async (dispatch: any) => {
 }
 
 export const getUserGoals = (userId: String) => async (dispatch: any) => {
+
   try {
     dispatch({ type: START_LOADING })
     const { data: { data } } = await api.fetchUserGoals(userId)
@@ -40,6 +42,7 @@ export const getUserGoals = (userId: String) => async (dispatch: any) => {
 }
 
 export const getGoal = (id: any) => async (dispatch: any) => {
+
   try {
     dispatch({ type: START_LOADING })
     const { data } = await api.fetchGoal(id)
@@ -68,6 +71,7 @@ export const createGoal = (goal: any, navigate: any) => async (dispatch: any) =>
     return navigate('/goals')
   }
   catch (error) {
+    console.log('Error on createGoal: ', error)
     dispatch({ type: ERROR, error })
   }
 }
@@ -91,15 +95,15 @@ export const updateGoal = (goal: any, navigate: any) => async (dispatch: any) =>
     return navigate('/goals')
 
   } catch (error) {
+    console.log('Error on updateGoal: ', error)
     dispatch({ type: ERROR, error })
   }
 }
 
-export const updateTaskComplete = (goal: any, navigate: any) => async (dispatch: any) => {
+export const updateGoalTaskComplete = (goal: any, navigate: any) => async (dispatch: any) => {
 
   try {
     const { data } = await api.updateGoal(goal._id, goal)
-
     if (data?.error) {
       dispatch({ type: ERROR, data })
       return navigate(`/editGoal/${goal._id}`)

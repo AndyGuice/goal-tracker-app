@@ -7,7 +7,8 @@ const Goals = (props: any) => {
     goals,
     configView,
     date,
-    onUpdate,
+    onUpdateGoal,
+    onUpdateTask,
   } = props
 
   return (
@@ -19,7 +20,8 @@ const Goals = (props: any) => {
           goal={goal}
           configView={configView}
           date={date}
-          onUpdate={onUpdate}
+          onUpdateGoal={onUpdateGoal}
+          onUpdateTask={onUpdateTask}
         />
       ))
     )

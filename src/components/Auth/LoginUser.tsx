@@ -12,7 +12,7 @@ import {
 import { GoogleLogin } from 'react-google-login'
 import { makeStyles } from '@mui/styles'
 import { signIn } from '../../store/actions/auth'
-import { ERROR } from '../../store/actionTypes/actionTypes'
+import { AUTH, ERROR } from '../../store/actionTypes/actionTypes'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 import GoogleIcon from '../../helpers/GoogleIcon'
 
@@ -61,13 +61,13 @@ function LoginUser() {
   }
 
   const googleSuccess = (res: any) => {
-    const { profileObj } = res
+    const { profileObj, tokenId } = res
 
     const result = profileObj
-    // const token = tokenId
+    const token = tokenId
 
     try {
-      dispatch(signIn(result, navigate))
+      dispatch({ type: AUTH, data: { result, token } })
 
       navigate('/dashboard')
     } catch (err) {
