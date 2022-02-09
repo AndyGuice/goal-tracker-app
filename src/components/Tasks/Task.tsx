@@ -10,6 +10,7 @@ import {
 import { makeStyles } from '@mui/styles'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
+import CheckIcon from '@mui/icons-material/Check'
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
 const useStyles = makeStyles((theme: any) => ({
@@ -53,7 +54,7 @@ function Task(props: any) {
   const classes = useStyles()
   const [taskTitle, setTaskTitle] = useState(title)
   const [taskComplete, setTaskComplete] = useState(false)
-  const [edit] = useState(false)
+  const [edit, setEdit] = useState(false)
 
   const profile = localStorage.getItem('profile')!
   const loggedUser = JSON.parse(profile)
@@ -66,7 +67,7 @@ function Task(props: any) {
     }
   }, [selectedDate])
 
-  const handleUpdateTask = (status: boolean) => {
+  const handleUpdateTaskState = (status: boolean) => {
     setTaskComplete(status)
 
     const updatedTask = task
@@ -81,6 +82,11 @@ function Task(props: any) {
     }
 
     onUpdateTask(goal)
+  }
+
+  const handleUpdateTaskName = (updatedGoal: any) => {
+    onUpdateGoal(updatedGoal)
+    setEdit(false)
   }
 
   const deleteTask = (id: any) => {
@@ -144,7 +150,7 @@ function Task(props: any) {
                 control={(
                   <Checkbox
                     checked={taskComplete}
-                    onClick={() => handleUpdateTask(!taskComplete)}
+                    onClick={() => handleUpdateTaskState(!taskComplete)}
                   />
                 )}
               />
@@ -167,17 +173,31 @@ function Task(props: any) {
                     title="Edit task"
                     aria-label="Edit task button"
                     color="primary"
+                    onClick={() => setEdit(!edit)}
                   >
                     <EditRoundedIcon />
                   </IconButton>
-                  <IconButton
-                    title="Delete task"
-                    aria-label="Delete task"
-                    onClick={handleDeleteTask}
-                    color="warning"
-                  >
-                    <DeleteIcon />
-                  </IconButton>
+                  {
+                    edit ? (
+                      <IconButton
+                        title="Save task edit"
+                        aria-label="Save task edit button"
+                        onClick={() => handleUpdateTaskName(goal)}
+                        color="secondary"
+                      >
+                        <CheckIcon />
+                      </IconButton>
+                    ) : (
+                      <IconButton
+                        title="Delete task"
+                        aria-label="Delete task"
+                        onClick={handleDeleteTask}
+                        color="warning"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )
+                  }
                 </Grid>
               )
             )

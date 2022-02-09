@@ -86,12 +86,10 @@ function GoalsView() {
   }
 
   const handleUpdateGoal = (goal: any) => {
-    console.log('Dispatching updateGoal')
     dispatch(updateGoal(goal, navigate))
   }
 
   const handleUpdateTask = (goal: any) => {
-    console.log('Dispatching updateTaskComplete')
     dispatch(updateGoalTaskComplete(goal, navigate))
   }
 

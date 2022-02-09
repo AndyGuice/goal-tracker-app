@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 function AddTask(props: any) {
   const {
-    goal, task, onCancel, onUpdate,
+    goal, task, onCancel, onUpdateGoal,
   } = props
 
   const { _id: goalID } = goal || { goal: {} }
@@ -47,7 +47,7 @@ function AddTask(props: any) {
     const updatedGoal = goal
     updatedGoal.tasks.push(newTask)
 
-    onUpdate(updatedGoal)
+    onUpdateGoal(updatedGoal)
   }
 
   const handleCancel = () => {
