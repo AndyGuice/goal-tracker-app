@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
   Button,
+  CircularProgress,
   Grid,
   Stack,
   Typography,
@@ -12,6 +13,13 @@ import FeedbackIcon from '@mui/icons-material/Feedback'
 import { makeStyles } from '@mui/styles'
 import { getUserGoals } from '../../store/actions/goals'
 
+const getCurrentStreaks = (goals: any) => {
+  const today = new Date().toLocaleDateString()
+  console.log('Today: ', today)
+
+  // console.log('Goals: ', goals)
+}
+
 const useStyles = makeStyles((theme: any) => ({
   root: {
     flexGrow: 1,
@@ -19,11 +27,16 @@ const useStyles = makeStyles((theme: any) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     paddingTop: theme.spacing(1),
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
 }))
 
 function DashboardView() {
+  const {
+    goals,
+    isLoading,
+  } = useSelector((state: any) => state.goals)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const classes = useStyles()
@@ -43,37 +56,53 @@ function DashboardView() {
     navigate('/feedback')
   }
 
+  useEffect(() => {
+    if (goals.length > 0) {
+      getCurrentStreaks(goals)
+    }
+  }, [goals])
+
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={12}>
-        <Typography
-          align="center"
-          variant="h2"
-        >
-          Dashboard
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Stack>
-          <Button
-            variant="outlined"
-            startIcon={<NoteIcon />}
-            onClick={() => navigate('/goals')}
-            sx={{ margin: 2 }}
+    isLoading ? (
+      <div>
+        <CircularProgress
+          size="7em"
+          color="primary"
+          value={100}
+        />
+      </div>
+    ) : (
+      <Grid container className={classes.root}>
+        <Grid item xs={12}>
+          <Typography
+            align="center"
+            variant="h2"
           >
-            Log an Entry
-          </Button>
-          <Button
-            variant="outlined"
-            startIcon={<FeedbackIcon />}
-            onClick={() => handleSubmitFeedback()}
-            sx={{ margin: 2 }}
-          >
-            Submit feedback
-          </Button>
-        </Stack>
+            Dashboard
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Stack>
+            <Button
+              variant="outlined"
+              startIcon={<NoteIcon />}
+              onClick={() => navigate('/goals')}
+              sx={{ margin: 2 }}
+            >
+              Log an Entry
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<FeedbackIcon />}
+              onClick={() => handleSubmitFeedback()}
+              sx={{ margin: 2 }}
+            >
+              Submit feedback
+            </Button>
+          </Stack>
+        </Grid>
       </Grid>
-    </Grid>
+    )
   )
 }
 

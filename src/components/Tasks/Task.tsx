@@ -42,6 +42,10 @@ const useStyles = makeStyles((theme: any) => ({
   }
 }))
 
+const getCurrentStreak = (task: any) => {
+  console.log('Task: ', task)
+}
+
 function Task(props: any) {
   const {
     goal,
@@ -74,6 +78,10 @@ function Task(props: any) {
       setTaskComplete(false)
     }
   }, [selectedDate])
+
+  useEffect(() => {
+    getCurrentStreak(task)
+  }, [task])
 
   const handleUpdateTaskState = (status: boolean) => {
     setTaskComplete(status)

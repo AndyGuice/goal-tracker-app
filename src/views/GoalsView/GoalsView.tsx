@@ -12,10 +12,7 @@ import {
 } from '@mui/material'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
-import {
-  getUserGoals,
-  updateGoal,
-} from '../../store/actions/goals'
+import { getUserGoals } from '../../store/actions/goals'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
@@ -122,6 +119,7 @@ function GoalsView() {
           <>
             <DatePicker
               date={selectedDate}
+              today={today}
               onChange={(e: any) => handleDateUpdate(e)}
             />
             {editView

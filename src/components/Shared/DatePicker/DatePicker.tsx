@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
@@ -18,9 +18,10 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function DatePicker(props: any) {
   const {
-    date, onChange,
+    date, onChange, today
   } = props
 
+  const [disableDayIncrement, setDisableDayIncrement] = useState(false)
   const selectedDate = date
   const classes = useStyles()
 
@@ -33,6 +34,14 @@ export default function DatePicker(props: any) {
     onChange(newDate)
   }
 
+  useEffect(() => {
+    if (date.toLocaleDateString() === today.toLocaleDateString()) {
+      setDisableDayIncrement(true)
+    } else {
+      setDisableDayIncrement(false)
+    }
+  }, [date])
+
   return (
     <Grid
       item
@@ -44,6 +53,8 @@ export default function DatePicker(props: any) {
     >
       <Paper className={classes.paper}>
         <IconButton
+          id="Decrement date button"
+          aria-label="Decrement date button"
           color="primary"
           onClick={() => handleDateChange(-1)}
         >
@@ -56,8 +67,12 @@ export default function DatePicker(props: any) {
           }
           onChange={(e: any) => handleUpdate(e)}
           value={selectedDate}
+          maxDate={today}
         />
         <IconButton
+          id="Increment date button"
+          aria-label="Increment date button"
+          disabled={disableDayIncrement}
           color="primary"
           onClick={() => handleDateChange(1)}
         >
