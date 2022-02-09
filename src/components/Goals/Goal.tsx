@@ -35,7 +35,6 @@ function Goal(props: any) {
     configView,
     date,
     onUpdateGoal,
-    onUpdateTask,
   } = props
 
   const {
@@ -89,7 +88,6 @@ function Goal(props: any) {
         <AddTask
           goal={goal}
           onCancel={handleCancelTask}
-          onUpdateGoal={onUpdateGoal}
         />
       )}
       {tasks
@@ -99,8 +97,6 @@ function Goal(props: any) {
             date={date}
             goal={goal}
             tasks={tasks}
-            onUpdateGoal={onUpdateGoal}
-            onUpdateTask={onUpdateTask}
           />
         )}
     </>

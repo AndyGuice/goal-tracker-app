@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 import {
   Checkbox,
   FormControlLabel,
@@ -11,6 +14,10 @@ import { makeStyles } from '@mui/styles'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckIcon from '@mui/icons-material/Check'
+import {
+  updateGoal,
+  updateGoalTask,
+} from '../../store/actions/goals'
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
 const useStyles = makeStyles((theme: any) => ({
@@ -41,8 +48,6 @@ function Task(props: any) {
     task,
     configView,
     date: selectedDate,
-    onUpdateGoal,
-    onUpdateTask,
   } = props
 
   const {
@@ -52,6 +57,9 @@ function Task(props: any) {
   } = task
 
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [taskTitle, setTaskTitle] = useState(title)
   const [taskComplete, setTaskComplete] = useState(false)
   const [edit, setEdit] = useState(false)
@@ -81,11 +89,15 @@ function Task(props: any) {
       updatedTask.datesCompleted = updatedDatesCompleted
     }
 
-    onUpdateTask(goal)
+    dispatch(updateGoalTask(goal, navigate))
   }
 
-  const handleUpdateTaskName = (updatedGoal: any) => {
-    onUpdateGoal(updatedGoal)
+  const handleUpdateTaskName = () => {
+
+    const updatedTask = task
+    updatedTask.title = taskTitle
+
+    dispatch(updateGoalTask(goal, navigate))
     setEdit(false)
   }
 
@@ -95,7 +107,7 @@ function Task(props: any) {
     const updatedTasks = goal.tasks.filter((t: any) => t._id !== id)
     updatedGoal.tasks = updatedTasks
 
-    onUpdateGoal(updatedGoal)
+    dispatch(updateGoal(goal, navigate))
   }
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
@@ -182,7 +194,7 @@ function Task(props: any) {
                       <IconButton
                         title="Save task edit"
                         aria-label="Save task edit button"
-                        onClick={() => handleUpdateTaskName(goal)}
+                        onClick={handleUpdateTaskName}
                         color="secondary"
                       >
                         <CheckIcon />
