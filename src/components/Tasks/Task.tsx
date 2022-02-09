@@ -9,11 +9,13 @@ import {
   IconButton,
   Paper,
   TextField,
+  Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckIcon from '@mui/icons-material/Check'
+import { calculateConsecutiveDays } from '../../helpers/tasks'
 import {
   updateGoal,
   updateGoalTask,
@@ -42,10 +44,6 @@ const useStyles = makeStyles((theme: any) => ({
   }
 }))
 
-const getCurrentStreak = (task: any) => {
-  console.log('Task: ', task)
-}
-
 function Task(props: any) {
   const {
     goal,
@@ -66,6 +64,7 @@ function Task(props: any) {
 
   const [taskTitle, setTaskTitle] = useState(title)
   const [taskComplete, setTaskComplete] = useState(false)
+  const [currentStreak, setCurrentStreak] = useState(0)
   const [edit, setEdit] = useState(false)
 
   const profile = localStorage.getItem('profile')!
@@ -80,7 +79,7 @@ function Task(props: any) {
   }, [selectedDate])
 
   useEffect(() => {
-    getCurrentStreak(task)
+    setCurrentStreak(calculateConsecutiveDays(task))
   }, [task])
 
   const handleUpdateTaskState = (status: boolean) => {
@@ -133,6 +132,8 @@ function Task(props: any) {
     }
   }
 
+  const streakVerbiage = `Keep it up! You're on a ${currentStreak} day streak!`
+
   return (
     <Paper className={classes.paper}>
       <ConfirmDialog
@@ -160,10 +161,21 @@ function Task(props: any) {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'flex-end',
+                justifyContent: currentStreak > 1 ? 'space-between' : 'flex-end',
                 paddingRight: 5,
               }}
             >
+              {
+                currentStreak > 1 && (
+                  <Typography
+                    variant="subtitle2"
+                    color="error"
+                    sx={{ padding: 1 }}
+                  >
+                    {streakVerbiage}
+                  </Typography>
+                )
+              }
               <FormControlLabel
                 label="Complete"
                 labelPlacement="start"
