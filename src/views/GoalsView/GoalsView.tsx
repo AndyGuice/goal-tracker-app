@@ -12,11 +12,7 @@ import {
 } from '@mui/material'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
-import {
-  getUserGoals,
-  updateGoal,
-  updateGoalTaskComplete,
-} from '../../store/actions/goals'
+import { getUserGoals } from '../../store/actions/goals'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
@@ -85,14 +81,6 @@ function GoalsView() {
     setSelectedDateStr(date.toLocaleDateString())
   }
 
-  const handleUpdateGoal = (goal: any) => {
-    dispatch(updateGoal(goal, navigate))
-  }
-
-  const handleUpdateTask = (goal: any) => {
-    dispatch(updateGoalTaskComplete(goal, navigate))
-  }
-
   return (
     <Grid
       container
@@ -131,6 +119,7 @@ function GoalsView() {
           <>
             <DatePicker
               date={selectedDate}
+              today={today}
               onChange={(e: any) => handleDateUpdate(e)}
             />
             {editView
@@ -152,8 +141,6 @@ function GoalsView() {
               goals={goals}
               configView={editView}
               date={selectedDateStr}
-              onUpdateGoal={(e: any) => handleUpdateGoal(e)}
-              onUpdateTask={(e: any) => handleUpdateTask(e)}
             />
           </>
         )}

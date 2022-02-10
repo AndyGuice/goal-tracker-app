@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 import {
   Checkbox,
   FormControlLabel,
@@ -6,11 +9,17 @@ import {
   IconButton,
   Paper,
   TextField,
+  Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckIcon from '@mui/icons-material/Check'
+import { calculateConsecutiveDays } from '../../helpers/tasks'
+import {
+  updateGoal,
+  updateGoalTask,
+} from '../../store/actions/goals'
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
 const useStyles = makeStyles((theme: any) => ({
@@ -41,8 +50,6 @@ function Task(props: any) {
     task,
     configView,
     date: selectedDate,
-    onUpdateGoal,
-    onUpdateTask,
   } = props
 
   const {
@@ -52,8 +59,12 @@ function Task(props: any) {
   } = task
 
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [taskTitle, setTaskTitle] = useState(title)
   const [taskComplete, setTaskComplete] = useState(false)
+  const [currentStreak, setCurrentStreak] = useState(0)
   const [edit, setEdit] = useState(false)
 
   const profile = localStorage.getItem('profile')!
@@ -66,6 +77,10 @@ function Task(props: any) {
       setTaskComplete(false)
     }
   }, [selectedDate])
+
+  useEffect(() => {
+    setCurrentStreak(calculateConsecutiveDays(task))
+  }, [task])
 
   const handleUpdateTaskState = (status: boolean) => {
     setTaskComplete(status)
@@ -81,11 +96,15 @@ function Task(props: any) {
       updatedTask.datesCompleted = updatedDatesCompleted
     }
 
-    onUpdateTask(goal)
+    dispatch(updateGoalTask(goal, navigate))
   }
 
-  const handleUpdateTaskName = (updatedGoal: any) => {
-    onUpdateGoal(updatedGoal)
+  const handleUpdateTaskName = () => {
+
+    const updatedTask = task
+    updatedTask.title = taskTitle
+
+    dispatch(updateGoalTask(goal, navigate))
     setEdit(false)
   }
 
@@ -95,7 +114,7 @@ function Task(props: any) {
     const updatedTasks = goal.tasks.filter((t: any) => t._id !== id)
     updatedGoal.tasks = updatedTasks
 
-    onUpdateGoal(updatedGoal)
+    dispatch(updateGoal(goal, navigate))
   }
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
@@ -112,6 +131,8 @@ function Task(props: any) {
       setOpenConfirmDialog(false)
     }
   }
+
+  const streakVerbiage = `Keep it up! You're on a ${currentStreak} day streak!`
 
   return (
     <Paper className={classes.paper}>
@@ -140,10 +161,21 @@ function Task(props: any) {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'flex-end',
+                justifyContent: currentStreak > 1 ? 'space-between' : 'flex-end',
                 paddingRight: 5,
               }}
             >
+              {
+                currentStreak > 1 && (
+                  <Typography
+                    variant="subtitle2"
+                    color="error"
+                    sx={{ padding: 1 }}
+                  >
+                    {streakVerbiage}
+                  </Typography>
+                )
+              }
               <FormControlLabel
                 label="Complete"
                 labelPlacement="start"
@@ -182,7 +214,7 @@ function Task(props: any) {
                       <IconButton
                         title="Save task edit"
                         aria-label="Save task edit button"
-                        onClick={() => handleUpdateTaskName(goal)}
+                        onClick={handleUpdateTaskName}
                         color="secondary"
                       >
                         <CheckIcon />

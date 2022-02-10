@@ -34,12 +34,11 @@ function Goal(props: any) {
     goal,
     configView,
     date,
-    onUpdateGoal,
-    onUpdateTask,
   } = props
 
   const {
     title,
+    description,
     tasks,
   } = goal
 
@@ -74,8 +73,21 @@ function Goal(props: any) {
             }}
           />
           <CardContent>
-            <Typography align="center">
+            <Typography
+              id="Goal title"
+              aria-label="Goal title"
+              align="center"
+              variant="body1"
+            >
               {title}
+            </Typography>
+            <Typography
+              id="Goal description"
+              aria-label="Goal description"
+              align="center"
+              variant="subtitle2"
+            >
+              {description}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -89,7 +101,6 @@ function Goal(props: any) {
         <AddTask
           goal={goal}
           onCancel={handleCancelTask}
-          onUpdateGoal={onUpdateGoal}
         />
       )}
       {tasks
@@ -99,8 +110,6 @@ function Goal(props: any) {
             date={date}
             goal={goal}
             tasks={tasks}
-            onUpdateGoal={onUpdateGoal}
-            onUpdateTask={onUpdateTask}
           />
         )}
     </>

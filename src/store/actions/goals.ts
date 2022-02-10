@@ -100,7 +100,7 @@ export const updateGoal = (goal: any, navigate: any) => async (dispatch: any) =>
   }
 }
 
-export const updateGoalTaskComplete = (goal: any, navigate: any) => async (dispatch: any) => {
+export const updateGoalTask = (goal: any, navigate: any) => async (dispatch: any) => {
 
   try {
     const { data } = await api.updateGoal(goal._id, goal)

@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {
   Button,
   Grid,
@@ -6,6 +8,7 @@ import {
   TextField,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { updateGoal } from '../../store/actions/goals'
 import TaskModel from '../../types/task'
 
 const useStyles = makeStyles((theme: any) => ({
@@ -24,12 +27,15 @@ const useStyles = makeStyles((theme: any) => ({
 
 function AddTask(props: any) {
   const {
-    goal, task, onCancel, onUpdateGoal,
+    goal, task, onCancel,
   } = props
 
   const { _id: goalID } = goal || { goal: {} }
   const { title } = task || { title: '' }
+
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [taskTitle, setTaskTitle] = useState(title)
 
@@ -47,7 +53,7 @@ function AddTask(props: any) {
     const updatedGoal = goal
     updatedGoal.tasks.push(newTask)
 
-    onUpdateGoal(updatedGoal)
+    dispatch(updateGoal(goal, navigate))
   }
 
   const handleCancel = () => {
