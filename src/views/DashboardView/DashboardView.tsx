@@ -13,13 +13,6 @@ import FeedbackIcon from '@mui/icons-material/Feedback'
 import { makeStyles } from '@mui/styles'
 import { getUserGoals } from '../../store/actions/goals'
 
-const getCurrentStreaks = (goals: any) => {
-  const today = new Date().toLocaleDateString()
-  console.log('Today: ', today)
-
-  // console.log('Goals: ', goals)
-}
-
 const useStyles = makeStyles((theme: any) => ({
   root: {
     flexGrow: 1,
@@ -55,12 +48,6 @@ function DashboardView() {
   const handleSubmitFeedback = () => {
     navigate('/feedback')
   }
-
-  useEffect(() => {
-    if (goals.length > 0) {
-      getCurrentStreaks(goals)
-    }
-  }, [goals])
 
   return (
     isLoading ? (
