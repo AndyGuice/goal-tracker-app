@@ -16,9 +16,6 @@ import { getUserGoals } from '../../store/actions/goals'
 const useStyles = makeStyles((theme: any) => ({
   root: {
     flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     paddingTop: theme.spacing(1),
     marginTop: theme.spacing(1),
   },
@@ -59,7 +56,7 @@ function DashboardView() {
         />
       </div>
     ) : (
-      <Grid container className={classes.root}>
+      <Grid container justifyContent="center" className={classes.root}>
         <Grid item xs={12}>
           <Typography
             align="center"
@@ -74,7 +71,7 @@ function DashboardView() {
               variant="outlined"
               startIcon={<NoteIcon />}
               onClick={() => navigate('/goals')}
-              sx={{ margin: 2 }}
+              sx={{ margin: 1 }}
             >
               Log an Entry
             </Button>
@@ -82,7 +79,7 @@ function DashboardView() {
               variant="outlined"
               startIcon={<FeedbackIcon />}
               onClick={() => handleSubmitFeedback()}
-              sx={{ margin: 2 }}
+              sx={{ margin: 1 }}
             >
               Submit feedback
             </Button>

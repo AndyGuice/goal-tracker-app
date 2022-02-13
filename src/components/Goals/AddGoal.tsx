@@ -20,13 +20,11 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    padding: theme.spacing(2),
-    width: '75%',
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    // width: '75%',
     [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
-      width: '100%',
+      // width: '100%',
     }
   },
 }))
@@ -77,6 +75,7 @@ function AddGoal() {
     goal.userId = googleId || result._id
     goal.createdOn = today
     goal.updatedOn = today
+    goal.active = true
 
     const goalResult = validateGoal(goal)
     if (!goalResult.ok) {
@@ -125,7 +124,7 @@ function AddGoal() {
               placeholder="Enter goal name"
               fullWidth
               sx={{
-                marginBottom: 2,
+                padding: 2,
               }}
             />
             <TextField
@@ -141,7 +140,6 @@ function AddGoal() {
                 type="submit"
                 variant="contained"
                 color="primary"
-                style={{ margin: 10, marginTop: 20 }}
               >
                 Submit
               </Button>
