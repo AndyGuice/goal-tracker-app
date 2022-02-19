@@ -34,3 +34,15 @@ export const calculateConsecutiveDays = (task: any) => {
   return count
 }
 
+export const generateStreakVerbiage = (streakAmount: number) => {
+  const verbiageOptions = [
+    `Keep it up! You're on a ${streakAmount} day streak!`,
+    `${streakAmount} day streak!`,
+    `Very cool ${streakAmount} day streak. Can you keep it going?`,
+    `Fabulous - ${streakAmount} days completed in a row. You got this!`
+  ]
+
+  const verbiageIndex = Math.floor(Math.random() * verbiageOptions.length)
+
+  return verbiageOptions[verbiageIndex]
+}

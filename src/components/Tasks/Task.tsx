@@ -15,7 +15,7 @@ import { makeStyles } from '@mui/styles'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckIcon from '@mui/icons-material/Check'
-import { calculateConsecutiveDays } from '../../helpers/tasks'
+import { calculateConsecutiveDays, generateStreakVerbiage } from '../../helpers/tasks'
 import {
   updateGoal,
   updateGoalTask,
@@ -135,7 +135,7 @@ function Task(props: any) {
     }
   }
 
-  const streakVerbiage = `Keep it up! You're on a ${currentStreak} day streak!`
+  const streakVerbiage = generateStreakVerbiage(currentStreak)
 
   return (
     <Grid

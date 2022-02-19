@@ -10,7 +10,7 @@ export const signIn = (formData: any, navigate: any) => async (dispatch: any) =>
     }
     dispatch({ type: AUTH, data })
 
-    navigate('/dashboard')
+    navigate('/goals')
   } catch (error) {
     dispatch({ type: ERROR, error })
   }
@@ -25,7 +25,7 @@ export const signUp = (formData: any, navigate: any) => async (dispatch: any) =>
     }
     dispatch({ type: AUTH, data })
 
-    navigate('/')
+    navigate('/goals')
   } catch (error) {
     dispatch({ type: ERROR, error })
   }

@@ -12,6 +12,7 @@ import NoteIcon from '@mui/icons-material/Note'
 import FeedbackIcon from '@mui/icons-material/Feedback'
 import { makeStyles } from '@mui/styles'
 import { getUserGoals } from '../../store/actions/goals'
+import GoalsTable from '../../components/GoalsTable/GoalsTable'
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -64,6 +65,9 @@ function DashboardView() {
           >
             Dashboard
           </Typography>
+        </Grid>
+        <Grid item xs={12} sx={{ marginTop: 2 }}>
+          <GoalsTable goals={goals} />
         </Grid>
         <Grid item>
           <Stack>
