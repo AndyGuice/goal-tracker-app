@@ -69,7 +69,7 @@ function LoginUser() {
     try {
       dispatch({ type: AUTH, data: { result, token } })
 
-      navigate('/dashboard')
+      navigate('/goals')
     } catch (err) {
       dispatch({ type: ERROR, err })
     }

@@ -15,7 +15,7 @@ import { makeStyles } from '@mui/styles'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckIcon from '@mui/icons-material/Check'
-import { calculateConsecutiveDays } from '../../helpers/tasks'
+import { calculateConsecutiveDays, generateStreakVerbiage } from '../../helpers/tasks'
 import {
   updateGoal,
   updateGoalTask,
@@ -23,13 +23,16 @@ import {
 import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog'
 
 const useStyles = makeStyles((theme: any) => ({
+  container: {
+    padding: theme.spacing(1)
+  },
   paper: {
     display: 'flex',
     flexDirection: 'row',
     padding: theme.spacing(1),
-    marginTop: theme.spacing(1),
+    // marginTop: theme.spacing(1),
     border: '1px solid black',
-    width: '60%',
+    minWidth: '30%',
     [theme.breakpoints.down('sm')]: {
       width: '90%'
     }
@@ -80,7 +83,7 @@ function Task(props: any) {
 
   useEffect(() => {
     setCurrentStreak(calculateConsecutiveDays(task))
-  }, [task])
+  }, [selectedDate, task, taskComplete])
 
   const handleUpdateTaskState = (status: boolean) => {
     setTaskComplete(status)
@@ -132,111 +135,118 @@ function Task(props: any) {
     }
   }
 
-  const streakVerbiage = `Keep it up! You're on a ${currentStreak} day streak!`
+  const streakVerbiage = generateStreakVerbiage(currentStreak)
 
   return (
-    <Paper className={classes.paper}>
-      <ConfirmDialog
-        open={openConfirmDialog}
-        onClose={handleDialogClose}
-        object="Task"
-      />
-      <Grid
-        item
-        xs={12}
-      >
-        <TextField
-          id="Task title"
-          aria-label="Task title"
-          value={taskTitle}
-          size="small"
-          multiline
-          disabled={!edit}
-          onChange={(e: any) => setTaskTitle(e.target.value)}
-          className={classes.input}
+    <Grid
+      container
+      spacing={1}
+      justifyContent="center"
+      className={classes.container}
+    >
+      <Paper className={classes.paper}>
+        <ConfirmDialog
+          open={openConfirmDialog}
+          onClose={handleDialogClose}
+          object="Task"
         />
-        {
-          !configView
-          && (
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: currentStreak > 1 ? 'space-between' : 'flex-end',
-                paddingRight: 5,
-              }}
-            >
-              {
-                currentStreak > 1 && (
-                  <Typography
-                    variant="subtitle2"
-                    color="error"
-                    sx={{ padding: 1 }}
-                  >
-                    {streakVerbiage}
-                  </Typography>
-                )
-              }
-              <FormControlLabel
-                label="Complete"
-                labelPlacement="start"
-                control={(
-                  <Checkbox
-                    checked={taskComplete}
-                    onClick={() => handleUpdateTaskState(!taskComplete)}
-                  />
-                )}
-              />
-            </div>
-          )
-        }
-        {
-          loggedUser
-          && (
-            Object.keys(loggedUser).length !== 0
+        <Grid
+          item
+          xs={12}
+        >
+          <TextField
+            id="Task title"
+            aria-label="Task title"
+            value={taskTitle}
+            size="small"
+            multiline
+            disabled={!edit}
+            onChange={(e: any) => setTaskTitle(e.target.value)}
+            className={classes.input}
+          />
+          {
+            !configView
             && (
-              configView
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: currentStreak > 1 ? 'space-between' : 'flex-end',
+                  paddingRight: 5,
+                }}
+              >
+                {
+                  currentStreak > 1 && (
+                    <Typography
+                      variant="subtitle2"
+                      color="error"
+                      sx={{ padding: 1 }}
+                    >
+                      {streakVerbiage}
+                    </Typography>
+                  )
+                }
+                <FormControlLabel
+                  label="Complete"
+                  labelPlacement="start"
+                  control={(
+                    <Checkbox
+                      checked={taskComplete}
+                      onClick={() => handleUpdateTaskState(!taskComplete)}
+                    />
+                  )}
+                />
+              </div>
+            )
+          }
+          {
+            loggedUser
+            && (
+              Object.keys(loggedUser).length !== 0
               && (
-                <Grid
-                  item
-                  xs={12}
-                  className={classes.actionButtons}
-                >
-                  <IconButton
-                    title="Edit task"
-                    aria-label="Edit task button"
-                    color="primary"
-                    onClick={() => setEdit(!edit)}
+                configView
+                && (
+                  <Grid
+                    item
+                    xs={12}
+                    className={classes.actionButtons}
                   >
-                    <EditRoundedIcon />
-                  </IconButton>
-                  {
-                    edit ? (
-                      <IconButton
-                        title="Save task edit"
-                        aria-label="Save task edit button"
-                        onClick={handleUpdateTaskName}
-                        color="secondary"
-                      >
-                        <CheckIcon />
-                      </IconButton>
-                    ) : (
-                      <IconButton
-                        title="Delete task"
-                        aria-label="Delete task"
-                        onClick={handleDeleteTask}
-                        color="warning"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    )
-                  }
-                </Grid>
+                    <IconButton
+                      title="Edit task"
+                      aria-label="Edit task button"
+                      color="primary"
+                      onClick={() => setEdit(!edit)}
+                    >
+                      <EditRoundedIcon />
+                    </IconButton>
+                    {
+                      edit ? (
+                        <IconButton
+                          title="Save task edit"
+                          aria-label="Save task edit button"
+                          onClick={handleUpdateTaskName}
+                          color="secondary"
+                        >
+                          <CheckIcon />
+                        </IconButton>
+                      ) : (
+                        <IconButton
+                          title="Delete task"
+                          aria-label="Delete task"
+                          onClick={handleDeleteTask}
+                          color="warning"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      )
+                    }
+                  </Grid>
+                )
               )
             )
-          )
-        }
-      </Grid>
-    </Paper>
+          }
+        </Grid>
+      </Paper>
+    </Grid>
   )
 }
 

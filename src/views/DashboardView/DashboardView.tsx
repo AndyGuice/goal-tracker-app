@@ -12,13 +12,11 @@ import NoteIcon from '@mui/icons-material/Note'
 import FeedbackIcon from '@mui/icons-material/Feedback'
 import { makeStyles } from '@mui/styles'
 import { getUserGoals } from '../../store/actions/goals'
+import GoalsTable from '../../components/GoalsTable/GoalsTable'
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
     flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     paddingTop: theme.spacing(1),
     marginTop: theme.spacing(1),
   },
@@ -59,7 +57,7 @@ function DashboardView() {
         />
       </div>
     ) : (
-      <Grid container className={classes.root}>
+      <Grid container justifyContent="center" className={classes.root}>
         <Grid item xs={12}>
           <Typography
             align="center"
@@ -68,13 +66,16 @@ function DashboardView() {
             Dashboard
           </Typography>
         </Grid>
+        <Grid item xs={12} sx={{ marginTop: 2 }}>
+          <GoalsTable goals={goals} />
+        </Grid>
         <Grid item>
           <Stack>
             <Button
               variant="outlined"
               startIcon={<NoteIcon />}
               onClick={() => navigate('/goals')}
-              sx={{ margin: 2 }}
+              sx={{ margin: 1 }}
             >
               Log an Entry
             </Button>
@@ -82,7 +83,7 @@ function DashboardView() {
               variant="outlined"
               startIcon={<FeedbackIcon />}
               onClick={() => handleSubmitFeedback()}
-              sx={{ margin: 2 }}
+              sx={{ margin: 1 }}
             >
               Submit feedback
             </Button>

@@ -124,16 +124,26 @@ function GoalsView() {
             />
             {editView
               && (
-                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Grid
+                  item
+                  xs={12}
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                  sx={{ paddingTop: 1 }}
+                >
                   <Tooltip title="Add goal">
-                    <IconButton
-                      id="Add goal button"
-                      aria-label="Add goal button"
-                      color="primary"
-                      onClick={() => navigate('/addGoal')}
-                    >
-                      <NoteAddIcon />
-                    </IconButton>
+                    <FormControlLabel
+                      label="Add New Goal"
+                      control={(
+                        <IconButton
+                          id="Add goal button"
+                          aria-label="Add goal button"
+                          color="primary"
+                          onClick={() => navigate('/addGoal')}
+                        >
+                          <NoteAddIcon />
+                        </IconButton>
+                      )}
+                    />
                   </Tooltip>
                 </Grid>
               )}

@@ -9,7 +9,7 @@ class Goal {
   updatedOn: String = ''
   startOn: String = ''
   endOn: String = ''
-  active: boolean = false
+  active: boolean = true
   tasks: TaskModel[] = []
 }
 
