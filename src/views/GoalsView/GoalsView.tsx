@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
+  Backdrop,
   CircularProgress,
   FormControlLabel,
   FormGroup,
@@ -17,6 +18,7 @@ import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
 import ErrorDialog from '../../components/Shared/ErrorDialog/ErrorDialog'
 import DatePicker from '../../components/Shared/DatePicker/DatePicker'
+import ActionSpeedDial from '../../components/SpeedDial/SpeedDial'
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -47,6 +49,7 @@ function GoalsView() {
 
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
+  const [openSpeedDial, setOpenSpeedDial] = useState(false)
   const [editView, setEditView] = useState(false)
 
   const today = new Date()
@@ -93,6 +96,7 @@ function GoalsView() {
         error={submitError}
         action="Login"
       />
+      <Backdrop open={openSpeedDial} />
       {user?.result
         && (
           <Grid item xs={12} className={classes.actionButtons}>
@@ -154,6 +158,11 @@ function GoalsView() {
             />
           </>
         )}
+      <ActionSpeedDial
+        open={openSpeedDial}
+        onOpen={() => setOpenSpeedDial(true)}
+        onClose={() => setOpenSpeedDial(false)}
+      />
     </Grid>
   )
 }

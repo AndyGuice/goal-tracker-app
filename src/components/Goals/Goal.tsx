@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: any) => ({
     flexDirection: 'column',
     padding: theme.spacing(1),
     margin: theme.spacing(1),
-    // width: '60',
+    width: '50%',
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
       alignItems: 'center',
@@ -65,7 +65,7 @@ function Goal(props: any) {
           className={classes.card}
         >
           <CardActionArea>
-            <CardMedia
+            {/* <CardMedia
               component="img"
               alt="Inspirational goal reaching image thang"
               image={SuccessImage}
@@ -79,7 +79,7 @@ function Goal(props: any) {
                   sm: 480
                 }
               }}
-            />
+            /> */}
             <CardContent>
               <Typography
                 id="Goal title"

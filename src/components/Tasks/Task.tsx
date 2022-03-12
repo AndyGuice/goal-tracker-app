@@ -170,21 +170,9 @@ function Task(props: any) {
               <div
                 style={{
                   display: 'flex',
-                  justifyContent: currentStreak > 1 ? 'space-between' : 'flex-end',
                   paddingRight: 5,
                 }}
               >
-                {
-                  currentStreak > 1 && (
-                    <Typography
-                      variant="subtitle2"
-                      color="error"
-                      sx={{ padding: 1 }}
-                    >
-                      {streakVerbiage}
-                    </Typography>
-                  )
-                }
                 <FormControlLabel
                   label="Complete"
                   labelPlacement="start"

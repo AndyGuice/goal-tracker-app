@@ -124,7 +124,7 @@ function AddGoal() {
               placeholder="Enter goal name"
               fullWidth
               sx={{
-                padding: 2,
+                margin: 2,
               }}
             />
             <TextField
