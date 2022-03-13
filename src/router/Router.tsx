@@ -22,6 +22,7 @@ function NavRoutes() {
       <Route path="/feedback" element={<FeedbackForm />} />
 
       <Route path="/addGoal" element={<AddGoal />} />
+      <Route path="/editGoals" />
       <Route path="/editGoal/:id" element={<EditGoal />} />
 
       <Route path="/loginUser" element={<LoginUser />} />

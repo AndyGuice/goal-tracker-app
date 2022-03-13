@@ -15,7 +15,6 @@ import { makeStyles } from '@mui/styles'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import DeleteIcon from '@mui/icons-material/Delete'
 import CheckIcon from '@mui/icons-material/Check'
-import { calculateConsecutiveDays, generateStreakVerbiage } from '../../helpers/tasks'
 import {
   updateGoal,
   updateGoalTask,
@@ -30,7 +29,6 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     flexDirection: 'row',
     padding: theme.spacing(1),
-    // marginTop: theme.spacing(1),
     border: '1px solid black',
     minWidth: '30%',
     [theme.breakpoints.down('sm')]: {
@@ -51,7 +49,6 @@ function Task(props: any) {
   const {
     goal,
     task,
-    configView,
     date: selectedDate,
   } = props
 
@@ -81,10 +78,6 @@ function Task(props: any) {
     }
   }, [selectedDate])
 
-  useEffect(() => {
-    setCurrentStreak(calculateConsecutiveDays(task))
-  }, [selectedDate, task, taskComplete])
-
   const handleUpdateTaskState = (status: boolean) => {
     setTaskComplete(status)
 
@@ -103,7 +96,6 @@ function Task(props: any) {
   }
 
   const handleUpdateTaskName = () => {
-
     const updatedTask = task
     updatedTask.title = taskTitle
 
@@ -135,8 +127,6 @@ function Task(props: any) {
     }
   }
 
-  const streakVerbiage = generateStreakVerbiage(currentStreak)
-
   return (
     <Grid
       container
@@ -164,74 +154,23 @@ function Task(props: any) {
             onChange={(e: any) => setTaskTitle(e.target.value)}
             className={classes.input}
           />
-          {
-            !configView
-            && (
-              <div
-                style={{
-                  display: 'flex',
-                  paddingRight: 5,
-                }}
-              >
-                <FormControlLabel
-                  label="Complete"
-                  labelPlacement="start"
-                  control={(
-                    <Checkbox
-                      checked={taskComplete}
-                      onClick={() => handleUpdateTaskState(!taskComplete)}
-                    />
-                  )}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <FormControlLabel
+              label="Complete"
+              labelPlacement="end"
+              control={(
+                <Checkbox
+                  checked={taskComplete}
+                  onClick={() => handleUpdateTaskState(!taskComplete)}
                 />
-              </div>
-            )
-          }
-          {
-            loggedUser
-            && (
-              Object.keys(loggedUser).length !== 0
-              && (
-                configView
-                && (
-                  <Grid
-                    item
-                    xs={12}
-                    className={classes.actionButtons}
-                  >
-                    <IconButton
-                      title="Edit task"
-                      aria-label="Edit task button"
-                      color="primary"
-                      onClick={() => setEdit(!edit)}
-                    >
-                      <EditRoundedIcon />
-                    </IconButton>
-                    {
-                      edit ? (
-                        <IconButton
-                          title="Save task edit"
-                          aria-label="Save task edit button"
-                          onClick={handleUpdateTaskName}
-                          color="secondary"
-                        >
-                          <CheckIcon />
-                        </IconButton>
-                      ) : (
-                        <IconButton
-                          title="Delete task"
-                          aria-label="Delete task"
-                          onClick={handleDeleteTask}
-                          color="warning"
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      )
-                    }
-                  </Grid>
-                )
-              )
-            )
-          }
+              )}
+            />
+          </div>
         </Grid>
       </Paper>
     </Grid>

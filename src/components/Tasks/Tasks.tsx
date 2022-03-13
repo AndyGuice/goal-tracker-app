@@ -5,10 +5,8 @@ import TaskSchema from '../../types/task'
 const Tasks = (props: any) => {
   const {
     tasks,
-    configView,
     date,
     goal,
-    onUpdateGoal,
   } = props
 
   return (
@@ -19,7 +17,6 @@ const Tasks = (props: any) => {
             goal={goal}
             task={task}
             key={task.createdOn}
-            configView={configView}
             date={date}
           />
         )

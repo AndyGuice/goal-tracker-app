@@ -5,7 +5,6 @@ import GoalModel from '../../types/goal'
 const Goals = (props: any) => {
   const {
     goals,
-    configView,
     date,
   } = props
 
@@ -16,7 +15,6 @@ const Goals = (props: any) => {
         <Goal
           key={goal.createdOn}
           goal={goal}
-          configView={configView}
           date={date}
         />
       ))

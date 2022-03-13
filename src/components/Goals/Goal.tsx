@@ -3,7 +3,6 @@ import {
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Grid,
   Typography,
 } from '@mui/material'
@@ -11,7 +10,6 @@ import { makeStyles } from '@mui/styles'
 import AddTask from '../Tasks/AddTask'
 import Tasks from '../Tasks/Tasks'
 import GoalActions from './GoalActions'
-import SuccessImage from '../../images/goal_success_image.png'
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
@@ -36,7 +34,6 @@ const useStyles = makeStyles((theme: any) => ({
 function Goal(props: any) {
   const {
     goal,
-    configView,
     date,
   } = props
 
@@ -65,21 +62,6 @@ function Goal(props: any) {
           className={classes.card}
         >
           <CardActionArea>
-            {/* <CardMedia
-              component="img"
-              alt="Inspirational goal reaching image thang"
-              image={SuccessImage}
-              title="Inspirational goal reaching image"
-              sx={{
-                height: {
-                  xs: 140,
-                  sm: 200,
-                },
-                width: {
-                  sm: 480
-                }
-              }}
-            /> */}
             <CardContent>
               <Typography
                 id="Goal title"
@@ -101,7 +83,6 @@ function Goal(props: any) {
           </CardActionArea>
           <GoalActions
             onAddTask={handleAddTask}
-            configView={configView}
             goal={goal}
           />
         </Card>
@@ -115,7 +96,6 @@ function Goal(props: any) {
       {tasks
         && (
           <Tasks
-            configView={configView}
             date={date}
             goal={goal}
             tasks={tasks}

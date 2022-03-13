@@ -20,13 +20,14 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    padding: theme.spacing(1),
-    margin: theme.spacing(1),
-    // width: '75%',
+    // padding: theme.spacing(1),
+    // margin: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
-      // width: '100%',
     }
   },
+  title: {
+    padding: theme.spacing(1)
+  }
 }))
 
 function AddGoal() {
@@ -99,7 +100,7 @@ function AddGoal() {
         open={openErrorDialog}
         onClose={handleDialogClose}
         error={submitError}
-        action="Create goal...?"
+        action="Create goal"
       />
       <form onSubmit={handleSubmit} className={classes.paper}>
         <Paper
@@ -113,8 +114,10 @@ function AddGoal() {
               id="goal-add-button"
               align="center"
               gutterBottom
+              className={classes.title}
+              variant="h4"
             >
-              Add Goal
+              Create New Goal
             </Typography>
             <TextField
               id="goal-title-input"
@@ -123,9 +126,6 @@ function AddGoal() {
               label="Goal Name"
               placeholder="Enter goal name"
               fullWidth
-              sx={{
-                margin: 2,
-              }}
             />
             <TextField
               id="goal-description-input"
@@ -134,12 +134,18 @@ function AddGoal() {
               value={goalDescription}
               placeholder="Enter goal description"
               fullWidth
+              sx={{
+                marginTop: 1
+              }}
             />
             <Box textAlign="center">
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
+                sx={{
+                  margin: 2
+                }}
               >
                 Submit
               </Button>

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import {
   Backdrop,
   CircularProgress,
   FormControlLabel,
   FormGroup,
-  IconButton,
   Grid,
   Switch,
   Tooltip,
 } from '@mui/material'
-import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import { makeStyles } from '@mui/styles'
 import { getUserGoals } from '../../store/actions/goals'
 import { ERROR } from '../../store/actionTypes/actionTypes'
@@ -41,7 +38,6 @@ function GoalsView() {
     isLoading,
   } = useSelector((state: any) => state.goals)
 
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const classes = useStyles()
 
@@ -50,7 +46,6 @@ function GoalsView() {
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
   const [openSpeedDial, setOpenSpeedDial] = useState(false)
-  const [editView, setEditView] = useState(false)
 
   const today = new Date()
   const [selectedDate, setSelectedDate] = useState(today)
@@ -97,20 +92,6 @@ function GoalsView() {
         action="Login"
       />
       <Backdrop open={openSpeedDial} />
-      {user?.result
-        && (
-          <Grid item xs={12} className={classes.actionButtons}>
-            <Tooltip title="Edit View">
-              <FormGroup>
-                <FormControlLabel
-                  control={<Switch size="small" />}
-                  label="Edit"
-                  onChange={() => setEditView(!editView)}
-                />
-              </FormGroup>
-            </Tooltip>
-          </Grid>
-        )}
       {isLoading
         ? (
           <CircularProgress
@@ -126,34 +107,8 @@ function GoalsView() {
               today={today}
               onChange={(e: any) => handleDateUpdate(e)}
             />
-            {editView
-              && (
-                <Grid
-                  item
-                  xs={12}
-                  style={{ display: 'flex', justifyContent: 'center' }}
-                  sx={{ paddingTop: 1 }}
-                >
-                  <Tooltip title="Add goal">
-                    <FormControlLabel
-                      label="Add New Goal"
-                      control={(
-                        <IconButton
-                          id="Add goal button"
-                          aria-label="Add goal button"
-                          color="primary"
-                          onClick={() => navigate('/addGoal')}
-                        >
-                          <NoteAddIcon />
-                        </IconButton>
-                      )}
-                    />
-                  </Tooltip>
-                </Grid>
-              )}
             <Goals
               goals={goals}
-              configView={editView}
               date={selectedDateStr}
             />
           </>
