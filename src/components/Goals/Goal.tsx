@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Card,
   CardActionArea,
@@ -7,9 +7,7 @@ import {
   Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import AddTask from '../Tasks/AddTask'
 import Tasks from '../Tasks/Tasks'
-import GoalActions from './GoalActions'
 
 const useStyles = makeStyles((theme: any) => ({
   container: {
@@ -44,15 +42,6 @@ function Goal(props: any) {
   } = goal
 
   const classes = useStyles()
-  const [showAddTask, setShowAddTask] = useState(false)
-
-  const handleCancelTask = () => {
-    setShowAddTask(false)
-  }
-
-  const handleAddTask = () => {
-    setShowAddTask(true)
-  }
 
   return (
     <>
@@ -81,18 +70,8 @@ function Goal(props: any) {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <GoalActions
-            onAddTask={handleAddTask}
-            goal={goal}
-          />
         </Card>
       </Grid>
-      {showAddTask && (
-        <AddTask
-          goal={goal}
-          onCancel={handleCancelTask}
-        />
-      )}
       {tasks
         && (
           <Tasks

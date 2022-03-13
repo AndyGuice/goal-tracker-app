@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   Backdrop,
   CircularProgress,
-  FormControlLabel,
-  FormGroup,
   Grid,
-  Switch,
-  Tooltip,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { getUserGoals } from '../../store/actions/goals'

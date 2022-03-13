@@ -20,7 +20,6 @@ const useStyles = makeStyles(() => ({
 function GoalActions(props: any) {
   const {
     goal,
-    configView,
     onAddTask,
   } = props
 
@@ -62,48 +61,45 @@ function GoalActions(props: any) {
       && (
         userID === goalUserID
         && (
-          configView
-          && (
-            <CardActions
-              className={classes.actions}
-            >
-              <ConfirmDialog
-                open={openConfirmDialog}
-                onClose={handleDialogClose}
-                object="Goal"
-              />
-              <Tooltip title="Add task">
-                <IconButton
-                  aria-label="Add task button"
-                  id="Add task button"
-                  color="primary"
-                  onClick={onAddTask}
-                >
-                  <AddTaskIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Edit goal">
-                <IconButton
-                  aria-label="Edit goal button"
-                  id="Edit goal button"
-                  onClick={() => navigate(`/editGoal/${goalID}`)}
-                  color="primary"
-                >
-                  <EditRoundedIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete goal">
-                <IconButton
-                  id="Delete goal button"
-                  aria-label="Delete goal button"
-                  onClick={handleDeleteGoal}
-                  color="warning"
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            </CardActions>
-          )
+          <CardActions
+            className={classes.actions}
+          >
+            <ConfirmDialog
+              open={openConfirmDialog}
+              onClose={handleDialogClose}
+              object="Goal"
+            />
+            <Tooltip title="Add task">
+              <IconButton
+                aria-label="Add task button"
+                id="Add task button"
+                color="primary"
+                onClick={onAddTask}
+              >
+                <AddTaskIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Edit goal">
+              <IconButton
+                aria-label="Edit goal button"
+                id="Edit goal button"
+                onClick={() => navigate(`/editGoal/${goalID}`)}
+                color="primary"
+              >
+                <EditRoundedIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete goal">
+              <IconButton
+                id="Delete goal button"
+                aria-label="Delete goal button"
+                onClick={handleDeleteGoal}
+                color="warning"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </CardActions>
         )
       )
     )
