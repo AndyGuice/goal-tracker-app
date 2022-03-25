@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import { Navigate } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 
 function LandingView() {
-  const profile = localStorage.getItem('profile')!
-  const [
-    user,
-  ] = useState(JSON.parse(profile))
+  const { user } = useAuth()
 
   if (user) {
     return <Navigate to="/dashboard" />

@@ -14,6 +14,7 @@ import { makeStyles } from '@mui/styles'
 import GoalModel from '../../types/goal'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import { getGoal, updateGoal } from '../../store/actions/goals'
+import useAuth from '../../hooks/useAuth'
 import ErrorDialog from '../Shared/ErrorDialog/ErrorDialog'
 
 const useStyles = makeStyles((theme: any) => ({
@@ -37,6 +38,7 @@ export function EditGoal() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const classes = useStyles()
+  const { user } = useAuth()
 
   const { goal, isLoading } = useSelector((state: any) => state.goals)
   const { error } = useSelector((state: any) => state.error)
@@ -48,9 +50,6 @@ export function EditGoal() {
 
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
-
-  const profile = localStorage.getItem('profile')!
-  const [user] = useState(JSON.parse(profile))
 
   useEffect(() => {
     dispatch(getGoal(id))

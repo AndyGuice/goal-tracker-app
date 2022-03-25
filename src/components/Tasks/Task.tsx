@@ -6,15 +6,10 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  IconButton,
   Paper,
   TextField,
-  Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import DeleteIcon from '@mui/icons-material/Delete'
-import CheckIcon from '@mui/icons-material/Check'
 import {
   updateGoal,
   updateGoalTask,
@@ -64,43 +59,31 @@ function Task(props: any) {
 
   const [taskTitle, setTaskTitle] = useState(title)
   const [taskComplete, setTaskComplete] = useState(false)
-  const [currentStreak, setCurrentStreak] = useState(0)
-  const [edit, setEdit] = useState(false)
-
-  const profile = localStorage.getItem('profile')!
-  const loggedUser = JSON.parse(profile)
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
 
   useEffect(() => {
-    if (datesCompleted.includes(selectedDate)) {
+    if (datesCompleted.includes(selectedDate.toLocaleDateString())) {
       setTaskComplete(true)
     } else {
       setTaskComplete(false)
     }
   }, [selectedDate])
 
-  const handleUpdateTaskState = (status: boolean) => {
-    setTaskComplete(status)
+  const handleUpdateTaskState = (isComplete: boolean) => {
+    setTaskComplete(isComplete)
 
     const updatedTask = task
 
-    if (status) {
-      updatedTask.datesCompleted = [...datesCompleted, selectedDate]
+    if (isComplete) {
+      updatedTask.datesCompleted = [...datesCompleted, selectedDate.toLocaleDateString()]
     } else {
       const updatedDatesCompleted = updatedTask.datesCompleted.filter(
-        (date: any) => (date !== selectedDate),
+        (date: any) => (date !== selectedDate)
       )
       updatedTask.datesCompleted = updatedDatesCompleted
     }
 
     dispatch(updateGoalTask(goal, navigate))
-  }
-
-  const handleUpdateTaskName = () => {
-    const updatedTask = task
-    updatedTask.title = taskTitle
-
-    dispatch(updateGoalTask(goal, navigate))
-    setEdit(false)
   }
 
   const deleteTask = (id: any) => {
@@ -112,11 +95,9 @@ function Task(props: any) {
     dispatch(updateGoal(goal, navigate))
   }
 
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
-
-  const handleDeleteTask = () => {
-    setOpenConfirmDialog(true)
-  }
+  // const handleDeleteTask = () => {
+  //   setOpenConfirmDialog(true)
+  // }
 
   const handleDialogClose = (confirmDelete: boolean) => {
     if (confirmDelete) {
@@ -150,7 +131,6 @@ function Task(props: any) {
             value={taskTitle}
             size="small"
             multiline
-            disabled={!edit}
             onChange={(e: any) => setTaskTitle(e.target.value)}
             className={classes.input}
           />

@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme: any) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    padding: theme.spacing(1),
     margin: theme.spacing(1),
     width: '50%',
     [theme.breakpoints.down('sm')]: {
@@ -50,26 +49,28 @@ function Goal(props: any) {
           elevation={6}
           className={classes.card}
         >
-          <CardActionArea>
-            <CardContent>
-              <Typography
-                id="Goal title"
-                aria-label="Goal title"
-                align="center"
-                variant="body1"
-              >
-                {title}
-              </Typography>
-              <Typography
-                id="Goal description"
-                aria-label="Goal description"
-                align="center"
-                variant="subtitle2"
-              >
-                {description}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
+          <CardContent>
+            <Typography
+              id="Goal title"
+              aria-label="Goal title"
+              align="center"
+              variant="body1"
+            >
+              Title:
+              {' '}
+              {title}
+            </Typography>
+            <Typography
+              id="Goal description"
+              aria-label="Goal description"
+              align="center"
+              variant="subtitle2"
+            >
+              Description:
+              {' '}
+              {description}
+            </Typography>
+          </CardContent>
         </Card>
       </Grid>
       {tasks

@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import useAuth from '../../hooks/useAuth'
 import { createFeedbackMessage } from '../../store/actions/feedback'
 import FeedbackModel from '../../types/feedback'
 
@@ -34,16 +35,13 @@ function FeedbackForm() {
 
   const [message, setMessage] = useState('')
 
-  const profile = localStorage.getItem('profile')!
-  const [user] = useState(JSON.parse(profile))
-  const { result } = user
-  const { googleId } = result
+  const { user, userId } = useAuth()
 
   const handleSubmit = () => {
-
     const feedback = new FeedbackModel()
+
     feedback.message = message
-    feedback.userID = googleId || result._id
+    feedback.userID = userId
 
     dispatch(createFeedbackMessage(feedback, navigate))
 

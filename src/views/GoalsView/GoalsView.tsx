@@ -6,6 +6,7 @@ import {
   Grid,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import useAuth from '../../hooks/useAuth'
 import { getUserGoals } from '../../store/actions/goals'
 import { ERROR } from '../../store/actionTypes/actionTypes'
 import Goals from '../../components/Goals/Goals'
@@ -37,19 +38,14 @@ function GoalsView() {
   const dispatch = useDispatch()
   const classes = useStyles()
 
-  const profile = localStorage.getItem('profile')!
-
   const [submitError, setSubmitError] = useState('')
   const [openErrorDialog, setOpenErrorDialog] = useState(false)
   const [openSpeedDial, setOpenSpeedDial] = useState(false)
 
   const today = new Date()
   const [selectedDate, setSelectedDate] = useState(today)
-  const [selectedDateStr, setSelectedDateStr] = useState(today.toLocaleDateString())
 
-  const [
-    user,
-  ] = useState(JSON.parse(profile))
+  const { user, userId } = useAuth()
 
   useEffect(() => {
     if (error) {
@@ -60,9 +56,6 @@ function GoalsView() {
   }, [error])
 
   useEffect(() => {
-    const { result } = user || { user: {} }
-    const userId = result?.googleId || result?._id
-
     dispatch(getUserGoals(userId))
   }, [user])
 
@@ -72,7 +65,6 @@ function GoalsView() {
 
   const handleDateUpdate = (date: any) => {
     setSelectedDate(date)
-    setSelectedDateStr(date.toLocaleDateString())
   }
 
   return (
@@ -105,7 +97,7 @@ function GoalsView() {
             />
             <Goals
               goals={goals}
-              date={selectedDateStr}
+              date={selectedDate}
             />
           </>
         )}

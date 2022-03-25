@@ -11,6 +11,7 @@ import {
 import NoteIcon from '@mui/icons-material/Note'
 import FeedbackIcon from '@mui/icons-material/Feedback'
 import { makeStyles } from '@mui/styles'
+import useAuth from '../../hooks/useAuth'
 import { getUserGoals } from '../../store/actions/goals'
 import GoalsTable from '../../components/GoalsTable/GoalsTable'
 
@@ -32,14 +33,9 @@ function DashboardView() {
   const navigate = useNavigate()
   const classes = useStyles()
 
-  const profile = localStorage.getItem('profile')!
-
-  const [user] = useState(JSON.parse(profile))
+  const { user, userId } = useAuth()
 
   useEffect(() => {
-    const { result } = user || { user: {} }
-    const userId = result?.googleId || result?._id
-
     dispatch(getUserGoals(userId))
   }, [user])
 

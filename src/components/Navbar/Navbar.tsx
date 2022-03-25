@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme: any) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -64,19 +63,22 @@ const useStyles = makeStyles((theme: any) => ({
 }))
 
 export default function Navbar() {
-  // TODO: move auth handling to hooks func
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const profile = localStorage.getItem('profile')!
   const [user, setUser] = useState(JSON.parse(profile))
+
   const handleLogin = () => navigate('/loginUser')
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null)
 
-  // const homePath = (user ? "/dashboard" : "/");
+  const homePath = () => {
+    if (user) navigate('/dashboard')
+    return navigate('/')
+  }
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
@@ -99,10 +101,7 @@ export default function Navbar() {
     }
 
     setUser(JSON.parse(profile))
-
-    // eslint-disable-next-line
   }, [location])
-  // end auth handling
 
   const classes = useStyles()
   const [menuDrawerOpen, setMenuDrawerOpen] = useState(false)
@@ -212,7 +211,7 @@ export default function Navbar() {
           <Button
             color="inherit"
             size="large"
-            onClick={() => navigate('/dashboard')}
+            onClick={homePath}
           >
             Goal Tracker
           </Button>

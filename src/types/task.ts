@@ -1,3 +1,8 @@
+class TrackingSettings {
+  amount: Number = 0
+  cadence: String = ''
+}
+
 class Task {
   id: String = ''
   title: String = ''
@@ -7,6 +12,7 @@ class Task {
   createdOn: String = ''
   updatedOn: String = ''
   datesCompleted: String[] = []
+  settings: TrackingSettings = { amount: 0, cadence: '' }
 }
 
 export default Task
